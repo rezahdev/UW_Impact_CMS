@@ -1,0 +1,187 @@
+<!--UW Impact CMS Homepage-->
+<!DOCTYPE html>
+<html>
+<head>
+	<title>UW IMPACT CMS</title>
+
+	<link rel="stylesheet" type="text/css" href="main.css">
+	<script type="text/javascript" src="Main.js"></script>
+</head>
+<body>
+	<div id="side_menu">
+		<div id="logo">
+			<h1>UW Impact CMS</h1>
+		</div>
+
+		<div id="menu_buttons">
+			<ul>
+				<li id="home_btn" class="active">Home</li>
+				<li id="basic_info_btn">Basic Info</li>
+				<li id="team_info_btn">Team Info</li>
+				<li id="events_info_btn">Events Info</li>
+				<li id="social_media_btn">Social Media Info</li>
+				<li id="messages_btn">Messages</li>
+				<li id="contact_us_btn">Contact Us</li>
+				<li id="change_password_btn">Change Password</li>
+				<li><a href="exit/">Log Out</a></li>
+			</ul>
+		</div>
+
+		<div id="disclaimer">
+			<p>&copy;All Rights Reserved 2020</p>
+		</div>
+	</div>
+
+	<div id="content_container">
+
+		<div id="content_header">
+			<h2><!--Ttitle of the selected menu. Text Content is added dynamically by JavaScript.--></h2>
+		</div>
+
+		<div id="content_body">
+			<div id="home">
+				<h2>Welcome to UW Impact CMS!</h2>
+
+				<p>UW Impact CMS is a content management system that allows you to add/edit/delete any content on your student group website. The purpose of this app is to give you more control over your website and make the UW Impact Web Services more convenient for the users.</p>
+
+				<button>Continue</button>
+				<button>Go to Our Website</button>
+				<button>Learn More</button>
+			</div>
+
+			<div id="basic_info">
+				<!--Logo of the student group that is currently logged in-->
+				<img src="#" id="logo">
+
+				<!--Form to change logo-->
+				<form id="logo_form">
+					<label>Upload New Logo: </label>
+					<input type="file" name="new_logo">
+					<input type="submit" name="submit_new_logo">
+				</form>
+
+				<form id="name_form">
+					<label>Name: </label>
+					<input type="text" name="new_name">
+					<input type="submit" name="submit_new_name">
+				</form>
+
+				<form id="name_initial_form">
+					<label>Initial: </label>
+					<input type="text" name="new_name_initial">
+					<input type="submit" name="submit_new_name_initial">
+				</form>
+
+				<form id="description_form">
+					<label>Description: </label>
+					<textarea></textarea>
+					<input type="submit" name="submit_new_description">
+				</form>
+
+				<form id="mission_statement_form">
+					<label>Mission Statement: </label>
+					<input type="text" name="new_mission_statement">
+					<input type="submit" name="submit_new_mission_statement">
+				</form>
+
+				<form id="vision_statement_form">
+					<label>Vision Statement: </label>
+					<input type="text" name="new_vision_statement">
+					<input type="submit" name="submit_new_vision_statement">
+				</form>
+
+				<!--A statement describing why to join this student group-->
+				<form id="why_join_form">
+					<label>Description of why students should join this group: </label>
+					<input type="text" name="new_why_join">
+					<input type="submit" name="submit_new_why_join">
+				</form>
+
+				<!--A statement describing who can join this student group-->
+				<form id="who_join_form">
+					<label>Description of who can join this group: </label>
+					<input type="text" name="new_who_join">
+					<input type="submit" name="submit_new_who_join">
+				</form>
+
+				<!--A statement describing how to join this student group-->
+				<form id="how_join_form">
+					<label>Description of how to join this group: </label>
+					<input type="text" name="new_how_join">
+					<input type="submit" name="submit_new_how_join">
+				</form>
+
+				<form id="meeting_info_form">
+					<label>Meeting Information: </label>
+					<input type="text" name="new_meeting_info">
+					<input type="submit" name="submit_new_meeting_info">
+				</form>
+			</div>
+
+			<div id="team_info">
+				<!--HTML COntent in this part would be dynamically filled by JavaScript on runtime-->
+			</div>
+
+			<div id="events_info">
+				<!--HTML COntent in this part would be dynamically filled by JavaScript on runtime-->
+			</div>
+
+			<div id="social_media_info">
+				<form id="facebook_link_form">
+					<label>Facebook Link: </label>
+					<input type="text" name="new_facebook_link">
+					<input type="submit" name="submit_new_facebook_link">
+				</form>
+
+				<form id="instagram_link_form">
+					<label>Instagram Link: </label>
+					<input type="text" name="new_instagram_link">
+					<input type="submit" name="submit_new_instagram_link">
+				</form>
+
+				<form id="twitter_link_form">
+					<label>Twitter Link: </label>
+					<input type="text" name="new_twitter_link">
+					<input type="submit" name="submit_new_twitter_link">
+				</form>
+
+				<form id="linkedin_link_form">
+					<label>Linkedin Link: </label>
+					<input type="text" name="new_linkedin_link">
+					<input type="submit" name="submit_new_linkedin_link">
+				</form>
+
+				<form id="email_address_form">
+					<label>Email Address: </label>
+					<input type="text" name="new_email_address">
+					<input type="submit" name="submit_new_email_address">
+				</form>
+			</div>
+
+			<div id="messages">
+				<!--HTML Content in this part is dynamically filled by JavaScript on runtime-->
+			</div>
+
+			<div id="change_password">
+				<form id="change_password_form">
+					<label>Current Password: </label>
+					<input type="password" name="current_password">
+					<label>New Password: </label>
+					<input type="password" name="new_password">
+					<label>Confirm Password: </label>
+					<input type="password" name="confirm_password">
+					<input type="submit" name="submit_new_password">
+				</form>
+			</div>
+
+			<div id="contact_us">
+				<p>If you need any further assistance or if you have any questions, please feel free to reach out to UW Impact team anytime via our social media accounts (Instagram: @uwimpact) oe vy email at info.uwimpact@gmail.com. We are here to help you. </p>
+			</div>
+		</div>
+	</div>
+</body>
+</html>
+
+<script>
+	let mainObj = new Main();
+</script>

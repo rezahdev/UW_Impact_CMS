@@ -1,0 +1,194 @@
+/*CSS rules in this file apply only to the index.html file*/
+
+/*Import the Google FOnt*/
+@import url('https://fonts.googleapis.com/css2?family=Roboto&display=swap');
+
+
+/*Variables*/
+:root {
+
+	--submit-button-color: green;
+	--normal-button-color: cornflowerblue;
+	--menu-button-color: white;
+	--std-background-color: #ffffff;
+	--aux-background-color: #61b15a;
+	--big-spacing: 20px;
+	--small-spacing: 10px;
+	--min-font-size: 17px;
+	--max-font-size: 28px;
+	--link-color: red;
+}
+/*------------------------------------------------------------*/
+
+
+/*Global rules*/
+*{
+	box-sizing: border-box;
+	font-family: 'Roboto', sans-serif;
+	margin: 0;
+	padding: 0;
+}
+
+.visible {
+
+	display: block;
+}
+
+.hidden {
+
+	display: none;
+}
+/*------------------------------------------------------------*/
+
+
+/*Page structure: Menu on the left side, content on the right side. */
+body {
+
+	display: flex;
+	flex-direction: row;
+	flex-wrap: wrap;
+	justify-content: flex-start;
+}
+
+#side_menu {
+
+	width: 20%;
+	position: fixed;
+	background-color: var(--aux-background-color);
+}
+
+#content_container {
+
+	width: 80%;
+	margin-left: 20%;
+	background-color: var(--std-background-color);
+	padding-left: var(--small-spacing);
+	overflow: hidden;
+}
+/*-----------------------------------------------------------*/
+
+
+/*Side nabigation panel*/
+#side_menu h1 {
+
+	color: #ffffff;
+	padding: var(--big-spacing);
+	font-size: var(--max-font-size);
+}
+
+#menu_buttons {
+
+
+}
+
+#menu_buttons li {
+
+	list-style-type: none;
+	color: #ffffff;
+	padding: var(--big-spacing);
+	cursor: pointer;
+}
+
+#menu_buttons li.active,
+#menu_buttons li:hover {
+
+	background-color: #adce74;
+}
+/*-------------------------------------------------------------*/
+
+
+/*Content Container*/
+#content_header {
+
+	background-color: var(--aux-background-color);
+}
+
+#content_header h2 {
+
+	color: #ffffff;
+	padding: var(--big-spacing);
+}
+
+#home h2 {
+
+	padding: var(--big-spacing);
+	text-align: center;
+}
+
+#home p {
+
+	width: 70%;
+	margin-left: 15%;
+	border-radius: 5px;
+	line-height: 1.5;
+    color: #ffffff;
+	background-color: #393e46;
+	font-size: var(--min-font-size);
+	padding: var(--big-spacing);
+	text-align: center;
+}
+
+#home button {
+
+	margin-top: var(--big-spacing);
+	padding: var(--small-spacing);
+	background-color: var(--normal-button-color);
+	border: none;
+	border-radius: 2px;
+	color: #ffffff;
+	cursor: pointer;
+}
+
+#home button:first-of-type {
+
+	margin-left: 15%;
+}
+
+#home button:hover {
+
+	background-color: var(--aux-background-color);
+}
+
+#basic_info img {
+
+	height: 50px;
+	width: auto;
+	margin-top: var(--big-spacing);
+}
+
+#basic_info form {
+
+	width: 100%;
+}
+
+#basic_info label {
+
+	display: block;
+	margin-top: var(--big-spacing);
+	margin-bottom: var(--small-spacing);
+	font-size: var(--min-font-size);
+}
+
+#basic_info input[type="text"] {
+
+	width: 80%;
+	padding: var(--small-spacing);
+	font-size: var(--min-font-size);
+}
+
+#basic_info textarea {
+
+	width: 80%;
+	height: auto;
+	padding: var(--small-spacing);
+	resize: none;
+	font-size: var(--min-font-size);
+}
+
+#basic_info input[type="submit"] {
+
+	width: 15%;
+	margin-left: 2%;
+	padding: var(--small-spacing);
+	font-size: var(--min-font-size);
+}
