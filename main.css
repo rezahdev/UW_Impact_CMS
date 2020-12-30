@@ -235,7 +235,8 @@ input[type="submit"]:hover {
 	background-color: var(--aux-background-color);
 }
 
-#team_info .member_info {
+#team_info .member_info,
+#events_info .event_box {
 
 	width: 70%;
 	margin-left: 15%;
@@ -245,16 +246,21 @@ input[type="submit"]:hover {
 	border-radius: 2px;
 }
 
-#team_info.member_info p{
+#team_info .member_info p,
+#events_info .event_box p {
+
 	color: black;
+	margin-top: var(--medium-spacing);
 }
 
-#delete_member_btn {
+#team_info .delete_member_btn,
+#events_info .delete_event_btn {
 
 	background-color: orange;
 }
 
-#delete_member_btn:hover {
+#team_info .delete_member_btn:hover,
+#events_info .delete_event_btn:hover {
 
 	background-color: red;
 }
@@ -266,10 +272,14 @@ input[type="submit"]:hover {
 	left: 15%;
 	width: 50%;
 	padding: var(--big-spacing);
-	text-align: center;
+}
+
+.popup_form label {
+
+	margin-top: var(--big-spacing);
 }
 
 .blurry {
 
-	opacity: 0.5;
+	opacity: 0.3;
 }

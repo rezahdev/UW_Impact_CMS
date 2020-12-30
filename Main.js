@@ -69,9 +69,9 @@ class Main
 		}.bind(this));
 
 		//Update picture buttons
-		let memberInfoBtns = team_info.getElementsByClassName("update_picture_btn");
+		let updatePicBtns = team_info.getElementsByClassName("update_picture_btn");
 
-		for(let btn of memberInfoBtns)
+		for(let btn of updatePicBtns)
 		{
 			btn.addEventListener("click", function() { 
 
@@ -85,6 +85,27 @@ class Main
 		close_change_picture_form.addEventListener("click", function() { 
 
 			this.closePopupForm(event, change_picture_form); 
+
+		}.bind(this));
+
+
+		//Edit member info button
+		let memberInfoBtns = team_info.getElementsByClassName("edit_member_info_btn");
+
+		for(let btn of memberInfoBtns)
+		{
+			btn.addEventListener("click", function() { 
+
+				this.displayPopupForm(edit_member_info_form); 
+
+			}.bind(this));
+		}
+
+
+		//Close edit member form button
+		close_edit_member_info_form.addEventListener("click", function() { 
+
+			this.closePopupForm(event, edit_member_info_form); 
 
 		}.bind(this));
 	}
@@ -168,6 +189,11 @@ class Main
 		}
 	}
 
+	/**
+	 *Function to hide a popup form
+	 *@param { event object } event - The click event object
+	 *@param { form object } form - Id of the form to be hidden
+	 */
 	closePopupForm(event, form)
 	{
 		//Prevent any form submission due to the click of cancel button

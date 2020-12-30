@@ -128,7 +128,7 @@
 					<p>Name 2</p>
 					<p>Designation</p>
 					<button class="update_picture_btn">Change Picture</button>
-					<button class="edit_member_details_btn">Edit Name and Designation</button>
+					<button class="edit_member_info_btn">Edit Name and Designation</button>
 					<button class="delete_member_btn">Delete This Member</button>
 
 				</div>
@@ -137,7 +137,7 @@
 					<p>Name 3</p>
 					<p>Designation</p>
 					<button class="update_picture_btn">Change Picture</button>
-					<button class="edit_member_details_btn">Edit Name and Designation</button>
+					<button class="edit_member_info_btn">Edit Name and Designation</button>
 					<button class="delete_member_btn">Delete This Member</button>
 
 				</div>
@@ -146,7 +146,7 @@
 					<p>Name 4</p>
 					<p>Designation</p>
 					<button class="update_picture_btn">Change Picture</button>
-					<button class="edit_member_details_btn">Edit Name and Designation</button>
+					<button class="edit_member_info_btn">Edit Name and Designation</button>
 					<button class="delete_member_btn">Delete This Member</button>
 
 				</div>
@@ -155,6 +155,21 @@
 
 			<div id="events_info">
 				<!--HTML COntent in this part would be dynamically filled by JavaScript-->
+
+				<!--for test-->
+				<div class="event_box">
+					<p>Event Title</p>
+					<p>Event desciption</p>
+					<button class="edit_event_btn">Edit Event Info</button>
+					<button class="delete_event_btn">Delete Event Info</button>
+				</div>
+
+				<div class="event_box">
+					<p>Event Title</p>
+					<p>Event desciption</p>
+					<button class="edit_event_btn">Edit Event Info</button>
+					<button class="delete_event_btn">Delete Event Info</button>
+				</div>
 			</div>
 
 			<div id="social_media_info">
@@ -208,7 +223,7 @@
 			<div id="contact_us">
 				<h2>Contact UW Impact</h2>
 
-				<p>If you need any further assistance or if you have any questions, please feel free to reach out to UW Impact team anytime via our social media accounts (Instagram: @uwimpact) oe vy email at info.uwimpact@gmail.com. We are here to help you. </p>
+				<p>If you need any further assistance or if you have any question, please feel free to reach out to UW Impact team anytime via our social media accounts (Instagram: @uwimpact) or via email at info.uwimpact@gmail.com. We are here to help you. </p>
 			</div>
 		</div>
 
@@ -217,8 +232,19 @@
 		<form id="change_picture_form" class="popup_form hidden">
 			<label>Update Team Member Picture: </label>
 			<input type="file" name="new_member_picutre">
-			<button id="close_change_picture_form">Cancel</button>
 			<input type="submit" name="submit_new_member_picture" value="Update Picture">
+			<button id="close_change_picture_form">Cancel</button>
+		</form>
+
+
+		<!--Pop up form to modify team member name and designation-->
+		<form id="edit_member_info_form" class="popup_form hidden">
+			<label>Member Name: </label>
+			<input type="text" name="new_member_name">
+			<label>Member Designation: </label>
+			<input type="text" name="new_member_designation">
+			<input type="submit" name="submit_new_member_picture" value="Update Information">
+			<button id="close_edit_member_info_form">Cancel</button>
 		</form>
 	</div>
 </body>
