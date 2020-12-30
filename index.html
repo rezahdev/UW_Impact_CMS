@@ -19,7 +19,7 @@
 				<li id="basic_info_btn">Basic Info</li>
 				<li id="team_info_btn">Team Info</li>
 				<li id="events_info_btn">Events Info</li>
-				<li id="social_media_btn">Social Media Info</li>
+				<li id="social_media_info_btn">Social Media Info</li>
 				<li id="messages_btn">Messages</li>
 				<li id="contact_us_btn">Contact Us</li>
 				<li id="change_password_btn">Change Password</li>
@@ -27,8 +27,8 @@
 			</ul>
 		</div>
 
-		<div id="disclaimer">
-			<p>&copy;All Rights Reserved 2020</p>
+		<div id="copyright_disclaimer">
+			<p>&copy;All Rights Reserved 2020. Designed and Developed by Reza S. Hossain, Distributed by UW Impact.</p>
 		</div>
 	</div>
 
@@ -38,7 +38,7 @@
 			<h2><!--Ttitle of the selected menu. Text Content is added dynamically by JavaScript.--></h2>
 		</div>
 
-		<div id="content_body">
+		<div id="content_body" class="blurr_out">
 			<div id="home">
 				<h2>Welcome to UW Impact CMS!</h2>
 
@@ -50,111 +50,142 @@
 			</div>
 
 			<div id="basic_info">
-				<!--Logo of the student group that is currently logged in-->
-				<img src="#" id="logo">
 
 				<!--Form to change logo-->
 				<form id="logo_form">
+					<!--Logo of the student group that is currently logged in-->
+					<img src="resources/logo.jpg" id="logo">
+
 					<label>Upload New Logo: </label>
 					<input type="file" name="new_logo">
-					<input type="submit" name="submit_new_logo">
+					<input type="submit" name="submit_new_logo" value="Update Logo">
 				</form>
 
 				<form id="name_form">
 					<label>Name: </label>
 					<input type="text" name="new_name">
-					<input type="submit" name="submit_new_name">
+					<input type="submit" name="submit_new_name" value="Update Name">
 				</form>
 
 				<form id="name_initial_form">
 					<label>Initial: </label>
 					<input type="text" name="new_name_initial">
-					<input type="submit" name="submit_new_name_initial">
+					<input type="submit" name="submit_new_name_initial" value="Update Initial">
 				</form>
 
 				<form id="description_form">
 					<label>Description: </label>
-					<textarea></textarea>
-					<input type="submit" name="submit_new_description">
+					<textarea name="new_description"></textarea>
+					<input type="submit" name="submit_new_description" value="Update Description">
 				</form>
 
 				<form id="mission_statement_form">
 					<label>Mission Statement: </label>
-					<input type="text" name="new_mission_statement">
-					<input type="submit" name="submit_new_mission_statement">
+					<textarea name="new_mission_statement"></textarea>
+					<input type="submit" name="submit_new_mission_statement" value="Update Mission Statement">
 				</form>
 
 				<form id="vision_statement_form">
 					<label>Vision Statement: </label>
-					<input type="text" name="new_vision_statement">
-					<input type="submit" name="submit_new_vision_statement">
+					<textarea name="new_vision_statement"></textarea>
+					<input type="submit" name="submit_new_vision_statement" value="Update Vision Statement">
 				</form>
 
 				<!--A statement describing why to join this student group-->
 				<form id="why_join_form">
 					<label>Description of why students should join this group: </label>
-					<input type="text" name="new_why_join">
-					<input type="submit" name="submit_new_why_join">
+					<textarea name="new_why_join"></textarea>
+					<input type="submit" name="submit_new_why_join" value="Update">
 				</form>
 
 				<!--A statement describing who can join this student group-->
 				<form id="who_join_form">
 					<label>Description of who can join this group: </label>
-					<input type="text" name="new_who_join">
-					<input type="submit" name="submit_new_who_join">
+					<textarea name="new_who_join"></textarea>
+					<input type="submit" name="submit_new_who_join" value="Update">
 				</form>
 
 				<!--A statement describing how to join this student group-->
 				<form id="how_join_form">
 					<label>Description of how to join this group: </label>
-					<input type="text" name="new_how_join">
-					<input type="submit" name="submit_new_how_join">
+					<textarea name="new_how_join"></textarea>
+					<input type="submit" name="submit_new_how_join" value="Update">
 				</form>
 
 				<form id="meeting_info_form">
 					<label>Meeting Information: </label>
-					<input type="text" name="new_meeting_info">
-					<input type="submit" name="submit_new_meeting_info">
+					<textarea name="new_meeting_info"></textarea>
+					<input type="submit" name="submit_new_meeting_info" value="Update Meeting Information">
 				</form>
 			</div>
 
 			<div id="team_info">
-				<!--HTML COntent in this part would be dynamically filled by JavaScript on runtime-->
+				<!--HTML COntent in this part would be dynamically filled by JavaScript-->
+
+				<!-- for test-->
+				<div class="member_info">
+					<img src="#" >
+					<p>Name 2</p>
+					<p>Designation</p>
+					<button class="update_picture_btn">Change Picture</button>
+					<button class="edit_member_details_btn">Edit Name and Designation</button>
+					<button class="delete_member_btn">Delete This Member</button>
+
+				</div>
+				<div class="member_info">
+					<img src="#" >
+					<p>Name 3</p>
+					<p>Designation</p>
+					<button class="update_picture_btn">Change Picture</button>
+					<button class="edit_member_details_btn">Edit Name and Designation</button>
+					<button class="delete_member_btn">Delete This Member</button>
+
+				</div>
+				<div class="member_info">
+					<img src="#" >
+					<p>Name 4</p>
+					<p>Designation</p>
+					<button class="update_picture_btn">Change Picture</button>
+					<button class="edit_member_details_btn">Edit Name and Designation</button>
+					<button class="delete_member_btn">Delete This Member</button>
+
+				</div>
+
 			</div>
 
 			<div id="events_info">
-				<!--HTML COntent in this part would be dynamically filled by JavaScript on runtime-->
+				<!--HTML COntent in this part would be dynamically filled by JavaScript-->
 			</div>
 
 			<div id="social_media_info">
 				<form id="facebook_link_form">
 					<label>Facebook Link: </label>
 					<input type="text" name="new_facebook_link">
-					<input type="submit" name="submit_new_facebook_link">
+					<input type="submit" name="submit_new_facebook_link" value="Update Facebook Link">
 				</form>
 
 				<form id="instagram_link_form">
 					<label>Instagram Link: </label>
 					<input type="text" name="new_instagram_link">
-					<input type="submit" name="submit_new_instagram_link">
+					<input type="submit" name="submit_new_instagram_link" value="Update Instagram Link">
 				</form>
 
 				<form id="twitter_link_form">
 					<label>Twitter Link: </label>
 					<input type="text" name="new_twitter_link">
-					<input type="submit" name="submit_new_twitter_link">
+					<input type="submit" name="submit_new_twitter_link" value="Update Twitter Link">
 				</form>
 
 				<form id="linkedin_link_form">
 					<label>Linkedin Link: </label>
 					<input type="text" name="new_linkedin_link">
-					<input type="submit" name="submit_new_linkedin_link">
+					<input type="submit" name="submit_new_linkedin_link" value="Update Linkedin Link">
 				</form>
 
 				<form id="email_address_form">
 					<label>Email Address: </label>
 					<input type="text" name="new_email_address">
-					<input type="submit" name="submit_new_email_address">
+					<input type="submit" name="submit_new_email_address" value="Update Email Adress">
 				</form>
 			</div>
 
@@ -170,14 +201,25 @@
 					<input type="password" name="new_password">
 					<label>Confirm Password: </label>
 					<input type="password" name="confirm_password">
-					<input type="submit" name="submit_new_password">
+					<input type="submit" name="submit_new_password" value="Update Password">
 				</form>
 			</div>
 
 			<div id="contact_us">
+				<h2>Contact UW Impact</h2>
+
 				<p>If you need any further assistance or if you have any questions, please feel free to reach out to UW Impact team anytime via our social media accounts (Instagram: @uwimpact) oe vy email at info.uwimpact@gmail.com. We are here to help you. </p>
 			</div>
 		</div>
+
+
+		<!--Pop up form to modify team member image-->
+		<form id="change_picture_form" class="popup_form hidden">
+			<label>Update Team Member Picture: </label>
+			<input type="file" name="new_member_picutre">
+			<button id="close_change_picture_form">Cancel</button>
+			<input type="submit" name="submit_new_member_picture" value="Update Picture">
+		</form>
 	</div>
 </body>
 </html>

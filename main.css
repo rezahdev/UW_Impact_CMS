@@ -10,10 +10,11 @@
 	--submit-button-color: green;
 	--normal-button-color: cornflowerblue;
 	--menu-button-color: white;
-	--std-background-color: #ffffff;
+	--std-background-color: lightgray;
 	--aux-background-color: #61b15a;
 	--big-spacing: 20px;
-	--small-spacing: 10px;
+	--medium-spacing: 10px;
+	--small-spacing: 5px;
 	--min-font-size: 17px;
 	--max-font-size: 28px;
 	--link-color: red;
@@ -27,6 +28,16 @@
 	font-family: 'Roboto', sans-serif;
 	margin: 0;
 	padding: 0;
+}
+
+*:focus {
+
+	outline: none;
+}
+
+p, a, li, input, label, textarea, button {
+
+	font-size: var(--min-font-size);
 }
 
 .visible {
@@ -48,12 +59,16 @@ body {
 	flex-direction: row;
 	flex-wrap: wrap;
 	justify-content: flex-start;
+	background-color: var(--std-background-color);
 }
 
 #side_menu {
 
 	width: 20%;
+	height: 100%;
 	position: fixed;
+	top: 0;
+	left: 0;
 	background-color: var(--aux-background-color);
 }
 
@@ -62,8 +77,7 @@ body {
 	width: 80%;
 	margin-left: 20%;
 	background-color: var(--std-background-color);
-	padding-left: var(--small-spacing);
-	overflow: hidden;
+
 }
 /*-----------------------------------------------------------*/
 
@@ -76,9 +90,10 @@ body {
 	font-size: var(--max-font-size);
 }
 
-#menu_buttons {
+#side_menu p {
 
-
+	text-align: center;
+	padding: var(--small-spacing);
 }
 
 #menu_buttons li {
@@ -94,6 +109,12 @@ body {
 
 	background-color: #adce74;
 }
+
+#menu_buttons a {
+
+	text-decoration: none;
+	color: #ffffff;
+}
 /*-------------------------------------------------------------*/
 
 
@@ -101,6 +122,7 @@ body {
 #content_header {
 
 	background-color: var(--aux-background-color);
+	margin-bottom: var(--big-spacing);
 }
 
 #content_header h2 {
@@ -109,29 +131,31 @@ body {
 	padding: var(--big-spacing);
 }
 
-#home h2 {
+#home h2,
+#contact_us h2 {
 
 	padding: var(--big-spacing);
 	text-align: center;
 }
 
-#home p {
+#home p,
+#contact_us p {
 
 	width: 70%;
 	margin-left: 15%;
 	border-radius: 5px;
 	line-height: 1.5;
     color: #ffffff;
-	background-color: #393e46;
-	font-size: var(--min-font-size);
+	background-color: var(--aux-background-color);
 	padding: var(--big-spacing);
 	text-align: center;
 }
 
-#home button {
+button {
 
 	margin-top: var(--big-spacing);
-	padding: var(--small-spacing);
+	margin-right: var(--medium-spacing);
+	padding: var(--medium-spacing);
 	background-color: var(--normal-button-color);
 	border: none;
 	border-radius: 2px;
@@ -144,51 +168,108 @@ body {
 	margin-left: 15%;
 }
 
-#home button:hover {
+button:hover {
 
 	background-color: var(--aux-background-color);
 }
 
-#basic_info img {
+#logo_form img {
 
-	height: 50px;
+	height: 100px;
 	width: auto;
-	margin-top: var(--big-spacing);
+	margin-bottom: var(--medium-spacing);
 }
 
-#basic_info form {
+form {
 
-	width: 100%;
+	width: 60%;
+	margin-left: 20%;
+	margin-bottom: var(--big-spacing);
+	border-radius: 2px;
+	padding: var(--medium-spacing);
+	background-color: #ffffff;
 }
 
-#basic_info label {
+label {
 
 	display: block;
-	margin-top: var(--big-spacing);
 	margin-bottom: var(--small-spacing);
-	font-size: var(--min-font-size);
 }
 
-#basic_info input[type="text"] {
+#change_password_form label {
 
-	width: 80%;
-	padding: var(--small-spacing);
-	font-size: var(--min-font-size);
+	margin-top: var(--medium-spacing);
 }
 
-#basic_info textarea {
+input[type="text"],
+input[type="password"],
+input[type="file"],
+textarea {
 
-	width: 80%;
-	height: auto;
-	padding: var(--small-spacing);
+	width: 100%;
+	padding: var(--medium-spacing);
+	background-color: lightgray;
+	border: none;
+	border-radius: 2px;
+}
+
+textarea {
+
+	height: 100px;
 	resize: none;
-	font-size: var(--min-font-size);
 }
 
-#basic_info input[type="submit"] {
+input[type="submit"] {
 
-	width: 15%;
-	margin-left: 2%;
-	padding: var(--small-spacing);
-	font-size: var(--min-font-size);
+	margin-top: var(--medium-spacing);
+	padding: var(--medium-spacing);
+	background-color: var(--normal-button-color);
+	color: #ffffff;
+	border: none;
+	border-radius: 2px;
+	cursor: pointer;
+}
+
+input[type="submit"]:hover {
+
+	background-color: var(--aux-background-color);
+}
+
+#team_info .member_info {
+
+	width: 70%;
+	margin-left: 15%;
+	margin-bottom: var(--big-spacing);
+	padding: var(--medium-spacing);
+	background-color: #ffffff;
+	border-radius: 2px;
+}
+
+#team_info.member_info p{
+	color: black;
+}
+
+#delete_member_btn {
+
+	background-color: orange;
+}
+
+#delete_member_btn:hover {
+
+	background-color: red;
+}
+
+.popup_form {
+
+	position: fixed;
+	top: 100px;
+	left: 15%;
+	width: 50%;
+	padding: var(--big-spacing);
+	text-align: center;
+}
+
+.blurry {
+
+	opacity: 0.5;
 }
