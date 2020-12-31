@@ -40,6 +40,92 @@ p, a, li, input, label, textarea, button {
 	font-size: var(--min-font-size);
 }
 
+button {
+
+	margin-top: var(--big-spacing);
+	margin-right: var(--medium-spacing);
+	padding: var(--medium-spacing);
+	background-color: var(--normal-button-color);
+	border: none;
+	border-radius: 2px;
+	color: #ffffff;
+	cursor: pointer;
+}
+
+button:hover {
+
+	background-color: var(--aux-background-color);
+}
+
+form {
+
+	width: 60%;
+	margin-left: 20%;
+	margin-bottom: var(--big-spacing);
+	border-radius: 2px;
+	padding: var(--medium-spacing);
+	background-color: #ffffff;
+}
+
+label {
+
+	display: block;
+	margin-bottom: var(--small-spacing);
+}
+
+input[type="text"],
+input[type="password"],
+input[type="file"],
+textarea {
+
+	width: 100%;
+	padding: var(--medium-spacing);
+	background-color: lightgray;
+	border: none;
+	border-radius: 2px;
+}
+
+textarea {
+
+	height: 100px;
+	resize: none;
+}
+
+input[type="submit"] {
+
+	margin-top: var(--medium-spacing);
+	padding: var(--medium-spacing);
+	background-color: var(--normal-button-color);
+	color: #ffffff;
+	border: none;
+	border-radius: 2px;
+	cursor: pointer;
+}
+
+input[type="submit"]:hover {
+
+	background-color: var(--aux-background-color);
+}
+
+.popup_form {
+
+	position: fixed;
+	top: 100px;
+	left: 15%;
+	width: 50%;
+	padding: var(--big-spacing);
+}
+
+.popup_form label {
+
+	margin-top: var(--big-spacing);
+}
+
+.blurry {
+
+	opacity: 0.3;
+}
+
 .visible {
 
 	display: block;
@@ -48,6 +134,16 @@ p, a, li, input, label, textarea, button {
 .hidden {
 
 	display: none;
+}
+
+.delete_btn {
+
+	background-color: orange;
+}
+
+.delete_btn:hover {
+
+	background-color: red;
 }
 /*------------------------------------------------------------*/
 
@@ -151,26 +247,13 @@ body {
 	text-align: center;
 }
 
-button {
 
-	margin-top: var(--big-spacing);
-	margin-right: var(--medium-spacing);
-	padding: var(--medium-spacing);
-	background-color: var(--normal-button-color);
-	border: none;
-	border-radius: 2px;
-	color: #ffffff;
-	cursor: pointer;
-}
-
-#home button:first-of-type {
+#home button:first-of-type,
+#add_member_btn,
+#add_event_btn {
 
 	margin-left: 15%;
-}
-
-button:hover {
-
-	background-color: var(--aux-background-color);
+	margin-bottom: var(--big-spacing);
 }
 
 #logo_form img {
@@ -180,59 +263,9 @@ button:hover {
 	margin-bottom: var(--medium-spacing);
 }
 
-form {
-
-	width: 60%;
-	margin-left: 20%;
-	margin-bottom: var(--big-spacing);
-	border-radius: 2px;
-	padding: var(--medium-spacing);
-	background-color: #ffffff;
-}
-
-label {
-
-	display: block;
-	margin-bottom: var(--small-spacing);
-}
-
 #change_password_form label {
 
 	margin-top: var(--medium-spacing);
-}
-
-input[type="text"],
-input[type="password"],
-input[type="file"],
-textarea {
-
-	width: 100%;
-	padding: var(--medium-spacing);
-	background-color: lightgray;
-	border: none;
-	border-radius: 2px;
-}
-
-textarea {
-
-	height: 100px;
-	resize: none;
-}
-
-input[type="submit"] {
-
-	margin-top: var(--medium-spacing);
-	padding: var(--medium-spacing);
-	background-color: var(--normal-button-color);
-	color: #ffffff;
-	border: none;
-	border-radius: 2px;
-	cursor: pointer;
-}
-
-input[type="submit"]:hover {
-
-	background-color: var(--aux-background-color);
 }
 
 #team_info .member_info,
@@ -251,35 +284,4 @@ input[type="submit"]:hover {
 
 	color: black;
 	margin-top: var(--medium-spacing);
-}
-
-#team_info .delete_member_btn,
-#events_info .delete_event_btn {
-
-	background-color: orange;
-}
-
-#team_info .delete_member_btn:hover,
-#events_info .delete_event_btn:hover {
-
-	background-color: red;
-}
-
-.popup_form {
-
-	position: fixed;
-	top: 100px;
-	left: 15%;
-	width: 50%;
-	padding: var(--big-spacing);
-}
-
-.popup_form label {
-
-	margin-top: var(--big-spacing);
-}
-
-.blurry {
-
-	opacity: 0.3;
 }

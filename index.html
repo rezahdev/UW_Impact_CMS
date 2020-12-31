@@ -57,150 +57,156 @@
 					<img src="resources/logo.jpg" id="logo">
 
 					<label>Upload New Logo: </label>
-					<input type="file" name="new_logo">
-					<input type="submit" name="submit_new_logo" value="Update Logo">
+					<input type="file" name="group_logo">
+					<input type="submit" name="submit_group_logo" value="Update Logo">
 				</form>
 
 				<form id="name_form">
 					<label>Name: </label>
-					<input type="text" name="new_name">
-					<input type="submit" name="submit_new_name" value="Update Name">
+					<input type="text" name="group_name">
+					<input type="submit" name="submit_group_name" value="Update Name">
 				</form>
 
 				<form id="name_initial_form">
 					<label>Initial: </label>
-					<input type="text" name="new_name_initial">
-					<input type="submit" name="submit_new_name_initial" value="Update Initial">
+					<input type="text" name="group_initial">
+					<input type="submit" name="submit_group_initial" value="Update Initial">
 				</form>
 
 				<form id="description_form">
 					<label>Description: </label>
-					<textarea name="new_description"></textarea>
-					<input type="submit" name="submit_new_description" value="Update Description">
+					<textarea name="description"></textarea>
+					<input type="submit" name="submit_description" value="Update Description">
 				</form>
 
 				<form id="mission_statement_form">
 					<label>Mission Statement: </label>
-					<textarea name="new_mission_statement"></textarea>
-					<input type="submit" name="submit_new_mission_statement" value="Update Mission Statement">
+					<textarea name="mission_statement"></textarea>
+					<input type="submit" name="submit_mission_statement" value="Update Mission Statement">
 				</form>
 
 				<form id="vision_statement_form">
 					<label>Vision Statement: </label>
-					<textarea name="new_vision_statement"></textarea>
-					<input type="submit" name="submit_new_vision_statement" value="Update Vision Statement">
+					<textarea name="vision_statement"></textarea>
+					<input type="submit" name="submit_vision_statement" value="Update Vision Statement">
 				</form>
 
 				<!--A statement describing why to join this student group-->
-				<form id="why_join_form">
+				<form id="why_join_us_form">
 					<label>Description of why students should join this group: </label>
-					<textarea name="new_why_join"></textarea>
-					<input type="submit" name="submit_new_why_join" value="Update">
+					<textarea name="why_join_us"></textarea>
+					<input type="submit" name="submit_why_join_us" value="Update">
 				</form>
 
 				<!--A statement describing who can join this student group-->
-				<form id="who_join_form">
+				<form id="who_can_join_form">
 					<label>Description of who can join this group: </label>
-					<textarea name="new_who_join"></textarea>
-					<input type="submit" name="submit_new_who_join" value="Update">
+					<textarea name="who_can_join"></textarea>
+					<input type="submit" name="submit_who_can_join" value="Update">
 				</form>
 
 				<!--A statement describing how to join this student group-->
-				<form id="how_join_form">
+				<form id="how_to_join_form">
 					<label>Description of how to join this group: </label>
-					<textarea name="new_how_join"></textarea>
-					<input type="submit" name="submit_new_how_join" value="Update">
+					<textarea name="how_to_join"></textarea>
+					<input type="submit" name="submit_how_to_join" value="Update">
 				</form>
 
 				<form id="meeting_info_form">
 					<label>Meeting Information: </label>
-					<textarea name="new_meeting_info"></textarea>
-					<input type="submit" name="submit_new_meeting_info" value="Update Meeting Information">
+					<textarea name="meeting_info"></textarea>
+					<input type="submit" name="submit_meeting_info" value="Update Meeting Information">
 				</form>
 			</div>
 
 			<div id="team_info">
-				<!--HTML COntent in this part would be dynamically filled by JavaScript-->
+				<button id="add_member_btn">Add New Member</button>
+
+				<!--More HTML COntent in this part would be dynamically filled by JavaScript-->
 
 				<!-- for test-->
-				<div class="member_info">
-					<img src="#" >
-					<p>Name 2</p>
-					<p>Designation</p>
-					<button class="update_picture_btn">Change Picture</button>
-					<button class="edit_member_info_btn">Edit Name and Designation</button>
-					<button class="delete_member_btn">Delete This Member</button>
-
+				<div class="member_info" id="member_1">
+					<img src="resources/logo.jpg" width="100" height="auto">
+					<p>Name: <span class="name">Member name</span></p>
+					<p>Designation: <span class="designation">Member designation</span></p>
+					<button class="edit_member_btn">Edit</button>
+					<button class="delete_member_btn delete_btn">Delete</button>
 				</div>
-				<div class="member_info">
-					<img src="#" >
-					<p>Name 3</p>
-					<p>Designation</p>
-					<button class="update_picture_btn">Change Picture</button>
-					<button class="edit_member_info_btn">Edit Name and Designation</button>
-					<button class="delete_member_btn">Delete This Member</button>
 
+				<div class="member_info" id="member_2">
+					<img src="resources/logo.jpg" width="100" height="auto">
+					<p>Name: <span class="name">Member name 2</span></p>
+					<p>Designation: <span class="designation">Member designation 2</span></p>
+					<button class="edit_member_btn">Edit</button>
+					<button class="delete_member_btn delete_btn">Delete</button>
 				</div>
-				<div class="member_info">
-					<img src="#" >
-					<p>Name 4</p>
-					<p>Designation</p>
-					<button class="update_picture_btn">Change Picture</button>
-					<button class="edit_member_info_btn">Edit Name and Designation</button>
-					<button class="delete_member_btn">Delete This Member</button>
 
+				<div class="member_info" id="member_3">
+					<img src="resources/logo.jpg" width="100" height="auto">
+					<p>Name: <span class="name">Member name</span> 3</p>
+					<p>Designation: <span class="designation">Member designation 3</span></p>
+					<button class="edit_member_btn">Edit</button>
+					<button class="delete_member_btn delete_btn">Delete</button>
 				</div>
 
 			</div>
 
 			<div id="events_info">
+				<button id="add_event_btn">Add New Event</button>
+
 				<!--HTML COntent in this part would be dynamically filled by JavaScript-->
 
 				<!--for test-->
-				<div class="event_box">
-					<p>Event Title</p>
-					<p>Event desciption</p>
+				<div class="event_box" id="event_1">
+					<p>Title: <span class="title">Event Title</span></p>
+					<p>Description: <span class="description">Event desciption</span></p>
+					<p>Date: <span class="date">Event date</span></p>
+					<p>Time: <span class="time">Event Time</span></p>
+					<p>Registration Link: : <span class="reg_link">https://uwimpact.net</span></p>
 					<button class="edit_event_btn">Edit Event Info</button>
-					<button class="delete_event_btn">Delete Event Info</button>
+					<button class="delete_event_btn delete_btn">Delete Event Info</button>
 				</div>
 
-				<div class="event_box">
-					<p>Event Title</p>
-					<p>Event desciption</p>
+				<div class="event_box" id="event_2">
+					<p>Title: <span class="title">Event Title 2</span></p>
+					<p>Description: <span class="description">Event desciption 2</span></p>
+					<p>Date: <span class="date">Event date 2</span></p>
+					<p>Time: <span class="time">Event Time 2</span></p>
+					<p>Registration Link: : <span class="reg_link">https://uwimpact.net</span></p>
 					<button class="edit_event_btn">Edit Event Info</button>
-					<button class="delete_event_btn">Delete Event Info</button>
+					<button class="delete_event_btn delete_btn">Delete Event Info</button>
 				</div>
 			</div>
 
 			<div id="social_media_info">
 				<form id="facebook_link_form">
 					<label>Facebook Link: </label>
-					<input type="text" name="new_facebook_link">
-					<input type="submit" name="submit_new_facebook_link" value="Update Facebook Link">
+					<input type="text" name="facebook_link">
+					<input type="submit" name="submit_facebook_link" value="Update Facebook Link">
 				</form>
 
 				<form id="instagram_link_form">
 					<label>Instagram Link: </label>
-					<input type="text" name="new_instagram_link">
-					<input type="submit" name="submit_new_instagram_link" value="Update Instagram Link">
+					<input type="text" name="instagram_link">
+					<input type="submit" name="submit_instagram_link" value="Update Instagram Link">
 				</form>
 
 				<form id="twitter_link_form">
 					<label>Twitter Link: </label>
-					<input type="text" name="new_twitter_link">
-					<input type="submit" name="submit_new_twitter_link" value="Update Twitter Link">
+					<input type="text" name="twitter_link">
+					<input type="submit" name="submit_twitter_link" value="Update Twitter Link">
 				</form>
 
 				<form id="linkedin_link_form">
 					<label>Linkedin Link: </label>
-					<input type="text" name="new_linkedin_link">
-					<input type="submit" name="submit_new_linkedin_link" value="Update Linkedin Link">
+					<input type="text" name="linkedin_link">
+					<input type="submit" name="submit_linkedin_link" value="Update Linkedin Link">
 				</form>
 
 				<form id="email_address_form">
 					<label>Email Address: </label>
-					<input type="text" name="new_email_address">
-					<input type="submit" name="submit_new_email_address" value="Update Email Adress">
+					<input type="text" name="email_address">
+					<input type="submit" name="submit_email_address" value="Update Email Adress">
 				</form>
 			</div>
 
@@ -227,25 +233,45 @@
 			</div>
 		</div>
 
-
-		<!--Pop up form to modify team member image-->
-		<form id="change_picture_form" class="popup_form hidden">
-			<label>Update Team Member Picture: </label>
-			<input type="file" name="new_member_picutre">
-			<input type="submit" name="submit_new_member_picture" value="Update Picture">
-			<button id="close_change_picture_form">Cancel</button>
-		</form>
-
-
-		<!--Pop up form to modify team member name and designation-->
-		<form id="edit_member_info_form" class="popup_form hidden">
+		<!--Pop up form to add team member name and designation-->
+		<form id="member_form" class="popup_form hidden">
 			<label>Member Name: </label>
-			<input type="text" name="new_member_name">
+			<input type="text" name="member_name" id="member_name">
 			<label>Member Designation: </label>
-			<input type="text" name="new_member_designation">
-			<input type="submit" name="submit_new_member_picture" value="Update Information">
-			<button id="close_edit_member_info_form">Cancel</button>
+			<input type="text" name="member_designation" id="member_designation">
+			<label>Member Picture: </label>
+			<input type="file" name="member_picutre" id="member_picture">
+			<input type="hidden" name="member_id" id="member_id" value="">
+			<input type="submit" name="submit_member_info" id="submit_member_info" value="">
+			<button id="close_member_form_btn">Cancel</button>
 		</form>
+		
+		<!--Popup form to add new event-->
+		<form id="event_form" class="popup_form hidden">
+			<label>Event Title: </label>
+			<input type="text" name="event_title" id="event_title">
+			<label>Event Description: </label>
+			<input type="text" name="event_description" id="event_description">
+			<label>Event Date: </label>
+			<input type="text" name="new_event_date" id="event_date">
+			<label>Event Time: </label>
+			<input type="text" name="new_event_time" id="event_time">
+			<label>Event Registration Link: </label>
+			<input type="text" name="event_registration_link" id="event_registration_link">
+			<input type="hidden" name="event_id" id="event_id" value="">
+			<input type="submit" name="submit_event_info" id="submit_event_info" value="">
+			<button id="close_event_form_btn">Cancel</button>
+		</form>
+
+		<!--Popup form to give warning message before deleting a member or event-->
+		<form id="delete_form" class="popup_form hidden">
+			<label id="delete_warning"></label>
+			<input type="hidden" name="delete_type" id="delete_type" value="">
+			<input type="hidden" name="delete_id" id="delete_id" value="">
+			<button id="close_delete_form_btn">Cancel</button>
+			<button id="delete_btn" class="delete_btn">Delete</button>
+		</form>
+
 	</div>
 </body>
 </html>
