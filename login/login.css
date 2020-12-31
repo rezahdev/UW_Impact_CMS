@@ -1,0 +1,97 @@
+/*CSS rules in this file only apply to the /login/index.html file*/
+
+/*Import the Google Font*/
+@import url('https://fonts.googleapis.com/css2?family=Roboto&display=swap');
+
+
+/*Variables*/
+:root {
+	--normal-button-color: cornflowerblue;
+	--submit-button-color: green;
+	--std-background-color: lightgray;
+	--big-spacing: 20px;
+	--medium-spacing: 10px;
+	--small-spacing: 5px;
+	--min-font-size: 17px;
+	--max-font-size: 28px;
+}
+/*------------------------------------------------------------*/
+
+* {
+
+	margin: 0;
+	padding: 0;
+	box-sizing: border-box;
+	background-color: var(--std-background-color);
+	font-family: 'Roboto', sans-serif;
+}
+
+*:focus {
+
+	outline: none;
+}
+
+header {
+
+	text-align: center;
+}
+
+h1 {
+
+	font-size: var(--max-font-size);
+	margin: 50px 0 0 20px;
+}
+
+p {
+	font-size: var(--min-font-size);
+	margin-bottom: var(--big-spacing);
+}
+
+form {
+
+	width: 60%;
+	margin-left: 20%;
+	background-color: #ffffff;
+	padding: var(--big-spacing);
+	border-radius: 5px;
+}
+
+input {
+
+	width: 100%;
+	border-radius: 2px;
+	font-size: var(--min-font-size);
+	padding: var(--medium-spacing);
+	margin-bottom: var(--big-spacing);
+	border: 2px solid cornflowerblue;
+}
+
+input[type="submit"] {
+
+	border-color: var(--normal-button-color);
+	background-color: var(--normal-button-color);
+	color: #fff;
+	text-align: center;
+	cursor: pointer;
+}
+
+input[type="submit"]:hover {
+
+	border-color: var(--submit-button-color);
+	background-color: var(--submit-button-color);
+}
+
+#message {
+
+	text-align: center;
+	color: red;
+	margin-top: var(--big-spacing);
+}
+
+.highlight {
+
+	border-color: red;
+}
+
+
+
