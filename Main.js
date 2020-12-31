@@ -26,6 +26,8 @@ class Main
 		add_member_btn.addEventListener("click", function() { this.displayPopupForm(member_form); }.bind(this));
 		add_event_btn.addEventListener("click", function() { this.displayPopupForm(event_form); }.bind(this));
 
+		this.loadBasicInfo();
+
 
 		let memberInfoDivs = team_info.getElementsByClassName("member_info");
 		let eventInfoDivs = events_info.getElementsByClassName("event_box");
@@ -93,7 +95,6 @@ class Main
 			}
 			else if(!div.classList.contains("member_info") && !div.classList.contains("event_box"))
 			{
-
 				div.classList.add("hidden");
 			}
 		}
@@ -118,6 +119,37 @@ class Main
 		} 
 	}
 
+
+	//////////////////////////////////////////////////////////////////////////////
+	//
+	//FUNCTIONS FOR RETRIVING GROUP DATA FROM DATABASE
+	//
+	/////////////////////////////////////////////////////////////////////////////
+
+
+	loadBasicInfo()
+	{
+		let formData = new FormData();
+		let path = "http://localhost/uwimpact_cms_api/retrieveBasicInfo.php";
+
+		formData.append("userId", localStorage.getItem("userId"));
+		formData.append("accessKey", localStorage.getItem("accessKey"));
+
+		this.makeXMLHttpRequest("POST", path, formData, this.plotBasicInfo);
+	}
+
+	plotBasicInfo(responseObj)
+	{
+		group_name.value = responseObj.name;
+		group_initial.value = responseObj.initial;
+		description.textContent = responseObj.description;
+		mission_statement.textContent = responseObj.missionStatement;
+		vision_statement.textContent = responseObj.visionStatement;
+		why_join_us.textContent = responseObj.whyJoinUs;
+		who_can_join.textContent = responseObj.whoCanJoin;
+		how_to_join.textContent = responseObj.howToJoin;
+		meeting_info.textContent = responseObj.meetingInfo;
+	}
 
 
 	//////////////////////////////////////////////////////////////////////////////
@@ -256,6 +288,51 @@ class Main
 	handleDeleteFormSubmission(event)
 	{
 		//Function not complete
+	}
+
+
+	//////////////////////////////////////////////////////////////////////////////
+	//
+	//FUNCTIONS FOR MAKING SERVER REQUESTS
+	//
+	/////////////////////////////////////////////////////////////////////////////
+
+	makeXMLHttpRequest(method, path, formData, success_handler)
+	{
+		let xhr = new XMLHttpRequest();
+
+		xhr.open(method, path, true);
+		xhr.send(formData);
+
+		this.xhrRequestHandler(xhr, success_handler);
+	}
+
+	xhrRequestHandler(xhr, success_handler)
+	{
+		xhr.onload = function()
+		{
+			if(xhr.status >= 200 && xhr.status < 300) 
+			{
+				if(xhr.response != "ERROR")
+				{
+					let responseObj = JSON.parse(xhr.response);
+					success_handler(responseObj);				    
+				}
+				else
+				{
+					this.showError();
+				}
+			}
+			else //if the remote server sent an error
+			{
+				this.showError();
+			}
+		}.bind(this);
+	}
+
+	showError()
+	{
+		alert("Oops! Something went wrong. Please try again.");
 	}
 	
 }

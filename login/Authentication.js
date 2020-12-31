@@ -31,7 +31,7 @@ class Authentication
 
 		formData.append("username", username.value);
 		formData.append("password", password.value);
-		formData.append("access_key", "1234");
+		formData.append("accessKey", "1234");
 
 		//xhr.responseType = "json";
 		xhr.open("POST", "http://localhost/uwimpact_cms_api/authenticateUser.php", true);
