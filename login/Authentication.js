@@ -33,6 +33,7 @@ class Authentication
 		formData.append("password", password.value);
 		formData.append("access_key", "1234");
 
+		//xhr.responseType = "json";
 		xhr.open("POST", "http://localhost/uwimpact_cms_api/authenticateUser.php", true);
 		xhr.send(formData);
 
@@ -47,9 +48,14 @@ class Authentication
 			{
 				if(xhr.response != "ERROR")
 				{
-					//user verified as authentic,
-					//Redirect to the CMS homepage
-					window.location = "../index.html";
+					//User verified as authentic,
+					//Set local storage variables for future reference,
+					//Redirect user to the CMS homepage.
+					let responseObj = JSON.parse(xhr.response);
+					localStorage.setItem("accessKey", responseObj.sessionKey);
+					localStorage.setItem("userId", responseObj.userId);
+					localStorage.setItem("isUserLoggedIn", true);
+				    window.location = "../index.html";
 				}
 				else
 				{

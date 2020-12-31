@@ -277,5 +277,16 @@
 </html>
 
 <script>
-	let mainObj = new Main();
+	if(!localStorage.getItem("isUserLoggedIn"))
+	{
+		//If the user is already logged in, redirect the user to the homepage
+		window.location = "login/index.html";
+	}
+	else
+	{
+		document.addEventListener("DOMContentLoaded", function() {
+
+			let mainObj = new Main();
+		});
+	}
 </script>

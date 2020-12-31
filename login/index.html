@@ -27,5 +27,16 @@
 </html>
 
 <script>
-	let authObj = new Authentication();
+	if(localStorage.getItem("isUserLoggedIn"))
+	{
+		//If the user is already logged in, redirect the user to the homepage
+		window.location = "../index.html";
+	}
+	else
+	{
+		document.addEventListener("DOMContentLoaded", function() {
+
+			let authObj = new Authentication();
+		});
+	}
 </script>
