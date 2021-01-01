@@ -87,7 +87,7 @@ textarea {
 
 textarea {
 
-	height: 100px;
+	height: 150px;
 	resize: none;
 }
 
@@ -301,4 +301,17 @@ body {
 
 	color: black;
 	margin-top: var(--medium-spacing);
+}
+
+/*-----------------------------------------------
+*CSS rules for screen size smaller than 1000px
+*-----------------------------------------------*/
+
+@media(max-width: 1200px)
+{
+	form {
+
+		width: 96%;
+		margin-left: 2%;
+	}
 }

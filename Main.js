@@ -25,10 +25,21 @@ class Main
 		//Add EventListeners to other buttons
 		add_member_btn.addEventListener("click", function() { this.displayPopupForm(member_form); }.bind(this));
 		add_event_btn.addEventListener("click", function() { this.displayPopupForm(event_form); }.bind(this));
-		delete_btn.addEventListener("click", this.handleDeleteFormSubmission);
 		close_member_form_btn.addEventListener("click", function() { this.closePopupForm(event, member_form); }.bind(this));
 		close_event_form_btn.addEventListener("click", function() { this.closePopupForm(event, event_form); }.bind(this));
 		close_delete_form_btn.addEventListener("click", function() { this.closePopupForm(event, delete_form); }.bind(this));
+
+		//Add EventListeners for form submissiona
+		submit_group_name.addEventListener("click", this.handleGroupNameSubmission.bind(this));
+		submit_group_initial.addEventListener("click", this.handleGroupInitialSubmission.bind(this));
+		submit_description.addEventListener("click", this.handleDescriptionSubmission.bind(this));
+		submit_mission_statement.addEventListener("click", this.handleMissionStatementSubmission.bind(this));
+		submit_vision_statement.addEventListener("click", this.handleVisionStatementSubmission.bind(this));
+		submit_why_join_us.addEventListener("click", this.handleWhyJoinUsSubmission.bind(this));
+		submit_who_can_join.addEventListener("click", this.handleWhoCanJoinSubmission.bind(this));
+		submit_how_to_join.addEventListener("click", this.handleHowToJoinSubmission.bind(this));
+		submit_meeting_info.addEventListener("click", this.handleMeetingInfoSubmission.bind(this));
+		delete_btn.addEventListener("click", this.handleDeleteFormSubmission);
 
 		//Load current information from the database
 		this.loadBasicInfo();
@@ -95,7 +106,6 @@ class Main
 		} 
 	}
 
-
 	//////////////////////////////////////////////////////////////////////////////
 	//
 	//FUNCTIONS FOR RETRIVING GROUP DATA FROM DATABASE
@@ -115,13 +125,13 @@ class Main
 	{
 		group_name.value = responseObj.name;
 		group_initial.value = responseObj.initial;
-		description.textContent = responseObj.description;
-		mission_statement.textContent = responseObj.missionStatement;
-		vision_statement.textContent = responseObj.visionStatement;
-		why_join_us.textContent = responseObj.whyJoinUs;
-		who_can_join.textContent = responseObj.whoCanJoin;
-		how_to_join.textContent = responseObj.howToJoin;
-		meeting_info.textContent = responseObj.meetingInfo;
+		description.value = responseObj.description;
+		mission_statement.value = responseObj.missionStatement;
+		vision_statement.value = responseObj.visionStatement;
+		why_join_us.value = responseObj.whyJoinUs;
+		who_can_join.value = responseObj.whoCanJoin;
+		how_to_join.value = responseObj.howToJoin;
+		meeting_info.value = responseObj.meetingInfo;
 	}
 
 	loadTeamInfo()
@@ -420,9 +430,126 @@ class Main
 
 	//////////////////////////////////////////////////////////////////////////////
 	//
-	//FUNCTIONS FOR HANDLING FORM SUBMISSION
+	//FUNCTIONS FOR HANDLING NORMAL FORMS
 	//
 	/////////////////////////////////////////////////////////////////////////////
+
+	handleGroupNameSubmission(event) 
+	{ 
+		//Prevent default form submission
+		event.preventDefault();
+
+		let formData = new FormData();
+		let path = "http://localhost/uwimpact_cms_api/updateBasicInfo.php?field=name";
+
+		formData.append("value", group_name.value);
+
+		this.makeXMLHttpRequest("POST", path, formData);
+	}
+
+	handleGroupInitialSubmission(event) 
+	{
+		//Prevent default form submission
+		event.preventDefault();
+		
+		let formData = new FormData();
+		let path = "http://localhost/uwimpact_cms_api/updateBasicInfo.php?field=initial";
+
+		formData.append("value", group_initial.value);
+
+		this.makeXMLHttpRequest("POST", path, formData);
+	}
+
+	handleDescriptionSubmission(event) 
+	{
+		//Prevent default form submission
+		event.preventDefault();
+		
+		let formData = new FormData();
+		let path = "http://localhost/uwimpact_cms_api/updateBasicInfo.php?field=description";
+
+		formData.append("value", description.value);
+
+		this.makeXMLHttpRequest("POST", path, formData); 
+	}
+
+	handleMissionStatementSubmission() 
+	{
+		//Prevent default form submission
+		event.preventDefault();
+		
+		let formData = new FormData();
+		let path = "http://localhost/uwimpact_cms_api/updateBasicInfo.php?field=missionStatement";
+
+		formData.append("value", mission_statement.value);
+
+		this.makeXMLHttpRequest("POST", path, formData);
+	}
+
+	handleVisionStatementSubmission() 
+	{
+		//Prevent default form submission
+		event.preventDefault();
+		
+		let formData = new FormData();
+		let path = "http://localhost/uwimpact_cms_api/updateBasicInfo.php?field=visionStatement";
+
+		formData.append("value", vision_statement.value);
+
+		this.makeXMLHttpRequest("POST", path, formData);
+	}
+
+	handleWhyJoinUsSubmission()
+	{
+		//Prevent default form submission
+		event.preventDefault();
+		
+		let formData = new FormData();
+		let path = "http://localhost/uwimpact_cms_api/updateBasicInfo.php?field=whyJoinUs";
+
+		formData.append("value", why_join_us.value);
+
+		this.makeXMLHttpRequest("POST", path, formData);
+	}
+
+	handleWhoCanJoinSubmission()
+	{
+		//Prevent default form submission
+		event.preventDefault();
+		
+		let formData = new FormData();
+		let path = "http://localhost/uwimpact_cms_api/updateBasicInfo.php?field=whoCanJoin";
+
+		formData.append("value", who_can_join.value);
+
+		this.makeXMLHttpRequest("POST", path, formData);
+	}
+
+	handleHowToJoinSubmission()
+	{
+		//Prevent default form submission
+		event.preventDefault();
+		
+		let formData = new FormData();
+		let path = "http://localhost/uwimpact_cms_api/updateBasicInfo.php?field=howToJoin";
+
+		formData.append("value", how_to_join.value);
+
+		this.makeXMLHttpRequest("POST", path, formData);
+	}
+
+	handleMeetingInfoSubmission()
+	{
+		//Prevent default form submission
+		event.preventDefault();
+		
+		let formData = new FormData();
+		let path = "http://localhost/uwimpact_cms_api/updateBasicInfo.php?field=meetingInfo";
+
+		formData.append("value", meeting_info.value);
+
+		this.makeXMLHttpRequest("POST", path, formData);
+	}
 
 	/**
 	 *EventHandler function to handle the submission of the delete_form
@@ -440,7 +567,7 @@ class Main
 	//
 	/////////////////////////////////////////////////////////////////////////////
 
-	makeXMLHttpRequest(method, path, formData, success_handler)
+	makeXMLHttpRequest(method, path, formData, success_handler = false)
 	{
 		let xhr = new XMLHttpRequest();
 
@@ -463,8 +590,11 @@ class Main
 				if(xhr.response != "ERROR")
 				{
 					console.log(xhr.response);
-					let responseObj = JSON.parse(xhr.response);
-					success_handler(responseObj);				    
+					if(success_handler)
+					{
+						let responseObj = JSON.parse(xhr.response);
+						success_handler(responseObj);	
+					}			    
 				}
 				else
 				{
