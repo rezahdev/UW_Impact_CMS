@@ -22,43 +22,19 @@ class Main
 		contact_us_btn.addEventListener("click", function() { this.displaySection("contact_us", "Contact Us"); }.bind(this));
 		change_password_btn.addEventListener("click", function() { this.displaySection("change_password", "Change Password"); }.bind(this));
 
-		//Add EventListeners to the add_member_btn and add_event_btn
+		//Add EventListeners to other buttons
 		add_member_btn.addEventListener("click", function() { this.displayPopupForm(member_form); }.bind(this));
 		add_event_btn.addEventListener("click", function() { this.displayPopupForm(event_form); }.bind(this));
-
-		this.loadBasicInfo();
-
-
-		let memberInfoDivs = team_info.getElementsByClassName("member_info");
-		let eventInfoDivs = events_info.getElementsByClassName("event_box");
-
-		//Add EventListeners to all edit_member_btn and delete_member_btn
-		for(let member_info of memberInfoDivs)
-		{
-			let editBtn = member_info.getElementsByClassName("edit_member_btn")[0];
-			let deleteBtn = member_info.getElementsByClassName("delete_member_btn")[0];
-			let member_id = member_info.id.split("_")[1];
-			editBtn.addEventListener("click", function() { this.displayPopupForm(member_form, member_id); }.bind(this));
-			deleteBtn.addEventListener("click", function() { this.displayPopupDeleteForm("member", member_id); }.bind(this));
-		}
-
-		//Add EventListeners to all edit_event_btn and delete_event_btn
-		for(let event_info of eventInfoDivs)
-		{
-			let editBtn = event_info.getElementsByClassName("edit_event_btn")[0];
-			let deleteBtn = event_info.getElementsByClassName("delete_event_btn")[0];
-			let event_id = event_info.id.split("_")[1];
-			editBtn.addEventListener("click", function() { this.displayPopupForm(event_form, event_id); }.bind(this));
-			deleteBtn.addEventListener("click", function() { this.displayPopupDeleteForm("event", event_id); }.bind(this));
-		}
-
-		//Add EventListener to the delete button in the delete_form
 		delete_btn.addEventListener("click", this.handleDeleteFormSubmission);
-
-		//Add EventListener to close buttons in all popup forms
 		close_member_form_btn.addEventListener("click", function() { this.closePopupForm(event, member_form); }.bind(this));
 		close_event_form_btn.addEventListener("click", function() { this.closePopupForm(event, event_form); }.bind(this));
 		close_delete_form_btn.addEventListener("click", function() { this.closePopupForm(event, delete_form); }.bind(this));
+
+		//Load current information from the database
+		this.loadBasicInfo();
+		this.loadTeamInfo();
+		this.loadEventsInfo();
+		this.loadSocialMediaInfo();
 	}
 
 
@@ -132,9 +108,6 @@ class Main
 		let formData = new FormData();
 		let path = "http://localhost/uwimpact_cms_api/retrieveBasicInfo.php";
 
-		formData.append("userId", localStorage.getItem("userId"));
-		formData.append("accessKey", localStorage.getItem("accessKey"));
-
 		this.makeXMLHttpRequest("POST", path, formData, this.plotBasicInfo);
 	}
 
@@ -149,6 +122,176 @@ class Main
 		who_can_join.textContent = responseObj.whoCanJoin;
 		how_to_join.textContent = responseObj.howToJoin;
 		meeting_info.textContent = responseObj.meetingInfo;
+	}
+
+	loadTeamInfo()
+	{
+		let formData = new FormData();
+		let path = "http://localhost/uwimpact_cms_api/retrieveTeamInfo.php";
+
+		this.makeXMLHttpRequest("POST", path, formData, this.plotTeamInfo.bind(this));
+	}
+
+	plotTeamInfo(responseObjArr)
+	{
+		for(let key of Object.keys(responseObjArr))
+		{
+			let responseObj = responseObjArr[key];
+
+			//New member_info div with the member id within team_info section
+			let member = document.createElement("div");
+			member.id = "member_" + responseObj.id;
+			member.classList.add("member_info");
+			team_info.appendChild(member);
+
+			//Member name
+			let nameP = document.createElement("p");
+			let nameSpan = document.createElement("span");
+			nameP.textContent = "Name: ";
+			nameP.classList.add("font_bold");
+			nameSpan.classList.add("name");
+			nameSpan.classList.add("font_normal");
+			nameSpan.textContent = responseObj.name;
+			nameP.appendChild(nameSpan);
+			member.appendChild(nameP);
+
+			//Member designation 
+			let desgP = document.createElement("p");
+			let desgSpan = document.createElement("span");
+			desgP.textContent = "Designation: ";
+			desgP.classList.add("font_bold");
+			desgSpan.classList.add("designation");
+			desgSpan.classList.add("font_normal");
+			desgSpan.textContent = responseObj.designation;
+			desgP.appendChild(desgSpan);
+			member.appendChild(desgP);
+
+			//Edit button
+			let editBtn = document.createElement("button");
+			editBtn.classList.add("edit_member_btn");
+			editBtn.textContent = "Edit";
+			member.appendChild(editBtn);
+			editBtn.addEventListener("click", function() { this.displayPopupForm(member_form, responseObj.id); }.bind(this));
+
+			//Delete button
+			let deleteBtn = document.createElement("button");
+			deleteBtn.classList.add("delete_member_btn");
+			deleteBtn.classList.add("delete_btn");
+			deleteBtn.textContent = "Delete";
+			member.appendChild(deleteBtn);
+			deleteBtn.addEventListener("click", function() { this.displayPopupDeleteForm("member", responseObj.id); }.bind(this));
+		}
+	}
+
+	loadEventsInfo()
+	{
+		let formData = new FormData();
+		let path = "http://localhost/uwimpact_cms_api/retrieveEventsInfo.php";
+
+		this.makeXMLHttpRequest("POST", path, formData, this.plotEventsInfo.bind(this));
+	}
+
+	plotEventsInfo(responseObjArr)
+	{
+		for(let key of Object.keys(responseObjArr))
+		{
+			let responseObj = responseObjArr[key];
+
+			//New member_info div with the member id within team_info section
+			let event = document.createElement("div");
+			event.id = "event_" + responseObj.id;
+			event.classList.add("event_box");
+			events_info.appendChild(event);
+
+			//Event title
+			let titleP = document.createElement("p");
+			let titleSpan = document.createElement("span");
+			titleP.textContent = "Title: ";
+			titleP.classList.add("font_bold");
+			titleSpan.classList.add("title");
+			titleSpan.classList.add("font_normal");
+			titleSpan.textContent = responseObj.title;
+			titleP.appendChild(titleSpan);
+			event.appendChild(titleP);
+
+			//Event description
+			let desP = document.createElement("p");
+			let desSpan = document.createElement("span");
+			desP.textContent = "Description: ";
+			desP.classList.add("font_bold");
+			desSpan.classList.add("description");
+			desSpan.classList.add("font_normal");
+			desSpan.textContent = responseObj.description;
+			desP.appendChild(desSpan);
+			event.appendChild(desP);
+
+			//Event date
+			let dateP = document.createElement("p");
+			let dateSpan = document.createElement("span");
+			dateP.textContent = "Date: ";
+			dateP.classList.add("font_bold");
+			dateSpan.classList.add("date");
+			dateSpan.classList.add("font_normal");
+			dateSpan.textContent = responseObj.date;
+			dateP.appendChild(dateSpan);
+			event.appendChild(dateP);
+
+			//Event date
+			let timeP = document.createElement("p");
+			let timeSpan = document.createElement("span");
+			timeP.textContent = "Time: ";
+			timeP.classList.add("font_bold");
+			timeSpan.classList.add("time");
+			timeSpan.classList.add("font_normal");
+			timeSpan.textContent = responseObj.time;
+			timeP.appendChild(timeSpan);
+			event.appendChild(timeP);
+
+			//Registration Link
+			let regLinkP = document.createElement("p");
+			let regLink = document.createElement("a");
+			regLinkP.textContent = "Registration Link: ";
+			regLinkP.classList.add("font_bold");
+			regLink.classList.add("reg_link");
+			regLink.classList.add("font_normal");
+			regLink.href = responseObj.registrationLink;
+			regLink.target = "_blank";
+			regLink.textContent = responseObj.registrationLink;
+			regLinkP.appendChild(regLink);
+			event.appendChild(regLinkP);
+
+			//Edit button
+			let editBtn = document.createElement("button");
+			editBtn.classList.add("edit_event_btn");
+			editBtn.textContent = "Edit";
+			event.appendChild(editBtn);
+			editBtn.addEventListener("click", function() { this.displayPopupForm(event_form, responseObj.id); }.bind(this));
+
+			//Delete button
+			let deleteBtn = document.createElement("button");
+			deleteBtn.classList.add("delete_event_btn");
+			deleteBtn.classList.add("delete_btn");
+			deleteBtn.textContent = "Delete";
+			event.appendChild(deleteBtn);
+			deleteBtn.addEventListener("click", function() { this.displayPopupDeleteForm("event", responseObj.id); }.bind(this));
+		}
+	}
+
+	loadSocialMediaInfo()
+	{
+		let formData = new FormData();
+		let path = "http://localhost/uwimpact_cms_api/retrieveSocialMediaInfo.php";
+
+		this.makeXMLHttpRequest("POST", path, formData, this.plotSocialMediaInfo);
+	}
+
+	plotSocialMediaInfo(responseObj)
+	{
+		facebook_link.value = responseObj.facebook;
+		instagram_link.value = responseObj.instagram;
+		twitter_link.value = responseObj.twitter;
+		linkedin_link.value = responseObj.linkedin;
+		email_address.value = responseObj.email;
 	}
 
 
@@ -301,6 +444,10 @@ class Main
 	{
 		let xhr = new XMLHttpRequest();
 
+		//Append aditional form feilds for API to verify the request
+		formData.append("userId", localStorage.getItem("userId"));
+		formData.append("accessKey", localStorage.getItem("accessKey"));
+
 		xhr.open(method, path, true);
 		xhr.send(formData);
 
@@ -315,6 +462,7 @@ class Main
 			{
 				if(xhr.response != "ERROR")
 				{
+					console.log(xhr.response);
 					let responseObj = JSON.parse(xhr.response);
 					success_handler(responseObj);				    
 				}

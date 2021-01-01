@@ -37,13 +37,14 @@
 p, a, li, input, label, textarea, button {
 
 	font-size: var(--min-font-size);
+	line-height: 1.5;
 }
 
 button {
 
 	margin-top: var(--big-spacing);
 	margin-right: var(--medium-spacing);
-	padding: var(--medium-spacing);
+	padding: 2px 25px 2px 25px;
 	background-color: var(--normal-button-color);
 	border: none;
 	border-radius: 2px;
@@ -93,7 +94,7 @@ textarea {
 input[type="submit"] {
 
 	margin-top: var(--medium-spacing);
-	padding: var(--medium-spacing);
+	padding: 2px 25px 2px 25px;
 	background-color: var(--normal-button-color);
 	color: #ffffff;
 	border: none;
@@ -143,6 +144,23 @@ input[type="submit"]:hover {
 .delete_btn:hover {
 
 	background-color: red;
+}
+
+.font_bold {
+
+	font-weight: bold;
+}
+
+.font_normal {
+
+	font-weight: normal;
+}
+
+.link_disabled {
+
+	pointer-events: none;
+	text-decoration: none;
+	color: #000;
 }
 /*------------------------------------------------------------*/
 
@@ -239,8 +257,7 @@ body {
 	width: 70%;
 	margin-left: 15%;
 	border-radius: 5px;
-	line-height: 1.5;
-    color: #ffffff;
+   color: #ffffff;
 	background-color: var(--aux-background-color);
 	padding: var(--big-spacing);
 	text-align: center;
@@ -253,6 +270,7 @@ body {
 
 	margin-left: 15%;
 	margin-bottom: var(--big-spacing);
+	padding: 5px 25px 5px 25px;
 }
 
 #logo_form img {
