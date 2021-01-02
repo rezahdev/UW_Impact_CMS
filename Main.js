@@ -36,6 +36,11 @@ class Main
 		submit_who_can_join.addEventListener("click", this.handleWhoCanJoinSubmission.bind(this));
 		submit_how_to_join.addEventListener("click", this.handleHowToJoinSubmission.bind(this));
 		submit_meeting_info.addEventListener("click", this.handleMeetingInfoSubmission.bind(this));
+		submit_facebook_link.addEventListener("click", this.handleFacebookLinkSubmission.bind(this));
+		submit_instagram_link.addEventListener("click", this.handleInstagramLinkSubmission.bind(this));
+		submit_twitter_link.addEventListener("click", this.handleTwitterLinkSubmission.bind(this));
+		submit_linkedin_link.addEventListener("click", this.handleLinkedinLinkSubmission.bind(this));
+		submit_email_address.addEventListener("click", this.handleEmailAddressSubmission.bind(this));
 
 		//Add EventListeners to the popup form properties
 		submit_member_info.addEventListener("click", this.handleMemberFormSubmission.bind(this));
@@ -454,8 +459,9 @@ class Main
 		event.preventDefault();
 
 		let formData = new FormData();
-		let path = "http://localhost/uwimpact_cms_api/updateBasicInfo.php?field=name";
+		let path = "http://localhost/uwimpact_cms_api/updateBasicInfo.php";
 
+		formData.append("field", "name");
 		formData.append("value", group_name.value);
 
 		this.makeXMLHttpRequest("POST", path, formData);
@@ -467,8 +473,9 @@ class Main
 		event.preventDefault();
 		
 		let formData = new FormData();
-		let path = "http://localhost/uwimpact_cms_api/updateBasicInfo.php?field=initial";
+		let path = "http://localhost/uwimpact_cms_api/updateBasicInfo.php";
 
+		formData.append("field", "initial");
 		formData.append("value", group_initial.value);
 
 		this.makeXMLHttpRequest("POST", path, formData);
@@ -480,8 +487,9 @@ class Main
 		event.preventDefault();
 		
 		let formData = new FormData();
-		let path = "http://localhost/uwimpact_cms_api/updateBasicInfo.php?field=description";
+		let path = "http://localhost/uwimpact_cms_api/updateBasicInfo.php";
 
+		formData.append("field", "description");
 		formData.append("value", description.value);
 
 		this.makeXMLHttpRequest("POST", path, formData); 
@@ -493,8 +501,9 @@ class Main
 		event.preventDefault();
 		
 		let formData = new FormData();
-		let path = "http://localhost/uwimpact_cms_api/updateBasicInfo.php?field=missionStatement";
+		let path = "http://localhost/uwimpact_cms_api/updateBasicInfo.php";
 
+		formData.append("field", "missionStatement");
 		formData.append("value", mission_statement.value);
 
 		this.makeXMLHttpRequest("POST", path, formData);
@@ -506,8 +515,9 @@ class Main
 		event.preventDefault();
 		
 		let formData = new FormData();
-		let path = "http://localhost/uwimpact_cms_api/updateBasicInfo.php?field=visionStatement";
+		let path = "http://localhost/uwimpact_cms_api/updateBasicInfo.php";
 
+		formData.append("field", "visionStatement");
 		formData.append("value", vision_statement.value);
 
 		this.makeXMLHttpRequest("POST", path, formData);
@@ -519,8 +529,9 @@ class Main
 		event.preventDefault();
 		
 		let formData = new FormData();
-		let path = "http://localhost/uwimpact_cms_api/updateBasicInfo.php?field=whyJoinUs";
+		let path = "http://localhost/uwimpact_cms_api/updateBasicInfo.php";
 
+		formData.append("field", "whyJoinUs");
 		formData.append("value", why_join_us.value);
 
 		this.makeXMLHttpRequest("POST", path, formData);
@@ -532,8 +543,9 @@ class Main
 		event.preventDefault();
 		
 		let formData = new FormData();
-		let path = "http://localhost/uwimpact_cms_api/updateBasicInfo.php?field=whoCanJoin";
+		let path = "http://localhost/uwimpact_cms_api/updateBasicInfo.php";
 
+		formData.append("field", "whoCanJoin");
 		formData.append("value", who_can_join.value);
 
 		this.makeXMLHttpRequest("POST", path, formData);
@@ -545,8 +557,9 @@ class Main
 		event.preventDefault();
 		
 		let formData = new FormData();
-		let path = "http://localhost/uwimpact_cms_api/updateBasicInfo.php?field=howToJoin";
+		let path = "http://localhost/uwimpact_cms_api/updateBasicInfo.php";
 
+		formData.append("field", "howToJoin");
 		formData.append("value", how_to_join.value);
 
 		this.makeXMLHttpRequest("POST", path, formData);
@@ -558,9 +571,80 @@ class Main
 		event.preventDefault();
 		
 		let formData = new FormData();
-		let path = "http://localhost/uwimpact_cms_api/updateBasicInfo.php?field=meetingInfo";
+		let path = "http://localhost/uwimpact_cms_api/updateBasicInfo.php";
 
+		formData.append("field", "meetingInfo");
 		formData.append("value", meeting_info.value);
+
+		this.makeXMLHttpRequest("POST", path, formData);
+	}
+
+	handleFacebookLinkSubmission()
+	{
+		//Prevent default form submission
+		event.preventDefault();
+		
+		let formData = new FormData();
+		let path = "http://localhost/uwimpact_cms_api/updateSocialMediaInfo.php";
+
+		formData.append("field", "facebook");
+		formData.append("value", facebook_link.value);
+
+		this.makeXMLHttpRequest("POST", path, formData);
+	}
+
+	handleInstagramLinkSubmission()
+	{
+		//Prevent default form submission
+		event.preventDefault();
+		
+		let formData = new FormData();
+		let path = "http://localhost/uwimpact_cms_api/updateSocialMediaInfo.php";
+
+		formData.append("field", "instagram");
+		formData.append("value", instagram_link.value);
+
+		this.makeXMLHttpRequest("POST", path, formData);
+	}
+
+	handleTwitterLinkSubmission()
+	{
+		//Prevent default form submission
+		event.preventDefault();
+		
+		let formData = new FormData();
+		let path = "http://localhost/uwimpact_cms_api/updateSocialMediaInfo.php";
+
+		formData.append("field", "twitter");
+		formData.append("value", twitter_link.value);
+
+		this.makeXMLHttpRequest("POST", path, formData);
+	}
+
+	handleLinkedinLinkSubmission()
+	{
+		//Prevent default form submission
+		event.preventDefault();
+		
+		let formData = new FormData();
+		let path = "http://localhost/uwimpact_cms_api/updateSocialMediaInfo.php";
+
+		formData.append("field", "linkedin");
+		formData.append("value", linkedin_link.value);
+
+		this.makeXMLHttpRequest("POST", path, formData);
+	}
+
+	handleEmailAddressSubmission()
+	{
+		//Prevent default form submission
+		event.preventDefault();
+		
+		let formData = new FormData();
+		let path = "http://localhost/uwimpact_cms_api/updateSocialMediaInfo.php";
+
+		formData.append("field", "email");
+		formData.append("value", email_address.value);
 
 		this.makeXMLHttpRequest("POST", path, formData);
 	}
