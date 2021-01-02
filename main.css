@@ -10,7 +10,7 @@
 	--submit-button-color: green;
 	--normal-button-color: #3f72af;
 	--menu-button-color: white;
-	--std-background-color: #ffffff;
+	--std-background-color: whitesmoke;
 	--aux-background-color: #61b15a;
 	--big-spacing: 20px;
 	--medium-spacing: 10px;
@@ -32,6 +32,15 @@
 *:focus {
 
 	outline: none;
+}
+
+body {
+
+	display: flex;
+	flex-direction: row;
+	flex-wrap: wrap;
+	justify-content: flex-start;
+	background-color: var(--std-background-color);
 }
 
 p, a, li, input, label, textarea, button {
@@ -66,6 +75,7 @@ form {
 	border-radius: 2px;
 	padding: var(--medium-spacing);
 	background-color: #ffffff;
+	box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
 }
 
 label {
@@ -88,7 +98,7 @@ textarea {
 
 textarea {
 
-	height: 150px;
+	height: 200px;
 	resize: none;
 }
 
@@ -115,6 +125,7 @@ input[type="submit"]:hover {
 	width: 50%;
 	padding: var(--big-spacing);
 	border: 2px solid var(--aux-background-color);
+	box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
 }
 
 .popup_form label {
@@ -193,15 +204,6 @@ input[type="submit"]:hover {
 
 
 /*Page structure: Menu on the left side, content on the right side. */
-body {
-
-	display: flex;
-	flex-direction: row;
-	flex-wrap: wrap;
-	justify-content: flex-start;
-	background-color: var(--std-background-color);
-}
-
 #side_menu {
 
 	width: 20%;
@@ -285,6 +287,11 @@ body {
 	text-align: center;
 }
 
+#contact_us {
+
+	margin-bottom: 450px;
+}
+
 #website_demo {
 
 	width: 70%;
@@ -308,7 +315,7 @@ body {
 	width: 100%;
 }
 
-#logo_form img {
+#logo_form img, #team_info img {
 
 	height: 100px;
 	width: auto;
@@ -331,9 +338,15 @@ body {
 
 	width: 100%;
 	margin-bottom: var(--big-spacing);
-	padding: var(--medium-spacing);
+	padding: var(--big-spacing);
 	background-color: #ffffff;
 	border-radius: 2px;
+	box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+}
+
+#team_info .member_info {
+
+	text-align: center;
 }
 
 #team_info .member_info p,
@@ -358,14 +371,15 @@ body {
 	width: 40%;
 	margin-left: 20%;
 	top: 250px;
+	box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
 }
 
 #notification_box {
 
 	position: fixed;
 	top: 200px;
-	width: 20%;
-	left: 40%;
+	width: 40%;
+	left: 30%;
 	text-align: center;
 	background-color: white;
 	padding: var(--big-spacing);

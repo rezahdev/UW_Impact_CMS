@@ -119,6 +119,22 @@ class Main
 
 		//Scroll ot the top of the page
 		window.scrollTo(0, 0);
+
+		//Make the background color lightgray for team and event sections,, and white for other sections
+		if(title == "Team Information" || title == "Events Information")
+		{
+			if(!document.body.classList.contains("gray_background"))
+			{
+				document.body.classList.add("gray_background");
+			}
+		}
+		else
+		{
+			if(document.body.classList.contains("gray_background"))
+			{
+				document.body.classList.remove("gray_background");
+			}
+		}
 	}
 
 	logOut()
@@ -187,6 +203,12 @@ class Main
 			member.id = "member_" + responseObj.id;
 			member.classList.add("member_info");
 			team_info.appendChild(member);
+
+			//Add team member image
+			let img = document.createElement("img");
+			img.src = responseObj.picture;
+			img.classList.add("picture");
+			member.appendChild(img);
 
 			//Member name
 			let nameP = document.createElement("p");
@@ -731,12 +753,18 @@ class Main
 		//Prevent default form submission
 		event.preventDefault();
 		
+		let files = member_picture.files;
 		let formData = new FormData();
 		let path = "http://localhost/uwimpact_cms_api/updateTeamInfo.php";
 
 		formData.append("name", member_name.value);
 		formData.append("designation", member_designation.value);
 		formData.append("memberId", member_id.value);
+
+		if(files.length > 0)
+		{
+			formData.append("picture", files[0]);
+		}
 
 		if(member_id.value == 0)
 		{
@@ -764,6 +792,16 @@ class Main
 		let memberInfo = document.getElementById("member_" + responseObj.id);
 		memberInfo.getElementsByClassName("name")[0].textContent = responseObj.name;
 		memberInfo.getElementsByClassName("designation")[0].textContent = responseObj.designation;
+
+		//Remove previous picture
+		memberInfo.getElementsByTagName("img")[0].remove();
+
+		//Add the new picture
+		let img = document.createElement("img");
+		img.src = responseObj.picture;
+		img.classList.add("picture");
+		memberInfo.insertBefore(img, memberInfo.firstChild);
+		
 
 		this.closePopupForm(member_form);
 		this.showNotification("Successfully updated the member information!");
