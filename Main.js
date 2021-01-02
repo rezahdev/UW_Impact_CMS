@@ -39,7 +39,7 @@ class Main
 
 		//Add EventListeners to the popup form properties
 		submit_member_info.addEventListener("click", this.handleMemberFormSubmission.bind(this));
-		//submit_event_info.addEventListener("click", this.handleEventFormSubmission.bind(this));
+		submit_event_info.addEventListener("click", this.handleEventFormSubmission.bind(this));
 		delete_btn.addEventListener("click", this.handleDeleteFormSubmission.bind(this));
 		close_member_form_btn.addEventListener("click", function() { this.closePopupForm(member_form); }.bind(this));
 		close_event_form_btn.addEventListener("click", function() { this.closePopupForm(event_form); }.bind(this));
@@ -216,7 +216,13 @@ class Main
 		{
 			let responseObj = responseObjArr[key];
 
-			//New member_info div with the member id within team_info section
+			this.addEventToEventsInfo(responseObj);
+		}
+	}
+
+	addEventToEventsInfo(responseObj)
+	{
+		//New member_info div with the member id within team_info section
 			let event = document.createElement("div");
 			event.id = "event_" + responseObj.id;
 			event.classList.add("event_box");
@@ -293,7 +299,6 @@ class Main
 			deleteBtn.textContent = "Delete";
 			event.appendChild(deleteBtn);
 			deleteBtn.addEventListener("click", function() { this.displayPopupDeleteForm("event", responseObj.id); }.bind(this));
-		}
 	}
 
 	loadSocialMediaInfo()
@@ -363,7 +368,7 @@ class Main
 				//Clear any previous value
 				member_name.value = null;
 				member_designation.value = null;
-				member_id.value = content_id;
+				member_id.value = 0;
 				submit_member_info.value = "Save Member Information";
 			}
 			else if(form == event_form)
@@ -374,7 +379,7 @@ class Main
 				event_date.value = null;
 				event_time.value = null;
 				event_registration_link.value = null;
-				event_id.value = content_id;
+				event_id.value = 0;
 				submit_event_info.value = "Save Event Information";
 			}
 		}
@@ -601,6 +606,53 @@ class Main
 		this.closePopupForm(member_form);
 	}
 
+	handleEventFormSubmission()
+	{
+		//Prevent default form submission
+		event.preventDefault();
+		
+		let formData = new FormData();
+		let path = "http://localhost/uwimpact_cms_api/updateEventInfo.php";
+
+		formData.append("title", event_title.value);
+		formData.append("description", event_description.value);
+		formData.append("date", event_date.value);
+		formData.append("time", event_time.value);
+		formData.append("regLink", event_registration_link.value);
+		formData.append("eventId", event_id.value);
+
+		if(event_id.value == 0)
+		{
+			formData.append("mode", "add");
+			this.makeXMLHttpRequest("POST", path, formData, this.displayNewEvent.bind(this));
+		}
+		else
+		{
+			formData.append("mode", "edit");
+			this.makeXMLHttpRequest("POST", path, formData, this.displayUpdatedEventInfo.bind(this));
+		}
+	}
+
+	displayNewEvent(responseObj)
+	{
+		this.addEventToEventsInfo(responseObj);
+		this.closePopupForm(event_form);
+	}
+
+	displayUpdatedEventInfo(responseObj)
+	{
+		//The updated event_box div has a id that looks like "event_{ actual event id }".
+		//We can select the updated event_box div in events_info using this event_{ event id }.
+		let eventInfo = document.getElementById("event_" + responseObj.id);
+		eventInfo.getElementsByClassName("title")[0].textContent = responseObj.title;
+		eventInfo.getElementsByClassName("description")[0].textContent = responseObj.description;
+		eventInfo.getElementsByClassName("date")[0].textContent = responseObj.date;
+		eventInfo.getElementsByClassName("time")[0].textContent = responseObj.time;
+		eventInfo.getElementsByClassName("reg_link")[0].textContent = responseObj.regLink;
+
+		this.closePopupForm(event_form);
+	}
+
 	/**
 	 *EventHandler function to handle the submission of the delete_form
 	 *@param { event object } event The button click event object.
@@ -616,10 +668,10 @@ class Main
 		formData.append("type", delete_type.value);
 		formData.append("id", delete_id.value);
 
-		this.makeXMLHttpRequest("POST", path, formData, this.removeMember.bind(this));
+		this.makeXMLHttpRequest("POST", path, formData, this.removeInfo.bind(this));
 	}
 
-	removeMember(responseObj)
+	removeInfo(responseObj)
 	{
 		//We can find the deleted member or event by the id of the div that
 		//looks like member_{ member id } or event_{ event id }

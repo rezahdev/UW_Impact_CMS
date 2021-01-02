@@ -193,34 +193,34 @@
 			<label>Member Designation: </label>
 			<input type="text" id="member_designation">
 			<label>Member Picture: </label>
-			<input type="file" name="member_picutre" id="member_picture">
+			<input type="file" id="member_picture">
 			<input type="hidden" id="member_id" value="">
-			<input type="submit" name="submit_member_info" id="submit_member_info" value="">
+			<input type="submit" id="submit_member_info" value="">
 			<button id="close_member_form_btn">Cancel</button>
 		</form>
 		
 		<!--Popup form to add new event-->
 		<form id="event_form" class="popup_form hidden">
 			<label>Event Title: </label>
-			<input type="text" name="event_title" id="event_title">
+			<input type="text" id="event_title">
 			<label>Event Description: </label>
-			<input type="text" name="event_description" id="event_description">
+			<textarea id="event_description"></textarea>
 			<label>Event Date: </label>
-			<input type="text" name="new_event_date" id="event_date">
+			<input type="text" id="event_date">
 			<label>Event Time: </label>
-			<input type="text" name="new_event_time" id="event_time">
+			<input type="text" id="event_time">
 			<label>Event Registration Link: </label>
-			<input type="text" name="event_registration_link" id="event_registration_link">
-			<input type="hidden" name="event_id" id="event_id" value="">
-			<input type="submit" name="submit_event_info" id="submit_event_info" value="">
+			<input type="text" id="event_registration_link">
+			<input type="hidden" id="event_id" value="">
+			<input type="submit" id="submit_event_info" value="">
 			<button id="close_event_form_btn">Cancel</button>
 		</form>
 
 		<!--Popup form to give warning message before deleting a member or event-->
 		<form id="delete_form" class="popup_form hidden">
 			<label id="delete_warning"></label>
-			<input type="hidden" name="delete_type" id="delete_type" value="">
-			<input type="hidden" name="delete_id" id="delete_id" value="">
+			<input type="hidden" id="delete_type" value="">
+			<input type="hidden" id="delete_id" value="">
 			<button id="close_delete_form_btn">Cancel</button>
 			<button id="delete_btn" class="delete_btn">Delete</button>
 		</form>
