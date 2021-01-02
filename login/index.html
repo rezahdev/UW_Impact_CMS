@@ -27,13 +27,15 @@
 </html>
 
 <script>
-	if(localStorage.getItem("isUserLoggedIn"))
+	if(localStorage.getItem("userId") != null && localStorage.getItem("accessKey") != null)
 	{
 		//If the user is already logged in, redirect the user to the homepage
 		window.location = "../index.html";
 	}
 	else
 	{
+		localStorage.clear();
+		
 		document.addEventListener("DOMContentLoaded", function() {
 
 			let authObj = new Authentication();

@@ -263,14 +263,23 @@ body {
 	text-align: center;
 }
 
+#website_demo {
 
-#home button:first-of-type,
-#add_member_btn,
-#add_event_btn {
+	width: 70%;
+	height: auto;
+	margin-left: 15%;
+	margin-top: var(--big-spacing);
+}
+
+
+#home button:first-of-type {
 
 	margin-left: 15%;
+}
+
+#add_member_btn, #add_event_btn {
+
 	margin-bottom: var(--big-spacing);
-	padding: 5px 25px 5px 25px;
 }
 
 #logo_form img {
@@ -285,11 +294,16 @@ body {
 	margin-top: var(--medium-spacing);
 }
 
-#team_info .member_info,
-#events_info .event_box {
+#team_info, #events_info{
 
 	width: 70%;
 	margin-left: 15%;
+}
+
+#team_info .member_info,
+#events_info .event_box {
+
+	width: 100%;
 	margin-bottom: var(--big-spacing);
 	padding: var(--medium-spacing);
 	background-color: #ffffff;
@@ -309,9 +323,14 @@ body {
 
 @media(max-width: 1200px)
 {
-	form {
+	form, #team_info, #events_info, #website_demo {
 
 		width: 96%;
 		margin-left: 2%;
+	}
+
+	#add_member_btn, #add_event_btn {
+
+		margin-left: 0;
 	}
 }

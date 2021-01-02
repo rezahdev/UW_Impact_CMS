@@ -21,7 +21,7 @@ class Main
 		messages_btn.addEventListener("click", function() { this.displaySection("messages", "Messages"); }.bind(this));
 		contact_us_btn.addEventListener("click", function() { this.displaySection("contact_us", "Contact Us"); }.bind(this));
 		change_password_btn.addEventListener("click", function() { this.displaySection("change_password", "Change Password"); }.bind(this));
-
+		logout_btn.addEventListener("click", this.logOut);
 		//Add EventListeners to other buttons
 		add_member_btn.addEventListener("click", function() { this.displayPopupForm(member_form); }.bind(this));
 		add_event_btn.addEventListener("click", function() { this.displayPopupForm(event_form); }.bind(this));
@@ -51,6 +51,7 @@ class Main
 		close_delete_form_btn.addEventListener("click", function() { this.closePopupForm(delete_form); }.bind(this));
 
 		//Load current information from the database
+		website_demo.src = localStorage.getItem("websiteURL");
 		this.loadBasicInfo();
 		this.loadTeamInfo();
 		this.loadEventsInfo();
@@ -60,7 +61,7 @@ class Main
 
 	//////////////////////////////////////////////////////////////////////////////
 	//
-	//EVENT HANDLER FUNCTIONS
+	//FUNCTIONS FOR HANDLING MENU BUTTON CLICKS
 	//
 	/////////////////////////////////////////////////////////////////////////////
 
@@ -113,6 +114,12 @@ class Main
 				li.classList.remove("active");
 			}
 		} 
+	}
+
+	logOut()
+	{
+		localStorage.clear();
+		window.location = "login/index.html";
 	}
 
 	//////////////////////////////////////////////////////////////////////////////

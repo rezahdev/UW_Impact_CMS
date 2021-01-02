@@ -23,7 +23,7 @@
 				<li id="messages_btn">Messages</li>
 				<li id="contact_us_btn">Contact Us</li>
 				<li id="change_password_btn">Change Password</li>
-				<li><a href="exit/index.html">Log Out</a></li>
+				<li id="logout_btn">Log Out</li>
 			</ul>
 		</div>
 
@@ -47,6 +47,8 @@
 				<button>Continue</button>
 				<button>Go to Our Website</button>
 				<button>Learn More</button>
+
+				<iframe id="website_demo"></iframe>
 			</div>
 
 			<div id="basic_info">
@@ -58,37 +60,37 @@
 
 					<label>Upload New Logo: </label>
 					<input type="file" name="group_logo">
-					<input type="submit" name="submit_group_logo" value="Update Logo">
+					<input type="submit" name="submit_group_logo" value="Upload">
 				</form>
 
 				<form id="name_form">
 					<label>Name: </label>
 					<input type="text" id="group_name">
-					<input type="submit" id="submit_group_name" value="Update Name">
+					<input type="submit" id="submit_group_name" value="Update">
 				</form>
 
 				<form id="name_initial_form">
 					<label>Initial: </label>
 					<input type="text" id="group_initial">
-					<input type="submit" id="submit_group_initial" value="Update Initial">
+					<input type="submit" id="submit_group_initial" value="Update">
 				</form>
 
 				<form id="description_form">
 					<label>Description: </label>
 					<textarea id="description"></textarea>
-					<input type="submit" id="submit_description" value="Update Description">
+					<input type="submit" id="submit_description" value="Update">
 				</form>
 
 				<form id="mission_statement_form">
 					<label>Mission Statement: </label>
 					<textarea id="mission_statement"></textarea>
-					<input type="submit" id="submit_mission_statement" value="Update Mission Statement">
+					<input type="submit" id="submit_mission_statement" value="Update">
 				</form>
 
 				<form id="vision_statement_form">
 					<label>Vision Statement: </label>
 					<textarea id="vision_statement"></textarea>
-					<input type="submit" id="submit_vision_statement" value="Update Vision Statement">
+					<input type="submit" id="submit_vision_statement" value="Update">
 				</form>
 
 				<!--A statement describing why to join this student group-->
@@ -135,31 +137,31 @@
 				<form id="facebook_link_form">
 					<label>Facebook Link: </label>
 					<input type="text" id="facebook_link">
-					<input type="submit" id="submit_facebook_link" value="Update Facebook Link">
+					<input type="submit" id="submit_facebook_link" value="Update">
 				</form>
 
 				<form id="instagram_link_form">
 					<label>Instagram Link: </label>
 					<input type="text" id="instagram_link">
-					<input type="submit" id="submit_instagram_link" value="Update Instagram Link">
+					<input type="submit" id="submit_instagram_link" value="Update">
 				</form>
 
 				<form id="twitter_link_form">
 					<label>Twitter Link: </label>
 					<input type="text" id="twitter_link">
-					<input type="submit" id="submit_twitter_link" value="Update Twitter Link">
+					<input type="submit" id="submit_twitter_link" value="Update">
 				</form>
 
 				<form id="linkedin_link_form">
 					<label>Linkedin Link: </label>
 					<input type="text" id="linkedin_link">
-					<input type="submit" id="submit_linkedin_link" value="Update Linkedin Link">
+					<input type="submit" id="submit_linkedin_link" value="Update">
 				</form>
 
 				<form id="email_address_form">
 					<label>Email Address: </label>
 					<input type="text" id="email_address">
-					<input type="submit" id="submit_email_address" value="Update Email Adress">
+					<input type="submit" id="submit_email_address" value="Update">
 				</form>
 			</div>
 
@@ -175,7 +177,7 @@
 					<input type="password" id="new_password">
 					<label>Confirm Password: </label>
 					<input type="password" id="confirm_password">
-					<input type="submit" id="submit_new_password" value="Update Password">
+					<input type="submit" id="submit_new_password" value="Change Password">
 				</form>
 			</div>
 
@@ -230,8 +232,10 @@
 </html>
 
 <script>
-	if(!localStorage.getItem("isUserLoggedIn"))
+	if(localStorage.getItem("userId") == null || localStorage.getItem("accessKey") == null)
 	{
+		localStorage.clear();
+
 		//If the user is already logged in, redirect the user to the homepage
 		window.location = "login/index.html";
 	}
