@@ -27,6 +27,7 @@ class Main
 		add_event_btn.addEventListener("click", function() { this.displayPopupForm(event_form); }.bind(this));
 
 		//Add EventListeners for form submissiona
+		submit_group_logo.addEventListener("click", this.handleGroupLogoSubmission.bind(this));
 		submit_group_name.addEventListener("click", this.handleGroupNameSubmission.bind(this));
 		submit_group_initial.addEventListener("click", this.handleGroupInitialSubmission.bind(this));
 		submit_description.addEventListener("click", this.handleDescriptionSubmission.bind(this));
@@ -143,6 +144,13 @@ class Main
 
 	plotBasicInfo(responseObj)
 	{
+		//Display the logo
+		let logo = document.createElement("img");
+		logo.src = responseObj.logoSrc;
+		logo.id = "logo";
+		logo_form.insertBefore(logo, logo_form.firstChild);
+
+		//Display rest of the information
 		group_name.value = responseObj.name;
 		group_initial.value = responseObj.initial;
 		description.value = responseObj.description;
@@ -478,6 +486,49 @@ class Main
 	//FUNCTIONS FOR HANDLING NORMAL FORMS
 	//
 	/////////////////////////////////////////////////////////////////////////////
+
+	handleGroupLogoSubmission()
+	{
+		//Prevent default form submission
+		event.preventDefault();
+
+		let formData = new FormData();
+		let path = "http://localhost/uwimpact_cms_api/updateBasicInfo.php";
+
+		let files = group_logo.files;
+
+		if(files.length > 0)
+		{
+			formData.append("field", "logo");
+			formData.append("logo", files[0]);
+
+			this.makeXMLHttpRequest("POST", path, formData, this.onLogoUploadSuccess.bind(this));
+		}
+		else
+		{
+			this.showNotification("Please choose an image!");
+		}
+	}
+
+	onLogoUploadSuccess(responseObj)
+	{
+		if(responseObj.logoSrc != null)
+		{
+			//Remove previous logo and display the new logo
+			logo_form.getElementsByTagName("img")[0].remove();
+
+			let logo = document.createElement("img");
+			logo.src = responseObj.logoSrc;
+			logo.id = "logo";
+			logo_form.insertBefore(logo, logo_form.firstChild);
+
+			this.showNotification("Successfully uploaded the new logo!");
+		}
+		else
+		{
+			this.showNotification(responseObj);
+		}
+	}
 
 	handleGroupNameSubmission() 
 	{ 
@@ -833,12 +884,19 @@ class Main
 				{
 					if(success_handler)
 					{
-						let responseObj = JSON.parse(xhr.response);
-						success_handler(responseObj);	
+						//try 
+						//{
+							let responseObj = JSON.parse(xhr.response);
+							success_handler(responseObj);
+						//}	
+						//catch(err)
+						//{
+							//this.showNotification(xhr.response);
+						//}
 					}	
 					else
 					{
-						this.showNotification("Update successful!");
+						this.showNotification(xhr.response);
 					}		    
 				}
 				else
