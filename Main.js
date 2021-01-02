@@ -25,9 +25,6 @@ class Main
 		//Add EventListeners to other buttons
 		add_member_btn.addEventListener("click", function() { this.displayPopupForm(member_form); }.bind(this));
 		add_event_btn.addEventListener("click", function() { this.displayPopupForm(event_form); }.bind(this));
-		close_member_form_btn.addEventListener("click", function() { this.closePopupForm(member_form); }.bind(this));
-		close_event_form_btn.addEventListener("click", function() { this.closePopupForm(event_form); }.bind(this));
-		close_delete_form_btn.addEventListener("click", function() { this.closePopupForm(delete_form); }.bind(this));
 
 		//Add EventListeners for form submissiona
 		submit_group_name.addEventListener("click", this.handleGroupNameSubmission.bind(this));
@@ -39,7 +36,14 @@ class Main
 		submit_who_can_join.addEventListener("click", this.handleWhoCanJoinSubmission.bind(this));
 		submit_how_to_join.addEventListener("click", this.handleHowToJoinSubmission.bind(this));
 		submit_meeting_info.addEventListener("click", this.handleMeetingInfoSubmission.bind(this));
-		delete_btn.addEventListener("click", this.handleDeleteFormSubmission);
+
+		//Add EventListeners to the popup form properties
+		submit_member_info.addEventListener("click", this.handleMemberFormSubmission.bind(this));
+		//submit_event_info.addEventListener("click", this.handleEventFormSubmission.bind(this));
+		delete_btn.addEventListener("click", this.handleDeleteFormSubmission.bind(this));
+		close_member_form_btn.addEventListener("click", function() { this.closePopupForm(member_form); }.bind(this));
+		close_event_form_btn.addEventListener("click", function() { this.closePopupForm(event_form); }.bind(this));
+		close_delete_form_btn.addEventListener("click", function() { this.closePopupForm(delete_form); }.bind(this));
 
 		//Load current information from the database
 		this.loadBasicInfo();
@@ -342,7 +346,6 @@ class Main
 				member_designation.value = member_info.getElementsByClassName("designation")[0].textContent;
 				member_id.value = content_id;
 				submit_member_info.value = "Update";
-				submit_member_info.addEventListener("click", this.handleEditMemberFormSubmission);
 			}
 			else if(content_id != 0 && form == event_form)
 			{
@@ -354,7 +357,6 @@ class Main
 				event_registration_link.value = event_info.getElementsByClassName("reg_link")[0].textContent;
 				event_id.value = content_id;
 				submit_event_info.value = "Update";
-				submit_event_info.addEventListener("click", this.handleEditEventFormSubmission);
 			}
 			else if(form == member_form)
 			{
@@ -363,7 +365,6 @@ class Main
 				member_designation.value = null;
 				member_id.value = content_id;
 				submit_member_info.value = "Save Member Information";
-				submit_member_info.addEventListener("click", this.handleAddMemberFormSubmission.bind(this));
 			}
 			else if(form == event_form)
 			{
@@ -375,7 +376,6 @@ class Main
 				event_registration_link.value = null;
 				event_id.value = content_id;
 				submit_event_info.value = "Save Event Information";
-				submit_event_info.addEventListener("click", this.handleAddEventFormSubmission);
 			}
 		}
 	}
@@ -560,24 +560,43 @@ class Main
 		this.makeXMLHttpRequest("POST", path, formData);
 	}
 
-	handleAddMemberFormSubmission()
+	handleMemberFormSubmission()
 	{
 		//Prevent default form submission
 		event.preventDefault();
 		
 		let formData = new FormData();
-		let path = "http://localhost/uwimpact_cms_api/updateTeamInfo.php?mode=add";
+		let path = "http://localhost/uwimpact_cms_api/updateTeamInfo.php";
 
 		formData.append("name", member_name.value);
 		formData.append("designation", member_designation.value);
 		formData.append("memberId", member_id.value);
 
-		this.makeXMLHttpRequest("POST", path, formData, this.displayNewMember.bind(this));
+		if(member_id.value == 0)
+		{
+			formData.append("mode", "add");
+			this.makeXMLHttpRequest("POST", path, formData, this.displayNewMember.bind(this));
+		}
+		else
+		{
+			formData.append("mode", "edit");
+			this.makeXMLHttpRequest("POST", path, formData, this.displayUpdatedMemberInfo.bind(this));
+		}
 	}
 
 	displayNewMember(responseObj)
 	{
 		this.addMemberToTeamInfo(responseObj);
+		this.closePopupForm(member_form);
+	}
+
+	displayUpdatedMemberInfo(responseObj)
+	{
+		//The updated member_info div has a id that looks like "member_{ actual member id }".
+		//We can select the updated member_info div in team_info using this member_{member id}.
+		let memberInfo = document.getElementById("member_" + responseObj.id);
+		memberInfo.getElementsByClassName("name")[0].textContent = responseObj.name;
+		memberInfo.getElementsByClassName("designation")[0].textContent = responseObj.designation;
 
 		this.closePopupForm(member_form);
 	}
@@ -586,9 +605,34 @@ class Main
 	 *EventHandler function to handle the submission of the delete_form
 	 *@param { event object } event The button click event object.
 	 */
-	handleDeleteFormSubmission(event)
+	handleDeleteFormSubmission()
 	{
-		//Function not complete
+		//Prevent default form submission
+		event.preventDefault();
+		
+		let formData = new FormData();
+		let path = "http://localhost/uwimpact_cms_api/delete.php";
+
+		formData.append("type", delete_type.value);
+		formData.append("id", delete_id.value);
+
+		this.makeXMLHttpRequest("POST", path, formData, this.removeMember.bind(this));
+	}
+
+	removeMember(responseObj)
+	{
+		//We can find the deleted member or event by the id of the div that
+		//looks like member_{ member id } or event_{ event id }
+		if(responseObj.type == "member")
+		{
+			document.getElementById("member_" + responseObj.id).remove();
+		}
+		else
+		{
+			document.getElementById("event_" + responseObj.id).remove();
+		}
+
+		this.closePopupForm(delete_form);
 	}
 
 
