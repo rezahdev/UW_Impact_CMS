@@ -288,7 +288,7 @@ body {
 #website_demo {
 
 	width: 70%;
-	height: 390px;
+	height: 420px;
 	margin-left: 15%;
 	margin-top: var(--big-spacing);
 	margin-bottom: var(--big-spacing);
@@ -355,6 +355,8 @@ body {
 
 #delete_form {
 
+	width: 40%;
+	margin-left: 20%;
 	top: 250px;
 }
 
@@ -375,6 +377,12 @@ body {
 
 	background-color: forestgreen;
 	border-color: forestgreen;
+}
+
+#close_notification_btn:hover {
+
+	background-color: var(--normal-button-color);
+	border-color: var(--normal-button-color);
 }
 
 footer {
