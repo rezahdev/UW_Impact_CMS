@@ -213,7 +213,7 @@ body {
 
 	list-style-type: none;
 	color: #ffffff;
-	padding: var(--big-spacing);
+	padding: var(--medium-spacing);
 	cursor: pointer;
 }
 
@@ -248,16 +248,17 @@ body {
 #contact_us h2 {
 
 	padding: var(--big-spacing);
+	padding-top: 0;
 	text-align: center;
 }
 
 #home p,
 #contact_us p {
 
-	width: 70%;
-	margin-left: 15%;
+	width: 96%;
+	margin-left: 2%;
 	border-radius: 5px;
-   color: #ffffff;
+    color: #ffffff;
 	background-color: var(--aux-background-color);
 	padding: var(--big-spacing);
 	text-align: center;
@@ -266,9 +267,10 @@ body {
 #website_demo {
 
 	width: 70%;
-	height: auto;
+	height: 420px;
 	margin-left: 15%;
 	margin-top: var(--big-spacing);
+	margin-bottom: var(--big-spacing);
 }
 
 
