@@ -26,10 +26,6 @@
 				<li id="logout_btn">Log Out</li>
 			</ul>
 		</div>
-
-		<div id="copyright_disclaimer">
-			<p>&copy;All Rights Reserved 2020. Designed and Developed by Reza S. Hossain, Distributed by UW Impact.</p>
-		</div>
 	</div>
 
 	<div id="content_container">
@@ -119,7 +115,7 @@
 			</div>
 
 			<div id="team_info">
-				<button id="add_member_btn">Add New Member</button>
+				<button id="add_member_btn">Add New Team Member</button>
 
 				<!--More HTML COntent in this part would be dynamically filled by JavaScript-->
 			</div>
@@ -183,6 +179,10 @@
 
 				<p>If you need any further assistance or if you have any question, please feel free to reach out to UW Impact team anytime via our social media accounts (Instagram: @uwimpact) or via email at info.uwimpact@gmail.com. We are here to help you. </p>
 			</div>
+
+			<footer id="copyright_disclaimer">
+				<p>&copy;All Rights Reserved 2020. Designed and Developed by Reza S. Hossain, Distributed by UW Impact.</p>
+			</footer>
 		</div>
 
 		<!--Pop up form to add team member name and designation-->
@@ -195,7 +195,7 @@
 			<input type="file" id="member_picture">
 			<input type="hidden" id="member_id" value="">
 			<input type="submit" id="submit_member_info" value="">
-			<button id="close_member_form_btn">Cancel</button>
+			<button id="close_member_form_btn" class="cancel_btn">Cancel</button>
 		</form>
 		
 		<!--Popup form to add new event-->
@@ -212,7 +212,7 @@
 			<input type="text" id="event_registration_link">
 			<input type="hidden" id="event_id" value="">
 			<input type="submit" id="submit_event_info" value="">
-			<button id="close_event_form_btn">Cancel</button>
+			<button id="close_event_form_btn" class="cancel_btn">Cancel</button>
 		</form>
 
 		<!--Popup form to give warning message before deleting a member or event-->
@@ -220,9 +220,15 @@
 			<label id="delete_warning"></label>
 			<input type="hidden" id="delete_type" value="">
 			<input type="hidden" id="delete_id" value="">
-			<button id="close_delete_form_btn">Cancel</button>
-			<button id="delete_btn" class="delete_btn">Delete</button>
+			<button id="delete_btn" class="delete_btn_major">Delete</button>
+			<button id="close_delete_form_btn" class="cancel_btn">Cancel</button>
 		</form>
+
+		<!--Popup notification box to display notifications-->
+		<div id="notification_box" class="hidden">
+			<p id="notification">This is a notification</p>
+			<button id="close_notification_btn">Close</button>
+		</div>
 
 	</div>
 </body>

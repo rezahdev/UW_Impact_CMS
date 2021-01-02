@@ -49,6 +49,7 @@ class Main
 		close_member_form_btn.addEventListener("click", function() { this.closePopupForm(member_form); }.bind(this));
 		close_event_form_btn.addEventListener("click", function() { this.closePopupForm(event_form); }.bind(this));
 		close_delete_form_btn.addEventListener("click", function() { this.closePopupForm(delete_form); }.bind(this));
+		close_notification_btn.addEventListener("click", function() { this.closePopupForm(notification_box); }.bind(this));
 
 		//Load current information from the database
 		website_demo.src = localStorage.getItem("websiteURL");
@@ -114,6 +115,9 @@ class Main
 				li.classList.remove("active");
 			}
 		} 
+
+		//Scroll ot the top of the page
+		window.scrollTo(0, 0);
 	}
 
 	logOut()
@@ -343,7 +347,6 @@ class Main
 	 */
 	displayPopupForm(form, content_id = 0)
 	{
-		//If the content_body is blurry, that means another popup form is already open
 		if(!this.isPopupFormOpen)
 		{
 			form.classList.remove("hidden");
@@ -404,7 +407,6 @@ class Main
 	 */
 	displayPopupDeleteForm(type, id)
 	{
-		//If content_body is blurred, that means another popup form is already open
 		if(!this.isPopupFormOpen)
 		{
 			//Display the delete form
@@ -426,6 +428,23 @@ class Main
 				delete_type.value = "event";
 				delete_id.value = id;
 			}
+
+			//Make the content_body blurry
+			content_body.classList.add("blurry");
+		}
+	}
+
+	showNotification(message)
+	{
+		if(notification_box.classList.contains("hidden"))
+		{
+			//Display the delete form
+			notification_box.classList.remove("hidden");
+			notification_box.classList.add("visible");
+			notification.textContent = message;
+			
+			this.isPopupFormOpen = true;
+			this.openedPopupForm = notification_box;
 
 			//Make the content_body blurry
 			content_body.classList.add("blurry");
@@ -684,6 +703,7 @@ class Main
 	{
 		this.addMemberToTeamInfo(responseObj);
 		this.closePopupForm(member_form);
+		this.showNotification("Successfully added the new member!");
 	}
 
 	displayUpdatedMemberInfo(responseObj)
@@ -695,6 +715,7 @@ class Main
 		memberInfo.getElementsByClassName("designation")[0].textContent = responseObj.designation;
 
 		this.closePopupForm(member_form);
+		this.showNotification("Successfully updated the member information!");
 	}
 
 	handleEventFormSubmission()
@@ -728,6 +749,7 @@ class Main
 	{
 		this.addEventToEventsInfo(responseObj);
 		this.closePopupForm(event_form);
+		this.showNotification("Successfully added the new event!");
 	}
 
 	displayUpdatedEventInfo(responseObj)
@@ -742,6 +764,7 @@ class Main
 		eventInfo.getElementsByClassName("reg_link")[0].textContent = responseObj.regLink;
 
 		this.closePopupForm(event_form);
+		this.showNotification("Successfully updated the event information!");
 	}
 
 	/**
@@ -776,6 +799,7 @@ class Main
 		}
 
 		this.closePopupForm(delete_form);
+		this.showNotification("Successfully deleted from the database!");
 	}
 
 
@@ -807,12 +831,15 @@ class Main
 			{
 				if(xhr.response != "ERROR")
 				{
-					console.log(xhr.response);
 					if(success_handler)
 					{
 						let responseObj = JSON.parse(xhr.response);
 						success_handler(responseObj);	
-					}			    
+					}	
+					else
+					{
+						this.showNotification("Update successful!");
+					}		    
 				}
 				else
 				{

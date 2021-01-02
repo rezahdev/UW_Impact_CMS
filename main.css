@@ -8,9 +8,9 @@
 :root {
 
 	--submit-button-color: green;
-	--normal-button-color: cornflowerblue;
+	--normal-button-color: #3f72af;
 	--menu-button-color: white;
-	--std-background-color: lightgray;
+	--std-background-color: #ffffff;
 	--aux-background-color: #61b15a;
 	--big-spacing: 20px;
 	--medium-spacing: 10px;
@@ -45,16 +45,17 @@ button {
 	margin-top: var(--big-spacing);
 	margin-right: var(--medium-spacing);
 	padding: 2px 25px 2px 25px;
+	width: 100px;
 	background-color: var(--normal-button-color);
-	border: none;
-	border-radius: 2px;
-	color: #ffffff;
-	cursor: pointer;
+	border: 2px solid var(--normal-button-color);
+	border-radius: 4px;
+	color: white;
 }
 
 button:hover {
 
-	background-color: var(--aux-background-color);
+	background-color: forestgreen;
+	border-color: forestgreen;
 }
 
 form {
@@ -80,8 +81,8 @@ textarea {
 
 	width: 100%;
 	padding: var(--medium-spacing);
-	background-color: lightgray;
-	border: none;
+	background-color: #ffffff;
+	border: 2px solid cornflowerblue;
 	border-radius: 2px;
 }
 
@@ -96,24 +97,24 @@ input[type="submit"] {
 	margin-top: var(--medium-spacing);
 	padding: 2px 25px 2px 25px;
 	background-color: var(--normal-button-color);
-	color: #ffffff;
-	border: none;
-	border-radius: 2px;
-	cursor: pointer;
+	border: 2px solid var(--normal-button-color);
+	border-radius: 4px;
+	color: white;
 }
 
 input[type="submit"]:hover {
 
-	background-color: var(--aux-background-color);
+	background-color: forestgreen;
+	border-color: forestgreen;
 }
 
 .popup_form {
 
 	position: fixed;
-	top: 100px;
-	left: 15%;
+	left: 10%;
 	width: 50%;
 	padding: var(--big-spacing);
+	border: 2px solid var(--aux-background-color);
 }
 
 .popup_form label {
@@ -138,12 +139,44 @@ input[type="submit"]:hover {
 
 .delete_btn {
 
-	background-color: orange;
+	background-color: #ffffff;
+	border-color: #db6400;
+	color: #db6400;
 }
 
 .delete_btn:hover {
 
-	background-color: red;
+	background-color: #db6400;
+	border-color: #db6400;
+	color: white;
+}
+
+.delete_btn_major {
+
+	background-color: #db6400;
+	border-color: #db6400;
+	color: #ffffff;
+}
+
+.delete_btn_major:hover {
+
+	background-color: #e84545;
+	border-color: #e84545;
+	color: white;
+}
+
+.cancel_btn {
+
+	background-color: #ffffff;
+	border-color: var(--normal-button-color);
+	color: var(--normal-button-color);
+}
+
+.cancel_btn:hover {
+
+	background-color: var(--normal-button-color);
+	border-color: var(--normal-button-color);
+	color: white;
 }
 
 .font_bold {
@@ -156,12 +189,6 @@ input[type="submit"]:hover {
 	font-weight: normal;
 }
 
-.link_disabled {
-
-	pointer-events: none;
-	text-decoration: none;
-	color: #000;
-}
 /*------------------------------------------------------------*/
 
 
@@ -203,17 +230,11 @@ body {
 	font-size: var(--max-font-size);
 }
 
-#side_menu p {
-
-	text-align: center;
-	padding: var(--small-spacing);
-}
-
 #menu_buttons li {
 
 	list-style-type: none;
 	color: #ffffff;
-	padding: var(--medium-spacing);
+	padding: var(--big-spacing);
 	cursor: pointer;
 }
 
@@ -267,7 +288,7 @@ body {
 #website_demo {
 
 	width: 70%;
-	height: 420px;
+	height: 390px;
 	margin-left: 15%;
 	margin-top: var(--big-spacing);
 	margin-bottom: var(--big-spacing);
@@ -281,7 +302,10 @@ body {
 
 #add_member_btn, #add_event_btn {
 
+	margin-top: 0;
 	margin-bottom: var(--big-spacing);
+	padding: var(--medium-spacing);
+	width: 100%;
 }
 
 #logo_form img {
@@ -317,6 +341,49 @@ body {
 
 	color: black;
 	margin-top: var(--medium-spacing);
+}
+
+#member_form {
+
+	top: 150px;
+}
+
+#event_form {
+
+	top: 25px;
+}
+
+#delete_form {
+
+	top: 250px;
+}
+
+#notification_box {
+
+	position: fixed;
+	top: 200px;
+	width: 20%;
+	left: 40%;
+	text-align: center;
+	background-color: white;
+	padding: var(--big-spacing);
+	border: 3px solid green;
+	border-radius: 5px;
+}
+
+#close_notification_btn {
+
+	background-color: forestgreen;
+	border-color: forestgreen;
+}
+
+footer {
+
+	background-color: var(--aux-background-color);
+	color: white;
+	text-align: center;
+	padding-top: var(--big-spacing);
+	padding-bottom: var(--big-spacing);
 }
 
 /*-----------------------------------------------
