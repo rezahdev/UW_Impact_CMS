@@ -62,6 +62,12 @@ class Main
 
 		//Show website demo in IFrame website_demo
 		website_demo.src = localStorage.getItem("websiteURL");
+
+		if(window.innerWidth < 800)
+		{
+			let message = "This site is primarily made for wider screens. For better usability, we recommend using a computer browser.";
+			this.showNotification(message);
+		}
 	}
 
 
@@ -379,10 +385,10 @@ class Main
 			let nameP = document.createElement("p");
 			let emailP = document.createElement("p");
 			let messageP = document.createElement("p");
-			dateP.textContent = responseObj.dateTime;
-			nameP.textContent = responseObj.name;
-			emailP.textContent = responseObj.email;
-			messageP.textContent = responseObj.message;
+			dateP.textContent = "Date: " + responseObj.dateTime;
+			nameP.textContent = "Sender Name: " + responseObj.name;
+			emailP.textContent = "Sender Email: " + responseObj.email;
+			messageP.textContent = "Message: " + responseObj.message;
 			messageDiv.appendChild(dateP);
 			messageDiv.appendChild(nameP);
 			messageDiv.appendChild(emailP);
