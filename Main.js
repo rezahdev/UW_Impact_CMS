@@ -3,9 +3,9 @@
  */
 class Main 
 {
-
 	constructor() 
 	{
+		this.api_path = "api/";
 		this.isPopupFormOpen = false;
 		this.openedPopupForm = null;
 
@@ -143,7 +143,7 @@ class Main
 	loadBasicInfo()
 	{
 		let formData = new FormData();
-		let path = "http://localhost/uwimpact_cms_api/retrieveBasicInfo.php";
+		let path = this.api_path + "retrieveBasicInfo.php";
 
 		this.makeXMLHttpRequest("POST", path, formData, this.plotBasicInfo);
 	}
@@ -171,7 +171,7 @@ class Main
 	loadTeamInfo()
 	{
 		let formData = new FormData();
-		let path = "http://localhost/uwimpact_cms_api/retrieveTeamInfo.php";
+		let path = this.api_path + "retrieveTeamInfo.php";
 
 		this.makeXMLHttpRequest("POST", path, formData, this.plotTeamInfo.bind(this));
 	}
@@ -241,7 +241,7 @@ class Main
 	loadEventsInfo()
 	{
 		let formData = new FormData();
-		let path = "http://localhost/uwimpact_cms_api/retrieveEventsInfo.php";
+		let path = this.api_path + "retrieveEventsInfo.php";
 
 		this.makeXMLHttpRequest("POST", path, formData, this.plotEventsInfo.bind(this));
 	}
@@ -340,7 +340,7 @@ class Main
 	loadSocialMediaInfo()
 	{
 		let formData = new FormData();
-		let path = "http://localhost/uwimpact_cms_api/retrieveSocialMediaInfo.php";
+		let path = this.api_path + "retrieveSocialMediaInfo.php";
 
 		this.makeXMLHttpRequest("POST", path, formData, this.plotSocialMediaInfo);
 	}
@@ -357,7 +357,7 @@ class Main
 	loadMessages()
 	{
 		let formData = new FormData();
-		let path = "http://localhost/uwimpact_cms_api/retrieveMessages.php";
+		let path = this.api_path + "retrieveMessages.php";
 
 		this.makeXMLHttpRequest("POST", path, formData, this.plotMessages.bind(this));
 	}
@@ -541,7 +541,7 @@ class Main
 		event.preventDefault();
 
 		let formData = new FormData();
-		let path = "http://localhost/uwimpact_cms_api/updateBasicInfo.php";
+		let path = this.api_path + "updateBasicInfo.php";
 
 		let files = group_logo.files;
 
@@ -584,7 +584,7 @@ class Main
 		event.preventDefault();
 
 		let formData = new FormData();
-		let path = "http://localhost/uwimpact_cms_api/updateBasicInfo.php";
+		let path = this.api_path + "updateBasicInfo.php";
 
 		formData.append("field", "name");
 		formData.append("value", group_name.value);
@@ -598,7 +598,7 @@ class Main
 		event.preventDefault();
 		
 		let formData = new FormData();
-		let path = "http://localhost/uwimpact_cms_api/updateBasicInfo.php";
+		let path = this.api_path + "updateBasicInfo.php";
 
 		formData.append("field", "initial");
 		formData.append("value", group_initial.value);
@@ -612,7 +612,7 @@ class Main
 		event.preventDefault();
 		
 		let formData = new FormData();
-		let path = "http://localhost/uwimpact_cms_api/updateBasicInfo.php";
+		let path = this.api_path + "updateBasicInfo.php";
 
 		formData.append("field", "description");
 		formData.append("value", description.value);
@@ -626,7 +626,7 @@ class Main
 		event.preventDefault();
 		
 		let formData = new FormData();
-		let path = "http://localhost/uwimpact_cms_api/updateBasicInfo.php";
+		let path = this.api_path + "updateBasicInfo.php";
 
 		formData.append("field", "missionStatement");
 		formData.append("value", mission_statement.value);
@@ -640,7 +640,7 @@ class Main
 		event.preventDefault();
 		
 		let formData = new FormData();
-		let path = "http://localhost/uwimpact_cms_api/updateBasicInfo.php";
+		let path = this.api_path + "updateBasicInfo.php";
 
 		formData.append("field", "visionStatement");
 		formData.append("value", vision_statement.value);
@@ -654,7 +654,7 @@ class Main
 		event.preventDefault();
 		
 		let formData = new FormData();
-		let path = "http://localhost/uwimpact_cms_api/updateBasicInfo.php";
+		let path = this.api_path + "updateBasicInfo.php";
 
 		formData.append("field", "whyJoinUs");
 		formData.append("value", why_join_us.value);
@@ -668,7 +668,7 @@ class Main
 		event.preventDefault();
 		
 		let formData = new FormData();
-		let path = "http://localhost/uwimpact_cms_api/updateBasicInfo.php";
+		let path = this.api_path + "updateBasicInfo.php";
 
 		formData.append("field", "whoCanJoin");
 		formData.append("value", who_can_join.value);
@@ -682,7 +682,7 @@ class Main
 		event.preventDefault();
 		
 		let formData = new FormData();
-		let path = "http://localhost/uwimpact_cms_api/updateBasicInfo.php";
+		let path = this.api_path + "updateBasicInfo.php";
 
 		formData.append("field", "howToJoin");
 		formData.append("value", how_to_join.value);
@@ -696,7 +696,7 @@ class Main
 		event.preventDefault();
 		
 		let formData = new FormData();
-		let path = "http://localhost/uwimpact_cms_api/updateBasicInfo.php";
+		let path = this.api_path + "updateBasicInfo.php";
 
 		formData.append("field", "meetingInfo");
 		formData.append("value", meeting_info.value);
@@ -710,7 +710,7 @@ class Main
 		event.preventDefault();
 		
 		let formData = new FormData();
-		let path = "http://localhost/uwimpact_cms_api/updateSocialMediaInfo.php";
+		let path = this.api_path + "updateSocialMediaInfo.php";
 
 		formData.append("field", "facebook");
 		formData.append("value", facebook_link.value);
@@ -724,7 +724,7 @@ class Main
 		event.preventDefault();
 		
 		let formData = new FormData();
-		let path = "http://localhost/uwimpact_cms_api/updateSocialMediaInfo.php";
+		let path = this.api_path + "updateSocialMediaInfo.php";
 
 		formData.append("field", "instagram");
 		formData.append("value", instagram_link.value);
@@ -738,7 +738,7 @@ class Main
 		event.preventDefault();
 		
 		let formData = new FormData();
-		let path = "http://localhost/uwimpact_cms_api/updateSocialMediaInfo.php";
+		let path = this.api_path + "updateSocialMediaInfo.php";
 
 		formData.append("field", "twitter");
 		formData.append("value", twitter_link.value);
@@ -752,7 +752,7 @@ class Main
 		event.preventDefault();
 		
 		let formData = new FormData();
-		let path = "http://localhost/uwimpact_cms_api/updateSocialMediaInfo.php";
+		let path = this.api_path + "updateSocialMediaInfo.php";
 
 		formData.append("field", "linkedin");
 		formData.append("value", linkedin_link.value);
@@ -768,7 +768,7 @@ class Main
 		if(this.isValidEmail(email_address.value))
 		{
 			let formData = new FormData();
-			let path = "http://localhost/uwimpact_cms_api/updateSocialMediaInfo.php";
+			let path = this.api_path + "updateSocialMediaInfo.php";
 
 			formData.append("field", "email");
 			formData.append("value", email_address.value);
@@ -805,7 +805,7 @@ class Main
 		else
 		{
 			let formData = new FormData();
-			let path = "http://localhost/uwimpact_cms_api/updatePassword.php";
+			let path = this.api_path + "updatePassword.php";
 
 			formData.append("currentPassword", current_password.value);
 			formData.append("newPassword", new_password.value);
@@ -833,7 +833,7 @@ class Main
 		
 		let files = member_picture.files;
 		let formData = new FormData();
-		let path = "http://localhost/uwimpact_cms_api/updateTeamInfo.php";
+		let path = this.api_path + "updateTeamInfo.php";
 
 		formData.append("name", member_name.value);
 		formData.append("designation", member_designation.value);
@@ -891,7 +891,7 @@ class Main
 		event.preventDefault();
 		
 		let formData = new FormData();
-		let path = "http://localhost/uwimpact_cms_api/updateEventInfo.php";
+		let path = this.api_path + "updateEventInfo.php";
 
 		formData.append("title", event_title.value);
 		formData.append("description", event_description.value);
@@ -944,7 +944,7 @@ class Main
 		event.preventDefault();
 		
 		let formData = new FormData();
-		let path = "http://localhost/uwimpact_cms_api/delete.php";
+		let path = this.api_path + "delete.php";
 
 		formData.append("type", delete_type.value);
 		formData.append("id", delete_id.value);
@@ -1004,15 +1004,15 @@ class Main
 				{
 					if(successHandler)
 					{
-						//try 
-						//{
+						try 
+						{
 							let responseObj = JSON.parse(xhr.response);
 							successHandler(responseObj);
-						//}	
-						//catch(err)
-						//{
-						//	this.showNotification(xhr.response);
-						//}
+						}	
+						catch(err)
+						{
+							this.showNotification(xhr.response);
+						}
 					}	
 					else
 					{

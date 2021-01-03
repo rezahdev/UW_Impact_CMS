@@ -3,8 +3,9 @@
  */
 class Authentication 
 {
-	constructor() 
+	constructor(api_path) 
 	{
+		this.api_path = "../api/";
 		this.clientKey = this.randomJSKey(32);
 		this.serverKey = "";
 		this.getKey();
@@ -24,7 +25,7 @@ class Authentication
 	getKey()
 	{
 		let formData = new FormData();
-		let path = "http://localhost/uwimpact_cms_api/getKey.php";
+		let path = this.api_path + "getKey.php";
 
 		formData.append("JSKey", this.clientKey);
 
@@ -51,7 +52,7 @@ class Authentication
 		message.textContent = null;
 
 		let formData = new FormData();
-		let path = "http://localhost/uwimpact_cms_api/authenticateUser.php";
+		let path = this.api_path + "authenticateUser.php";
 
 		formData.append("username", username.value);
 		formData.append("password", password.value);
@@ -112,6 +113,12 @@ class Authentication
 		}.bind(this);
 	}
 
+	/////////////////////////////////////////////////////////////////////////////
+	//
+	//UTILITY FUNCTIONS
+	//
+	/////////////////////////////////////////////////////////////////////////////
+
 	showError()
 	{
 		//Login credentials are wrong,
@@ -120,12 +127,6 @@ class Authentication
 		this.highlightElement(username);
 		this.highlightElement(password);
 	}
-
-	/////////////////////////////////////////////////////////////////////////////
-	//
-	//UTILITY FUNCTIONS
-	//
-	/////////////////////////////////////////////////////////////////////////////
 
 	highlightElement(element)
 	{
