@@ -51,7 +51,6 @@ class Authentication
 					//User verified as authentic,
 					//Set local storage variables for future reference,
 					//Redirect user to the CMS homepage.
-					console.log(xhr.response);
 					let responseObj = JSON.parse(xhr.response);
 					localStorage.setItem("accessKey", responseObj.sessionKey);
 					localStorage.setItem("userId", responseObj.userId);

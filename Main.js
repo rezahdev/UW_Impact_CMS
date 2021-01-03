@@ -53,11 +53,13 @@ class Main
 		close_notification_btn.addEventListener("click", function() { this.closePopupForm(notification_box); }.bind(this));
 
 		//Load current information from the database
-		website_demo.src = localStorage.getItem("websiteURL");
 		this.loadBasicInfo();
 		this.loadTeamInfo();
 		this.loadEventsInfo();
 		this.loadSocialMediaInfo();
+
+		//Show website demo in IFrame website_demo
+		website_demo.src = localStorage.getItem("websiteURL");
 	}
 
 
@@ -898,7 +900,7 @@ class Main
 	//
 	/////////////////////////////////////////////////////////////////////////////
 
-	makeXMLHttpRequest(method, path, formData, success_handler = false)
+	makeXMLHttpRequest(method, path, formData, successHandler = false)
 	{
 		let xhr = new XMLHttpRequest();
 
@@ -909,10 +911,10 @@ class Main
 		xhr.open(method, path, true);
 		xhr.send(formData);
 
-		this.xhrRequestHandler(xhr, success_handler);
+		this.xhrRequestHandler(xhr, successHandler);
 	}
 
-	xhrRequestHandler(xhr, success_handler)
+	xhrRequestHandler(xhr, successHandler)
 	{
 		xhr.onload = function()
 		{
@@ -920,17 +922,17 @@ class Main
 			{
 				if(xhr.response != "ERROR")
 				{
-					if(success_handler)
+					if(successHandler)
 					{
-						//try 
-						//{
+						try 
+						{
 							let responseObj = JSON.parse(xhr.response);
-							success_handler(responseObj);
-						//}	
-						//catch(err)
-						//{
-							//this.showNotification(xhr.response);
-						//}
+							successHandler(responseObj);
+						}	
+						catch(err)
+						{
+							this.showNotification(xhr.response);
+						}
 					}	
 					else
 					{
@@ -939,7 +941,6 @@ class Main
 				}
 				else
 				{
-					console.log(xhr.response);
 					this.showError();
 				}
 			}

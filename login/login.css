@@ -8,7 +8,7 @@
 :root {
 	--normal-button-color: cornflowerblue;
 	--submit-button-color: green;
-	--std-background-color: lightgray;
+	--std-background-color: #ffffff;
 	--big-spacing: 20px;
 	--medium-spacing: 10px;
 	--small-spacing: 5px;
@@ -49,8 +49,8 @@ p {
 
 form {
 
-	width: 60%;
-	margin-left: 20%;
+	width: 50%;
+	margin-left: 25%;
 	background-color: #ffffff;
 	padding: var(--big-spacing);
 	border-radius: 5px;
@@ -91,6 +91,15 @@ input[type="submit"]:hover {
 .highlight {
 
 	border-color: red;
+}
+
+@media (max-width: 1000px) {
+
+	form {
+
+		width: 80%;
+		margin-left: 10%;
+	}
 }
 
 
