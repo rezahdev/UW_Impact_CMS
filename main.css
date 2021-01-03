@@ -219,7 +219,6 @@ input[type="submit"]:hover {
 	width: 80%;
 	margin-left: 20%;
 	background-color: var(--std-background-color);
-
 }
 /*-----------------------------------------------------------*/
 
@@ -251,6 +250,17 @@ input[type="submit"]:hover {
 	text-decoration: none;
 	color: #ffffff;
 }
+
+#copyright_disclaimer p {
+
+	color: whitesmoke;
+	padding: var(--big-spacing);
+	font-size: 12px;
+	margin-bottom: var(--medium-spacing);
+	line-height: 1.5;
+	text-align: center;
+	border-top: 1px dashed #fff;
+}
 /*-------------------------------------------------------------*/
 
 
@@ -278,26 +288,22 @@ input[type="submit"]:hover {
 #home p,
 #contact_us p {
 
-	width: 96%;
-	margin-left: 2%;
+	width: 70%;
+	margin-left: 15%;
+	margin-bottom: var(--big-spacing);
 	border-radius: 5px;
-    color: #ffffff;
-	background-color: var(--aux-background-color);
-	padding: var(--big-spacing);
+	background-color: var(--std-background-color);
+	padding: var(--medium--spacing);
 	text-align: center;
-}
-
-#contact_us {
-
-	margin-bottom: 450px;
+	border-bottom: 2px solid forestgreen;
+	font-size: var(--min-font-size);
 }
 
 #website_demo {
 
-	width: 70%;
-	height: 420px;
-	margin-left: 15%;
-	margin-top: var(--big-spacing);
+	width: 96%;
+	height: 440px;
+	margin-left: 2%;
 	margin-bottom: var(--big-spacing);
 }
 
@@ -327,14 +333,15 @@ input[type="submit"]:hover {
 	margin-top: var(--medium-spacing);
 }
 
-#team_info, #events_info{
+#team_info, #events_info, #message_container{
 
 	width: 70%;
 	margin-left: 15%;
 }
 
 #team_info .member_info,
-#events_info .event_box {
+#events_info .event_box,
+#message_container .message {
 
 	width: 100%;
 	margin-bottom: var(--big-spacing);
@@ -399,22 +406,13 @@ input[type="submit"]:hover {
 	border-color: var(--normal-button-color);
 }
 
-footer {
-
-	background-color: var(--aux-background-color);
-	color: white;
-	text-align: center;
-	padding-top: var(--big-spacing);
-	padding-bottom: var(--big-spacing);
-}
-
 /*-----------------------------------------------
 *CSS rules for screen size smaller than 1000px
 *-----------------------------------------------*/
 
 @media(max-width: 1200px)
 {
-	form, #team_info, #events_info, #website_demo {
+	form, #team_info, #events_info {
 
 		width: 96%;
 		margin-left: 2%;

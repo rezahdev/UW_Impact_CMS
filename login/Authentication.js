@@ -5,10 +5,35 @@ class Authentication
 {
 	constructor() 
 	{
+		this.clientKey = this.randomJSKey(32);
+		this.serverKey = "";
+		this.getKey();
+
 		//Add eventListeners
 		username.addEventListener("input", function() { this.removeElementHighlight(username); }.bind(this));
 		password.addEventListener("input", function() { this.removeElementHighlight(password); }.bind(this));
 		submit_btn.addEventListener("click", this.authenticateUser.bind(this));
+	}
+
+	////////////////////////////////////////////////////////////////////////////
+	//
+	//FUNCTIONS FOR HANDLING KEYS
+	//
+	////////////////////////////////////////////////////////////////////////////
+
+	getKey()
+	{
+		let formData = new FormData();
+		let path = "http://localhost/uwimpact_cms_api/getKey.php";
+
+		formData.append("JSKey", this.clientKey);
+
+		this.makeXMLHttpRequest("POST", path, formData, this.onKeyReceived.bind(this));
+	}
+
+	onKeyReceived(responseObj)
+	{
+		this.serverKey = responseObj.key;
 	}
 
 	////////////////////////////////////////////////////////////////////////////
@@ -25,22 +50,46 @@ class Authentication
 		//Remove any previous status
 		message.textContent = null;
 
-		//Send request to server to verify the login credentials
-		let xhr = new XMLHttpRequest();
 		let formData = new FormData();
+		let path = "http://localhost/uwimpact_cms_api/authenticateUser.php";
 
 		formData.append("username", username.value);
 		formData.append("password", password.value);
-		formData.append("accessKey", "1234");
+		formData.append("clientKey", this.clientKey);
+		formData.append("serverKey", this.serverKey);
 
-		//xhr.responseType = "json";
-		xhr.open("POST", "http://localhost/uwimpact_cms_api/authenticateUser.php", true);
-		xhr.send(formData);
-
-		this.xhrRequestHandler(xhr);
+		//API request to verify login credentials
+		this.makeXMLHttpRequest("POST", path, formData, this.onUserVerificationSuccess);
 	}
 
-	xhrRequestHandler(xhr) 
+	onUserVerificationSuccess(responseObj)
+	{
+		//User verified as authentic,
+		//Set local storage variables for future reference,
+		//Redirect user to the CMS homepage.
+		localStorage.setItem("accessKey", responseObj.sessionKey);
+		localStorage.setItem("userId", responseObj.userId);
+		localStorage.setItem("websiteURL", responseObj.websiteURL);
+		window.location = "../index.html";
+	}
+
+	////////////////////////////////////////////////////////////////////////////
+	//
+	//FUNCTIONS FOR MAKING API CALLS
+	//
+	////////////////////////////////////////////////////////////////////////////
+
+	makeXMLHttpRequest(method, path, formData, successHandler, callType = true)
+	{
+		let xhr = new XMLHttpRequest();
+
+		xhr.open(method, path, callType);
+		xhr.send(formData);
+
+		this.xhrRequestHandler(xhr, successHandler);
+	}
+
+	xhrRequestHandler(xhr, successHandler) 
 	{
 		xhr.onload = function()
 		{
@@ -48,14 +97,8 @@ class Authentication
 			{
 				if(xhr.response != "ERROR")
 				{
-					//User verified as authentic,
-					//Set local storage variables for future reference,
-					//Redirect user to the CMS homepage.
 					let responseObj = JSON.parse(xhr.response);
-					localStorage.setItem("accessKey", responseObj.sessionKey);
-					localStorage.setItem("userId", responseObj.userId);
-					localStorage.setItem("websiteURL", responseObj.websiteURL);
-				    window.location = "../index.html";
+					successHandler(responseObj);
 				}
 				else
 				{
@@ -80,7 +123,7 @@ class Authentication
 
 	/////////////////////////////////////////////////////////////////////////////
 	//
-	//FUNCTIONS FOR MANIPULATING STYLE
+	//UTILITY FUNCTIONS
 	//
 	/////////////////////////////////////////////////////////////////////////////
 
@@ -101,6 +144,20 @@ class Authentication
 
 		//Remove any previous status
 		message.textContent = null;
+	}
+
+	randomJSKey(length) 
+	{
+	    let result = "";
+	    let characters = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
+	    let charactersLength = characters.length;
+
+	    for (let i = 0; i < length; i++ ) 
+	    {
+	        result += characters.charAt(Math.floor(Math.random() * charactersLength));
+	    }
+
+	    return result;
 	}
 
 }

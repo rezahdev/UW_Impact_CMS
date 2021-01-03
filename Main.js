@@ -18,7 +18,7 @@ class Main
 		team_info_btn.addEventListener("click", function() { this.displaySection("team_info", "Team Information"); }.bind(this));
 		events_info_btn.addEventListener("click", function() { this.displaySection("events_info", "Events Information"); }.bind(this));
 		social_media_info_btn.addEventListener("click", function() { this.displaySection("social_media_info", "Social Media Links"); }.bind(this));
-		messages_btn.addEventListener("click", function() { this.displaySection("messages", "Messages"); }.bind(this));
+		messages_btn.addEventListener("click", function() { this.displaySection("message_container", "Messages"); }.bind(this));
 		contact_us_btn.addEventListener("click", function() { this.displaySection("contact_us", "Contact Us"); }.bind(this));
 		change_password_btn.addEventListener("click", function() { this.displaySection("change_password", "Change Password"); }.bind(this));
 		logout_btn.addEventListener("click", this.logOut);
@@ -42,6 +42,7 @@ class Main
 		submit_twitter_link.addEventListener("click", this.handleTwitterLinkSubmission.bind(this));
 		submit_linkedin_link.addEventListener("click", this.handleLinkedinLinkSubmission.bind(this));
 		submit_email_address.addEventListener("click", this.handleEmailAddressSubmission.bind(this));
+		submit_new_password.addEventListener("click", this.handleNewPasswordSubmission.bind(this));
 
 		//Add EventListeners to the popup form properties
 		submit_member_info.addEventListener("click", this.handleMemberFormSubmission.bind(this));
@@ -57,6 +58,7 @@ class Main
 		this.loadTeamInfo();
 		this.loadEventsInfo();
 		this.loadSocialMediaInfo();
+		this.loadMessages();
 
 		//Show website demo in IFrame website_demo
 		website_demo.src = localStorage.getItem("websiteURL");
@@ -94,7 +96,9 @@ class Main
 				div.classList.remove("hidden");
 				div.classList.add("visible");
 			}
-			else if(!div.classList.contains("member_info") && !div.classList.contains("event_box"))
+			else if(!div.classList.contains("member_info") 
+				&& !div.classList.contains("event_box")
+				&& !div.classList.contains("message"))
 			{
 				div.classList.add("hidden");
 			}
@@ -121,22 +125,6 @@ class Main
 
 		//Scroll ot the top of the page
 		window.scrollTo(0, 0);
-
-		//Make the background color lightgray for team and event sections,, and white for other sections
-		if(title == "Team Information" || title == "Events Information")
-		{
-			if(!document.body.classList.contains("gray_background"))
-			{
-				document.body.classList.add("gray_background");
-			}
-		}
-		else
-		{
-			if(document.body.classList.contains("gray_background"))
-			{
-				document.body.classList.remove("gray_background");
-			}
-		}
 	}
 
 	logOut()
@@ -201,16 +189,16 @@ class Main
 	addMemberToTeamInfo(responseObj)
 	{
 		//New member_info div with the member id within team_info section
-			let member = document.createElement("div");
-			member.id = "member_" + responseObj.id;
-			member.classList.add("member_info");
-			team_info.appendChild(member);
+			let memberDiv = document.createElement("div");
+			memberDiv.id = "member_" + responseObj.id;
+			memberDiv.classList.add("member_info");
+			team_info.appendChild(memberDiv);
 
 			//Add team member image
 			let img = document.createElement("img");
 			img.src = responseObj.picture;
 			img.classList.add("picture");
-			member.appendChild(img);
+			memberDiv.appendChild(img);
 
 			//Member name
 			let nameP = document.createElement("p");
@@ -221,7 +209,7 @@ class Main
 			nameSpan.classList.add("font_normal");
 			nameSpan.textContent = responseObj.name;
 			nameP.appendChild(nameSpan);
-			member.appendChild(nameP);
+			memberDiv.appendChild(nameP);
 
 			//Member designation 
 			let desgP = document.createElement("p");
@@ -232,22 +220,22 @@ class Main
 			desgSpan.classList.add("font_normal");
 			desgSpan.textContent = responseObj.designation;
 			desgP.appendChild(desgSpan);
-			member.appendChild(desgP);
+			memberDiv.appendChild(desgP);
 
 			//Edit button
 			let editBtn = document.createElement("button");
 			editBtn.classList.add("edit_member_btn");
 			editBtn.textContent = "Edit";
-			member.appendChild(editBtn);
 			editBtn.addEventListener("click", function() { this.displayPopupForm(member_form, responseObj.id); }.bind(this));
+			memberDiv.appendChild(editBtn);
 
 			//Delete button
 			let deleteBtn = document.createElement("button");
 			deleteBtn.classList.add("delete_member_btn");
 			deleteBtn.classList.add("delete_btn");
 			deleteBtn.textContent = "Delete";
-			member.appendChild(deleteBtn);
 			deleteBtn.addEventListener("click", function() { this.displayPopupDeleteForm("member", responseObj.id); }.bind(this));
+			memberDiv.appendChild(deleteBtn);
 	}
 
 	loadEventsInfo()
@@ -271,10 +259,10 @@ class Main
 	addEventToEventsInfo(responseObj)
 	{
 		//New member_info div with the member id within team_info section
-			let event = document.createElement("div");
-			event.id = "event_" + responseObj.id;
-			event.classList.add("event_box");
-			events_info.appendChild(event);
+			let eventDiv = document.createElement("div");
+			eventDiv.id = "event_" + responseObj.id;
+			eventDiv.classList.add("event_box");
+			events_info.appendChild(eventDiv);
 
 			//Event title
 			let titleP = document.createElement("p");
@@ -285,7 +273,7 @@ class Main
 			titleSpan.classList.add("font_normal");
 			titleSpan.textContent = responseObj.title;
 			titleP.appendChild(titleSpan);
-			event.appendChild(titleP);
+			eventDiv.appendChild(titleP);
 
 			//Event description
 			let desP = document.createElement("p");
@@ -296,7 +284,7 @@ class Main
 			desSpan.classList.add("font_normal");
 			desSpan.textContent = responseObj.description;
 			desP.appendChild(desSpan);
-			event.appendChild(desP);
+			eventDiv.appendChild(desP);
 
 			//Event date
 			let dateP = document.createElement("p");
@@ -307,7 +295,7 @@ class Main
 			dateSpan.classList.add("font_normal");
 			dateSpan.textContent = responseObj.date;
 			dateP.appendChild(dateSpan);
-			event.appendChild(dateP);
+			eventDiv.appendChild(dateP);
 
 			//Event date
 			let timeP = document.createElement("p");
@@ -318,7 +306,7 @@ class Main
 			timeSpan.classList.add("font_normal");
 			timeSpan.textContent = responseObj.time;
 			timeP.appendChild(timeSpan);
-			event.appendChild(timeP);
+			eventDiv.appendChild(timeP);
 
 			//Registration Link
 			let regLinkP = document.createElement("p");
@@ -331,22 +319,22 @@ class Main
 			regLink.target = "_blank";
 			regLink.textContent = responseObj.registrationLink;
 			regLinkP.appendChild(regLink);
-			event.appendChild(regLinkP);
+			eventDiv.appendChild(regLinkP);
 
 			//Edit button
 			let editBtn = document.createElement("button");
 			editBtn.classList.add("edit_event_btn");
 			editBtn.textContent = "Edit";
-			event.appendChild(editBtn);
 			editBtn.addEventListener("click", function() { this.displayPopupForm(event_form, responseObj.id); }.bind(this));
+			eventDiv.appendChild(editBtn);
 
 			//Delete button
 			let deleteBtn = document.createElement("button");
 			deleteBtn.classList.add("delete_event_btn");
 			deleteBtn.classList.add("delete_btn");
 			deleteBtn.textContent = "Delete";
-			event.appendChild(deleteBtn);
 			deleteBtn.addEventListener("click", function() { this.displayPopupDeleteForm("event", responseObj.id); }.bind(this));
+			eventDiv.appendChild(deleteBtn);
 	}
 
 	loadSocialMediaInfo()
@@ -364,6 +352,51 @@ class Main
 		twitter_link.value = responseObj.twitter;
 		linkedin_link.value = responseObj.linkedin;
 		email_address.value = responseObj.email;
+	}
+
+	loadMessages()
+	{
+		let formData = new FormData();
+		let path = "http://localhost/uwimpact_cms_api/retrieveMessages.php";
+
+		this.makeXMLHttpRequest("POST", path, formData, this.plotMessages.bind(this));
+	}
+
+	plotMessages(responseObjArr)
+	{
+		for(let key of Object.keys(responseObjArr))
+		{
+			let responseObj = responseObjArr[key];
+
+			//Add anew div to message_container
+			let messageDiv = document.createElement("div");
+			messageDiv.id = "message_" + responseObj.id;
+			messageDiv.classList.add("message");
+			message_container.appendChild(messageDiv);
+
+			//Add date-time, sender info and message to the new div
+			let dateP = document.createElement("p");
+			let nameP = document.createElement("p");
+			let emailP = document.createElement("p");
+			let messageP = document.createElement("p");
+			dateP.textContent = responseObj.dateTime;
+			nameP.textContent = responseObj.name;
+			emailP.textContent = responseObj.email;
+			messageP.textContent = responseObj.message;
+			messageDiv.appendChild(dateP);
+			messageDiv.appendChild(nameP);
+			messageDiv.appendChild(emailP);
+			messageDiv.appendChild(messageP);
+
+			//Add a delete button
+			//Delete button
+			let deleteBtn = document.createElement("button");
+			deleteBtn.classList.add("delete_message_btn");
+			deleteBtn.classList.add("delete_btn");
+			deleteBtn.textContent = "Delete";
+			deleteBtn.addEventListener("click", function() { this.displayPopupDeleteForm("message", responseObj.id); }.bind(this));
+			messageDiv.appendChild(deleteBtn);
+		}
 	}
 
 
@@ -448,18 +481,9 @@ class Main
 			this.openedPopupForm = delete_form;
 
 			//Fill the warning label and hidden filled with proper info
-			if(type == "member")
-			{
-				delete_warning.textContent = "The selected member will be permanently deleted from our database. Are you sure you want to delete?";
-				delete_type.value = "member";
-				delete_id.value = id;
-			}
-			else if(type == "event")
-			{
-				delete_warning.textContent = "The selected event will be permanently deleted from our database. Are you sure you want to delete?";
-				delete_type.value = "event";
-				delete_id.value = id;
-			}
+			delete_warning.textContent = `The selected ${ type } will be permanently deleted from our database. Are you sure you want to delete?`;
+			delete_type.value = type;
+			delete_id.value = id;
 
 			//Make the content_body blurry
 			content_body.classList.add("blurry");
@@ -741,13 +765,65 @@ class Main
 		//Prevent default form submission
 		event.preventDefault();
 		
-		let formData = new FormData();
-		let path = "http://localhost/uwimpact_cms_api/updateSocialMediaInfo.php";
+		if(this.isValidEmail(email_address.value))
+		{
+			let formData = new FormData();
+			let path = "http://localhost/uwimpact_cms_api/updateSocialMediaInfo.php";
 
-		formData.append("field", "email");
-		formData.append("value", email_address.value);
+			formData.append("field", "email");
+			formData.append("value", email_address.value);
 
-		this.makeXMLHttpRequest("POST", path, formData);
+			this.makeXMLHttpRequest("POST", path, formData);
+		}
+		else
+		{
+			this.showNotification("The email you entered is not valid.");
+		}
+	}
+
+	handleNewPasswordSubmission()
+	{
+		//Prevent default form submission
+		event.preventDefault();
+		
+		if(current_password.value.length < 0)
+		{
+			this.showNotification("Current password field cannot be empty!");
+		}
+		else if(new_password.value.length < 0)
+		{
+			this.showNotification("New password field cannot be empty!");
+		}
+		else if(confirm_password.value.length < 0)
+		{
+			this.showNotification("Confirm password field must be the same as new password!");
+		}
+		else if(new_password.value != confirm_password.value)
+		{
+			this.showNotification("Confirm password field must be the same as new password!");
+		}
+		else
+		{
+			let formData = new FormData();
+			let path = "http://localhost/uwimpact_cms_api/updatePassword.php";
+
+			formData.append("currentPassword", current_password.value);
+			formData.append("newPassword", new_password.value);
+
+			this.makeXMLHttpRequest("POST", path, formData, this.onUpdatePasswordSuccess.bind(this));
+		}
+	}
+
+	onUpdatePasswordSuccess(responseObj)
+	{
+		//Show notification
+		alert(responseObj.message);
+
+		if(responseObj.isUpdateSuccessful == "1")
+		{
+			//Log out user
+			this.logOut();
+		}
 	}
 
 	handleMemberFormSubmission()
@@ -884,9 +960,13 @@ class Main
 		{
 			document.getElementById("member_" + responseObj.id).remove();
 		}
-		else
+		else if(responseObj.type == "event")
 		{
 			document.getElementById("event_" + responseObj.id).remove();
+		}
+		else
+		{
+			document.getElementById("message_" + responseObj.id).remove();
 		}
 
 		this.closePopupForm(delete_form);
@@ -924,15 +1004,15 @@ class Main
 				{
 					if(successHandler)
 					{
-						try 
-						{
+						//try 
+						//{
 							let responseObj = JSON.parse(xhr.response);
 							successHandler(responseObj);
-						}	
-						catch(err)
-						{
-							this.showNotification(xhr.response);
-						}
+						//}	
+						//catch(err)
+						//{
+						//	this.showNotification(xhr.response);
+						//}
 					}	
 					else
 					{
@@ -941,6 +1021,7 @@ class Main
 				}
 				else
 				{
+					console.log(xhr.response);
 					this.showError();
 				}
 			}
@@ -951,9 +1032,25 @@ class Main
 		}.bind(this);
 	}
 
+	//////////////////////////////////////////////////////////////////////////////
+	//
+	//UTILITY FUNCTIONS
+	//
+	/////////////////////////////////////////////////////////////////////////////
+
 	showError()
 	{
 		alert("Oops! Something went wrong. Please try again.");
+	}
+
+	isValidEmail(email) 
+	{
+	    if (/^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/.test(email))
+	    {
+	    	return true;
+	    }
+
+	    return false;
 	}
 	
 }
