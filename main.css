@@ -121,7 +121,7 @@ input[type="submit"]:hover {
 
 .popup_form {
 
-	position: absolute;
+	position: fixed;
 	left: 0;
 	right: 0;
 	margin-left: auto;
@@ -370,12 +370,12 @@ input[type="submit"]:hover {
 
 #member_form {
 
-	top: 150px;
+	top: 100px;
 }
 
 #event_form {
 
-	top: 5px;
+	top: 0;
 }
 
 #delete_form {
