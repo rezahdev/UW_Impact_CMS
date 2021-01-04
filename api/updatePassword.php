@@ -6,11 +6,6 @@
 //
 /////////////////////////////////////////////////////////////////////
 
-header('Access-Control-Allow-Origin: *');
-header('Content-type: application/json' );
-
-session_start();
-
 if(isset($_POST['accessKey']) 
 	&& isset($_POST['userId']) 
 	&& isset($_POST['currentPassword']) 

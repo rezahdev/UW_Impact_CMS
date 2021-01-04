@@ -110,6 +110,7 @@ input[type="submit"] {
 	border: 2px solid var(--normal-button-color);
 	border-radius: 4px;
 	color: white;
+	-webkit-appearance: none;
 }
 
 input[type="submit"]:hover {
@@ -120,10 +121,14 @@ input[type="submit"]:hover {
 
 .popup_form {
 
-	position: fixed;
-	left: 10%;
-	width: 50%;
+	position: absolute;
+	left: 0;
+	right: 0;
+	margin-left: auto;
+	margin-right: auto;
+	width: 60%;
 	padding: var(--big-spacing);
+	background-color: var(--std-background-color);
 	border: 2px solid var(--aux-background-color);
 	box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
 }
@@ -370,28 +375,18 @@ input[type="submit"]:hover {
 
 #event_form {
 
-	top: 25px;
+	top: 5px;
 }
 
 #delete_form {
 
-	width: 40%;
-	margin-left: 20%;
 	top: 250px;
-	box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
 }
 
 #notification_box {
 
-	position: fixed;
 	top: 200px;
 	width: 40%;
-	left: 30%;
-	text-align: center;
-	background-color: white;
-	padding: var(--big-spacing);
-	border: 3px solid green;
-	border-radius: 5px;
 }
 
 #close_notification_btn {
@@ -412,7 +407,7 @@ input[type="submit"]:hover {
 
 @media(max-width: 1200px)
 {
-	form, #team_info, #events_info {
+	form, #team_info, #events_info, #message_container {
 
 		width: 96%;
 		margin-left: 2%;

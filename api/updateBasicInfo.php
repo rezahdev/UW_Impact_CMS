@@ -6,13 +6,6 @@
 //
 /////////////////////////////////////////////////////////////////////////////////
 
-header('Access-Control-Allow-Origin: *');
-header('Access-Control-Allow-Methods: GET, POST, DELETE, PUT');
-header('Access-Control-Allow-Headers: Origin, X-Requested-With, Content-Type, Accept, Authorization');
-header('Access-Control-Allow-Credentials: true');
-
-session_start();
-
 if(isset($_POST['accessKey']) &&isset( $_POST['userId']) && isset($_POST['field']))
 {
 	require_once('../../cnct/connect_CMS_DB.php');

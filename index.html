@@ -7,6 +7,23 @@
 	<link rel="stylesheet" type="text/css" href="main.css">
 
 	<script type="text/javascript" src="Main.js"></script>
+
+	<script>
+		if(localStorage.getItem("userId") == null || localStorage.getItem("accessKey") == null)
+		{
+			localStorage.clear();
+
+			//If the user is already logged in, redirect the user to the homepage
+			window.location = "login/index.html";
+		}
+		else
+		{
+			document.addEventListener("DOMContentLoaded", function() {
+
+				let mainObj = new Main();
+			});
+		}
+	</script>
 </head>
 <body>
 	<div id="side_menu">
@@ -226,27 +243,10 @@
 		</form>
 
 		<!--Popup notification box to display notifications-->
-		<div id="notification_box" class="hidden">
+		<div id="notification_box" class="hidden popup_form">
 			<p id="notification">This is a notification</p>
 			<button id="close_notification_btn">Close</button>
 		</div>
 	</div>
 </body>
 </html>
-
-<script>
-	if(localStorage.getItem("userId") == null || localStorage.getItem("accessKey") == null)
-	{
-		localStorage.clear();
-
-		//If the user is already logged in, redirect the user to the homepage
-		window.location = "login/index.html";
-	}
-	else
-	{
-		document.addEventListener("DOMContentLoaded", function() {
-
-			let mainObj = new Main();
-		});
-	}
-</script>

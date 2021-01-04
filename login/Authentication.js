@@ -3,18 +3,28 @@
  */
 class Authentication 
 {
-	constructor(api_path) 
+	constructor() 
 	{
 		this.api_path = "../api/";
 		this.clientKey = this.randomJSKey(32);
 		this.serverKey = "";
+
+		//Get the Auth key from the server
 		this.getKey();
 
 		//Add eventListeners
 		username.addEventListener("input", function() { this.removeElementHighlight(username); }.bind(this));
 		password.addEventListener("input", function() { this.removeElementHighlight(password); }.bind(this));
 		submit_btn.addEventListener("click", this.authenticateUser.bind(this));
+
+		//If the site is opened on a mobile device, show a warning message
+		if(screen.width < 800)
+		{
+			let message = "We recommend that you use a device with bigger screen such as computer for better usability.";
+			alert(message);
+		}
 	}
+
 
 	////////////////////////////////////////////////////////////////////////////
 	//
@@ -22,6 +32,9 @@ class Authentication
 	//
 	////////////////////////////////////////////////////////////////////////////
 
+	/**
+	 *Function to retrieve an access key from the server
+	 */
 	getKey()
 	{
 		let formData = new FormData();
@@ -32,6 +45,11 @@ class Authentication
 		this.makeXMLHttpRequest("POST", path, formData, this.onKeyReceived.bind(this));
 	}
 
+
+	/**
+	 *Callback function to handle the server response from retrieve key request
+	 *@param { JSON object } responseObj The object containing the key
+	 */
 	onKeyReceived(responseObj)
 	{
 		this.serverKey = responseObj.key;
@@ -43,7 +61,11 @@ class Authentication
 	//
 	////////////////////////////////////////////////////////////////////////////
 
-	authenticateUser(event) 
+
+	/**
+	 *Function to authenticate a user
+	 */
+	authenticateUser() 
 	{
 		//Prevent default form submission
 		event.preventDefault();
@@ -63,6 +85,11 @@ class Authentication
 		this.makeXMLHttpRequest("POST", path, formData, this.onUserVerificationSuccess);
 	}
 
+
+	/**
+	 *Function to handle process server response when user is verified
+	 *@param { JSON object } responseObj The object containing the session and user info
+	 */
 	onUserVerificationSuccess(responseObj)
 	{
 		//User verified as authentic,
@@ -74,22 +101,36 @@ class Authentication
 		window.location = "../index.html";
 	}
 
+
 	////////////////////////////////////////////////////////////////////////////
 	//
 	//FUNCTIONS FOR MAKING API CALLS
 	//
 	////////////////////////////////////////////////////////////////////////////
 
-	makeXMLHttpRequest(method, path, formData, successHandler, callType = true)
+	/**
+	 *Function to make API requests
+	 *@param { string } method Type of the request (Ex. POST / GET)
+	 *@param { string } path The API path
+	 *@param { FormData object } formData The FormData object containing the form data
+	 *@param { function } successHandler The callback function to handle the succesful server response
+	 */
+	makeXMLHttpRequest(method, path, formData, successHandler)
 	{
 		let xhr = new XMLHttpRequest();
 
-		xhr.open(method, path, callType);
+		xhr.open(method, path, true);
 		xhr.send(formData);
 
 		this.xhrRequestHandler(xhr, successHandler);
 	}
 
+
+	/**
+	 *Function to handler the server response
+	 *@param { XMLHttpRequest object } xhr The XMLHttpRequest object that made the request
+	 *@param { function } successHandler The callback function to handle the successful reponse
+	 */
 	xhrRequestHandler(xhr, successHandler) 
 	{
 		xhr.onload = function()
@@ -98,8 +139,15 @@ class Authentication
 			{
 				if(xhr.response != "ERROR")
 				{
-					let responseObj = JSON.parse(xhr.response);
-					successHandler(responseObj);
+					try
+					{
+						let responseObj = JSON.parse(xhr.response);
+						successHandler(responseObj);
+					}
+					catch(err)
+					{
+						alert("Sorry! Something went wrong. PLease try again.");
+					}
 				}
 				else
 				{
@@ -119,6 +167,9 @@ class Authentication
 	//
 	/////////////////////////////////////////////////////////////////////////////
 
+	/**
+	 *Function to show error message
+	 */
 	showError()
 	{
 		//Login credentials are wrong,
@@ -128,6 +179,11 @@ class Authentication
 		this.highlightElement(password);
 	}
 
+
+	/**
+	 *Function to highlight an element
+	 *@param { element object } element The element to be highlighted
+	 */
 	highlightElement(element)
 	{
 		if(!element.classList.contains("highlight"))
@@ -136,6 +192,11 @@ class Authentication
 		}
 	}
 
+
+	/**
+	 *Function to clear highligh from an element
+	 *@param { element object } element The element that is highlighted
+	 */
 	removeElementHighlight(element)
 	{
 		if(element.classList.contains("highlight"))
@@ -147,6 +208,11 @@ class Authentication
 		message.textContent = null;
 	}
 
+
+	/**
+	 *Function to generate a random string
+	 *@param { int } length The length of the string to be generated
+	 */	
 	randomJSKey(length) 
 	{
 	    let result = "";

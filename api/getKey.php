@@ -6,11 +6,6 @@
 //
 /////////////////////////////////////////////////////////////////////////////////
 
-header('Access-Control-Allow-Origin: *');
-header('Content-type: application/json' );
-
-session_start();
-
 if(isset($_POST['JSKey']))
 {
 	require_once('../../cnct/connect_CMS_DB.php');

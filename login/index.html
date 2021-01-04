@@ -7,6 +7,23 @@
 	<link rel="stylesheet" type="text/css" href="login.css">
 
 	<script type="text/javascript" src="Authentication.js"></script>
+
+	<script>
+		if(localStorage.getItem("userId") != null && localStorage.getItem("accessKey") != null)
+		{
+			//If the user is already logged in, redirect the user to the homepage
+			window.location = "../index.html";
+		}
+		else
+		{
+			localStorage.clear();
+			
+			document.addEventListener("DOMContentLoaded", function() {
+
+				let authObj = new Authentication();
+			});
+		}
+	</script>
 </head>
 <body>
 	<header>
@@ -25,20 +42,3 @@
 	</div>
 </body>
 </html>
-
-<script>
-	if(localStorage.getItem("userId") != null && localStorage.getItem("accessKey") != null)
-	{
-		//If the user is already logged in, redirect the user to the homepage
-		window.location = "../index.html";
-	}
-	else
-	{
-		localStorage.clear();
-		
-		document.addEventListener("DOMContentLoaded", function() {
-
-			let authObj = new Authentication();
-		});
-	}
-</script>

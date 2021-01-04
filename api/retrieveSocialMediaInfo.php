@@ -6,11 +6,6 @@
 //
 /////////////////////////////////////////////////////////////////////////////////
 
-header('Access-Control-Allow-Origin: *');
-header('Content-type: application/json' );
-
-session_start();
-
 if(isset($_POST['accessKey']) && isset($_POST['userId']))
 {
 	require_once('../../cnct/connect_CMS_DB.php');
@@ -33,6 +28,10 @@ if(isset($_POST['accessKey']) && isset($_POST['userId']))
 	                         "email" => htmlspecialchars($row['email']));
 
 		die(json_encode($responseArr));		
+	}
+	else
+	{
+		die("INVALID_REQUEST");
 	}
 }
 

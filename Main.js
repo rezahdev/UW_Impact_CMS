@@ -5,6 +5,7 @@ class Main
 {
 	constructor() 
 	{
+		//Initialize this variables
 		this.api_path = "api/";
 		this.isPopupFormOpen = false;
 		this.openedPopupForm = null;
@@ -22,6 +23,7 @@ class Main
 		contact_us_btn.addEventListener("click", function() { this.displaySection("contact_us", "Contact Us"); }.bind(this));
 		change_password_btn.addEventListener("click", function() { this.displaySection("change_password", "Change Password"); }.bind(this));
 		logout_btn.addEventListener("click", this.logOut);
+
 		//Add EventListeners to other buttons
 		add_member_btn.addEventListener("click", function() { this.displayPopupForm(member_form); }.bind(this));
 		add_event_btn.addEventListener("click", function() { this.displayPopupForm(event_form); }.bind(this));
@@ -60,14 +62,8 @@ class Main
 		this.loadSocialMediaInfo();
 		this.loadMessages();
 
-		//Show website demo in IFrame website_demo
+		//Show website demo in IFrame website_demo on the homepage
 		website_demo.src = localStorage.getItem("websiteURL");
-
-		if(window.innerWidth < 800)
-		{
-			let message = "This site is primarily made for wider screens. For better usability, we recommend using a computer browser.";
-			this.showNotification(message);
-		}
 	}
 
 
@@ -133,11 +129,17 @@ class Main
 		window.scrollTo(0, 0);
 	}
 
+
+	/**
+	 *Function to log out user
+	 */
 	logOut()
 	{
 		localStorage.clear();
 		window.location = "login/index.html";
 	}
+
+
 
 	//////////////////////////////////////////////////////////////////////////////
 	//
@@ -145,7 +147,9 @@ class Main
 	//
 	/////////////////////////////////////////////////////////////////////////////
 
-
+	/**
+	 *Function to retrieve basic infor from the DB
+	 */
 	loadBasicInfo()
 	{
 		let formData = new FormData();
@@ -154,6 +158,11 @@ class Main
 		this.makeXMLHttpRequest("POST", path, formData, this.plotBasicInfo);
 	}
 
+
+	/**
+	 *Function to display the retrieved basic info 
+	 *@param { JSON object } responseObj - The object containing the info
+	 */
 	plotBasicInfo(responseObj)
 	{
 		//Display the logo
@@ -174,6 +183,10 @@ class Main
 		meeting_info.value = responseObj.meetingInfo;
 	}
 
+
+	/**
+	 *Function to retrieve team information from the DB
+	 */
 	loadTeamInfo()
 	{
 		let formData = new FormData();
@@ -182,6 +195,11 @@ class Main
 		this.makeXMLHttpRequest("POST", path, formData, this.plotTeamInfo.bind(this));
 	}
 
+
+	/**
+	 *Function to fetch the retrieved team information
+	 *@param { JSON object } responseObj - The object containing the info
+	 */
 	plotTeamInfo(responseObjArr)
 	{
 		for(let key of Object.keys(responseObjArr))
@@ -192,6 +210,11 @@ class Main
 		}
 	}
 
+
+	/**
+	 *Function to add a single member information to the interface
+	 *@param { object } responseObj - The object containing the member info
+	 */
 	addMemberToTeamInfo(responseObj)
 	{
 		//New member_info div with the member id within team_info section
@@ -244,6 +267,10 @@ class Main
 			memberDiv.appendChild(deleteBtn);
 	}
 
+
+	/**
+	 *Function to retrieve events information from DB
+	 */
 	loadEventsInfo()
 	{
 		let formData = new FormData();
@@ -252,6 +279,11 @@ class Main
 		this.makeXMLHttpRequest("POST", path, formData, this.plotEventsInfo.bind(this));
 	}
 
+
+	/**
+	 *Function to fetch the retrieved events information
+	 *@param { JSON object } responseObj - The object containing the info
+	 */
 	plotEventsInfo(responseObjArr)
 	{
 		for(let key of Object.keys(responseObjArr))
@@ -262,87 +294,95 @@ class Main
 		}
 	}
 
+	/**
+	 *Function to adda single event information to the interface
+	 *@param { object } responseObj - The object containing the event info
+	 */
 	addEventToEventsInfo(responseObj)
 	{
 		//New member_info div with the member id within team_info section
-			let eventDiv = document.createElement("div");
-			eventDiv.id = "event_" + responseObj.id;
-			eventDiv.classList.add("event_box");
-			events_info.appendChild(eventDiv);
+		let eventDiv = document.createElement("div");
+		eventDiv.id = "event_" + responseObj.id;
+		eventDiv.classList.add("event_box");
+		events_info.appendChild(eventDiv);
 
-			//Event title
-			let titleP = document.createElement("p");
-			let titleSpan = document.createElement("span");
-			titleP.textContent = "Title: ";
-			titleP.classList.add("font_bold");
-			titleSpan.classList.add("title");
-			titleSpan.classList.add("font_normal");
-			titleSpan.textContent = responseObj.title;
-			titleP.appendChild(titleSpan);
-			eventDiv.appendChild(titleP);
+		//Event title
+		let titleP = document.createElement("p");
+		let titleSpan = document.createElement("span");
+		titleP.textContent = "Title: ";
+		titleP.classList.add("font_bold");
+		titleSpan.classList.add("title");
+		titleSpan.classList.add("font_normal");
+		titleSpan.textContent = responseObj.title;
+		titleP.appendChild(titleSpan);
+		eventDiv.appendChild(titleP);
 
-			//Event description
-			let desP = document.createElement("p");
-			let desSpan = document.createElement("span");
-			desP.textContent = "Description: ";
-			desP.classList.add("font_bold");
-			desSpan.classList.add("description");
-			desSpan.classList.add("font_normal");
-			desSpan.textContent = responseObj.description;
-			desP.appendChild(desSpan);
-			eventDiv.appendChild(desP);
+		//Event description
+		let desP = document.createElement("p");
+		let desSpan = document.createElement("span");
+		desP.textContent = "Description: ";
+		desP.classList.add("font_bold");
+		desSpan.classList.add("description");
+		desSpan.classList.add("font_normal");
+		desSpan.textContent = responseObj.description;
+		desP.appendChild(desSpan);
+		eventDiv.appendChild(desP);
 
-			//Event date
-			let dateP = document.createElement("p");
-			let dateSpan = document.createElement("span");
-			dateP.textContent = "Date: ";
-			dateP.classList.add("font_bold");
-			dateSpan.classList.add("date");
-			dateSpan.classList.add("font_normal");
-			dateSpan.textContent = responseObj.date;
-			dateP.appendChild(dateSpan);
-			eventDiv.appendChild(dateP);
+		//Event date
+		let dateP = document.createElement("p");
+		let dateSpan = document.createElement("span");
+		dateP.textContent = "Date: ";
+		dateP.classList.add("font_bold");
+		dateSpan.classList.add("date");
+		dateSpan.classList.add("font_normal");
+		dateSpan.textContent = responseObj.date;
+		dateP.appendChild(dateSpan);
+		eventDiv.appendChild(dateP);
 
-			//Event date
-			let timeP = document.createElement("p");
-			let timeSpan = document.createElement("span");
-			timeP.textContent = "Time: ";
-			timeP.classList.add("font_bold");
-			timeSpan.classList.add("time");
-			timeSpan.classList.add("font_normal");
-			timeSpan.textContent = responseObj.time;
-			timeP.appendChild(timeSpan);
-			eventDiv.appendChild(timeP);
+		//Event date
+		let timeP = document.createElement("p");
+		let timeSpan = document.createElement("span");
+		timeP.textContent = "Time: ";
+		timeP.classList.add("font_bold");
+		timeSpan.classList.add("time");
+		timeSpan.classList.add("font_normal");
+		timeSpan.textContent = responseObj.time;
+		timeP.appendChild(timeSpan);
+		eventDiv.appendChild(timeP);
 
-			//Registration Link
-			let regLinkP = document.createElement("p");
-			let regLink = document.createElement("a");
-			regLinkP.textContent = "Registration Link: ";
-			regLinkP.classList.add("font_bold");
-			regLink.classList.add("reg_link");
-			regLink.classList.add("font_normal");
-			regLink.href = responseObj.registrationLink;
-			regLink.target = "_blank";
-			regLink.textContent = responseObj.registrationLink;
-			regLinkP.appendChild(regLink);
-			eventDiv.appendChild(regLinkP);
+		//Registration Link
+		let regLinkP = document.createElement("p");
+		let regLink = document.createElement("a");
+		regLinkP.textContent = "Registration Link: ";
+		regLinkP.classList.add("font_bold");
+		regLink.classList.add("reg_link");
+		regLink.classList.add("font_normal");
+		regLink.href = responseObj.registrationLink;
+		regLink.target = "_blank";
+		regLink.textContent = responseObj.registrationLink;
+		regLinkP.appendChild(regLink);
+		eventDiv.appendChild(regLinkP);
 
-			//Edit button
-			let editBtn = document.createElement("button");
-			editBtn.classList.add("edit_event_btn");
-			editBtn.textContent = "Edit";
-			editBtn.addEventListener("click", function() { this.displayPopupForm(event_form, responseObj.id); }.bind(this));
-			eventDiv.appendChild(editBtn);
+		//Edit button
+		let editBtn = document.createElement("button");
+		editBtn.classList.add("edit_event_btn");
+		editBtn.textContent = "Edit";
+		editBtn.addEventListener("click", function() { this.displayPopupForm(event_form, responseObj.id); }.bind(this));
+		eventDiv.appendChild(editBtn);
 
-			//Delete button
-			let deleteBtn = document.createElement("button");
-			deleteBtn.classList.add("delete_event_btn");
-			deleteBtn.classList.add("delete_btn");
-			deleteBtn.textContent = "Delete";
-			deleteBtn.addEventListener("click", function() { this.displayPopupDeleteForm("event", responseObj.id); }.bind(this));
-			eventDiv.appendChild(deleteBtn);
+		//Delete button
+		let deleteBtn = document.createElement("button");
+		deleteBtn.classList.add("delete_event_btn");
+		deleteBtn.classList.add("delete_btn");
+		deleteBtn.textContent = "Delete";
+		deleteBtn.addEventListener("click", function() { this.displayPopupDeleteForm("event", responseObj.id); }.bind(this));
+		eventDiv.appendChild(deleteBtn);
 	}
 
+
+	/**
+	 *Function to retrieve social media information from DB
+	 */
 	loadSocialMediaInfo()
 	{
 		let formData = new FormData();
@@ -351,6 +391,10 @@ class Main
 		this.makeXMLHttpRequest("POST", path, formData, this.plotSocialMediaInfo);
 	}
 
+	/**
+	 *Function to display the retrieved social media information information
+	 *@param { object } responseObj - The object containing the info
+	 */
 	plotSocialMediaInfo(responseObj)
 	{
 		facebook_link.value = responseObj.facebook;
@@ -360,6 +404,10 @@ class Main
 		email_address.value = responseObj.email;
 	}
 
+
+	/**
+	 *Function to retrieve messages from the DB
+	 */
 	loadMessages()
 	{
 		let formData = new FormData();
@@ -368,6 +416,11 @@ class Main
 		this.makeXMLHttpRequest("POST", path, formData, this.plotMessages.bind(this));
 	}
 
+
+	/**
+	 *Function to display the retrieved messages
+	 *@param { JSON object } responseObj - The object containing the messages
+	 */
 	plotMessages(responseObjArr)
 	{
 		for(let key of Object.keys(responseObjArr))
@@ -395,7 +448,6 @@ class Main
 			messageDiv.appendChild(messageP);
 
 			//Add a delete button
-			//Delete button
 			let deleteBtn = document.createElement("button");
 			deleteBtn.classList.add("delete_message_btn");
 			deleteBtn.classList.add("delete_btn");
@@ -414,7 +466,8 @@ class Main
 
 	/**
 	 *Function to display a popup form
-	 *@param { form object } form - Id of the form to be displayed
+	 *@param { form object } form The form to be displayed 
+	 *@param { int } content_id The Id of the member/event whose information will be loaded in the form 
 	 */
 	displayPopupForm(form, content_id = 0)
 	{
@@ -471,10 +524,11 @@ class Main
 		}
 	}
 
+
 	/**
-	 *Function to display the popup form for showing warning message before deleting an event or member
-	 *@param { string } type - The type of the content. Ex. member or event
-	 *@param { int } id - The id of the member or the event that is to be deleted
+	 *Function to display the popup form for showing warning before deleting an event or member
+	 *@param { string } type The type of the content. Ex. member or event
+	 *@param { int } id The id of the member or the event that is to be deleted
 	 */
 	displayPopupDeleteForm(type, id)
 	{
@@ -496,6 +550,11 @@ class Main
 		}
 	}
 
+
+	/**
+	 *Function to display the popup notification box
+	 *@param { string } message The notification to be shown
+	 */
 	showNotification(message)
 	{
 		if(notification_box.classList.contains("hidden"))
@@ -513,10 +572,11 @@ class Main
 		}
 	}
 
+
 	/**
 	 *Function to hide a popup form
-	 *@param { event object } event - The click event object
-	 *@param { form object } form - Id of the form to be hidden
+	 *@param { event object } event The click event object
+	 *@param { form object } form Id of the form to be hidden
 	 */
 	closePopupForm(form)
 	{
@@ -534,13 +594,15 @@ class Main
 	}
 
 
-
 	//////////////////////////////////////////////////////////////////////////////
 	//
 	//FUNCTIONS FOR HANDLING NORMAL FORMS
 	//
 	/////////////////////////////////////////////////////////////////////////////
 
+	/**
+	 *Function to handle the submission of the logo_form
+	 */
 	handleGroupLogoSubmission()
 	{
 		//Prevent default form submission
@@ -564,6 +626,11 @@ class Main
 		}
 	}
 
+
+	/**
+	 *Function to add the updated logo to the interface
+	 *@param { JSON object } responseObj The object containing the img src for logo
+	 */
 	onLogoUploadSuccess(responseObj)
 	{
 		if(responseObj.logoSrc != null)
@@ -584,6 +651,10 @@ class Main
 		}
 	}
 
+
+	/**
+	 *Function to handle the submission of the group_name_form
+	 */
 	handleGroupNameSubmission() 
 	{ 
 		//Prevent default form submission
@@ -598,6 +669,9 @@ class Main
 		this.makeXMLHttpRequest("POST", path, formData);
 	}
 
+	/**
+	 *Function to handle the submission of the group_initial_form
+	 */
 	handleGroupInitialSubmission() 
 	{
 		//Prevent default form submission
@@ -612,6 +686,10 @@ class Main
 		this.makeXMLHttpRequest("POST", path, formData);
 	}
 
+
+	/**
+	 *Function to handle the submission of the description_form
+	 */
 	handleDescriptionSubmission() 
 	{
 		//Prevent default form submission
@@ -626,6 +704,10 @@ class Main
 		this.makeXMLHttpRequest("POST", path, formData); 
 	}
 
+
+	/**
+	 *Function to handle the submission of the mission_statement_form
+	 */
 	handleMissionStatementSubmission() 
 	{
 		//Prevent default form submission
@@ -640,6 +722,10 @@ class Main
 		this.makeXMLHttpRequest("POST", path, formData);
 	}
 
+
+	/**
+	 *Function to handle the submission of the vision_statement_form
+	 */
 	handleVisionStatementSubmission() 
 	{
 		//Prevent default form submission
@@ -654,6 +740,10 @@ class Main
 		this.makeXMLHttpRequest("POST", path, formData);
 	}
 
+
+	/**
+	 *Function to handle the submission of the why_join_us form
+	 */
 	handleWhyJoinUsSubmission()
 	{
 		//Prevent default form submission
@@ -668,6 +758,10 @@ class Main
 		this.makeXMLHttpRequest("POST", path, formData);
 	}
 
+
+	/**
+	 *Function to handle the submission of the who_can_join form
+	 */
 	handleWhoCanJoinSubmission()
 	{
 		//Prevent default form submission
@@ -682,6 +776,10 @@ class Main
 		this.makeXMLHttpRequest("POST", path, formData);
 	}
 
+
+	/**
+	 *Function to handle the submission of the how_to_join form
+	 */
 	handleHowToJoinSubmission()
 	{
 		//Prevent default form submission
@@ -696,6 +794,10 @@ class Main
 		this.makeXMLHttpRequest("POST", path, formData);
 	}
 
+
+	/**
+	 *Function to handle the submission of the meeting_info_form
+	 */
 	handleMeetingInfoSubmission()
 	{
 		//Prevent default form submission
@@ -710,6 +812,10 @@ class Main
 		this.makeXMLHttpRequest("POST", path, formData);
 	}
 
+
+	/**
+	 *Function to handle the submission of the facebook_link form
+	 */
 	handleFacebookLinkSubmission()
 	{
 		//Prevent default form submission
@@ -724,6 +830,10 @@ class Main
 		this.makeXMLHttpRequest("POST", path, formData);
 	}
 
+
+	/**
+	 *Function to handle the submission of the instagram_link form
+	 */
 	handleInstagramLinkSubmission()
 	{
 		//Prevent default form submission
@@ -738,6 +848,10 @@ class Main
 		this.makeXMLHttpRequest("POST", path, formData);
 	}
 
+
+	/**
+	 *Function to handle the submission of the twitter_link_form
+	 */
 	handleTwitterLinkSubmission()
 	{
 		//Prevent default form submission
@@ -752,6 +866,10 @@ class Main
 		this.makeXMLHttpRequest("POST", path, formData);
 	}
 
+
+	/**
+	 *Function to handle the submission of the linkedin_link form
+	 */
 	handleLinkedinLinkSubmission()
 	{
 		//Prevent default form submission
@@ -766,6 +884,10 @@ class Main
 		this.makeXMLHttpRequest("POST", path, formData);
 	}
 
+
+	/**
+	 *Function to handle the submission of the email_address form
+	 */
 	handleEmailAddressSubmission()
 	{
 		//Prevent default form submission
@@ -787,6 +909,10 @@ class Main
 		}
 	}
 
+
+	/**
+	 *Function to handle the submission of the change password form
+	 */
 	handleNewPasswordSubmission()
 	{
 		//Prevent default form submission
@@ -810,6 +936,7 @@ class Main
 		}
 		else
 		{
+			//Make api request to change the password
 			let formData = new FormData();
 			let path = this.api_path + "updatePassword.php";
 
@@ -820,9 +947,14 @@ class Main
 		}
 	}
 
+
+	/**
+	 *Function to logout the user 
+	 *@param { JSON object } responseObj The object with the update password status info
+	 */
 	onUpdatePasswordSuccess(responseObj)
 	{
-		//Show notification
+		//Show notification whether the password change is successful.
 		alert(responseObj.message);
 
 		if(responseObj.isUpdateSuccessful == "1")
@@ -832,6 +964,10 @@ class Main
 		}
 	}
 
+
+	/**
+	 *Function to handle the submission of the member_form
+	 */
 	handleMemberFormSubmission()
 	{
 		//Prevent default form submission
@@ -862,6 +998,11 @@ class Main
 		}
 	}
 
+
+	/**
+	 *Function to display the new member info
+	 *@param { JSON object } responseObj The object containing the member info
+	 */
 	displayNewMember(responseObj)
 	{
 		this.addMemberToTeamInfo(responseObj);
@@ -869,6 +1010,11 @@ class Main
 		this.showNotification("Successfully added the new member!");
 	}
 
+
+	/**
+	 *Function to display the updated member info
+	 *@param { JSON object } responseObj The object containing the member info
+	 */
 	displayUpdatedMemberInfo(responseObj)
 	{
 		//The updated member_info div has a id that looks like "member_{ actual member id }".
@@ -884,13 +1030,16 @@ class Main
 		let img = document.createElement("img");
 		img.src = responseObj.picture;
 		img.classList.add("picture");
-		memberInfo.insertBefore(img, memberInfo.firstChild);
-		
+		memberInfo.insertBefore(img, memberInfo.firstChild);	
 
 		this.closePopupForm(member_form);
 		this.showNotification("Successfully updated the member information!");
 	}
 
+
+	/**
+	 *Function to handle event_form
+	 */
 	handleEventFormSubmission()
 	{
 		//Prevent default form submission
@@ -918,6 +1067,11 @@ class Main
 		}
 	}
 
+
+	/**
+	 *Function to display the new event info
+	 *@param { JSON object } responseObj The object containing the event info
+	 */
 	displayNewEvent(responseObj)
 	{
 		this.addEventToEventsInfo(responseObj);
@@ -925,6 +1079,11 @@ class Main
 		this.showNotification("Successfully added the new event!");
 	}
 
+
+	/**
+	 *Function to display the updated event info
+	 *@param { JSON object } responseObj The object containing the event info
+	 */
 	displayUpdatedEventInfo(responseObj)
 	{
 		//The updated event_box div has a id that looks like "event_{ actual event id }".
@@ -940,9 +1099,9 @@ class Main
 		this.showNotification("Successfully updated the event information!");
 	}
 
+
 	/**
-	 *EventHandler function to handle the submission of the delete_form
-	 *@param { event object } event The button click event object.
+	 *Function to handle the submission of the delete_form
 	 */
 	handleDeleteFormSubmission()
 	{
@@ -958,6 +1117,11 @@ class Main
 		this.makeXMLHttpRequest("POST", path, formData, this.removeInfo.bind(this));
 	}
 
+
+	/**
+	 *Function to remove member/event/message info after delete
+	 *@param { JSON object } responseObj The object containing the info about the deleted info
+	 */
 	removeInfo(responseObj)
 	{
 		//We can find the deleted member or event by the id of the div that
@@ -986,6 +1150,13 @@ class Main
 	//
 	/////////////////////////////////////////////////////////////////////////////
 
+	/**
+	 *Function to make XMLHttpRequest 
+	 *@param { string } method Type of the request (Ex. POST/GET)
+	 *@param { string } path API Path
+	 *@param { FormData object } formData The object containing the form data
+	 *@param { function } successHandler The callback method for handling API response
+	 */
 	makeXMLHttpRequest(method, path, formData, successHandler = false)
 	{
 		let xhr = new XMLHttpRequest();
@@ -1000,13 +1171,19 @@ class Main
 		this.xhrRequestHandler(xhr, successHandler);
 	}
 
+
+	/**
+	 *Function to handle XMLHttpRequest response
+	 *@param { XMLHttpsRequest Object } xhr The XMLHttpRequest object that made the request
+	 *@param { function } successHadler The callback function to handle the API response
+	 */
 	xhrRequestHandler(xhr, successHandler)
 	{
 		xhr.onload = function()
 		{
 			if(xhr.status >= 200 && xhr.status < 300) 
 			{
-				if(xhr.response != "ERROR")
+				if(xhr.response != "ERROR" && xhr.response != "INAVLID_REQUEST")
 				{
 					if(successHandler)
 					{
@@ -1017,7 +1194,7 @@ class Main
 						}	
 						catch(err)
 						{
-							this.showNotification(xhr.response);
+							this.showError();
 						}
 					}	
 					else
@@ -1025,13 +1202,16 @@ class Main
 						this.showNotification(xhr.response);
 					}		    
 				}
+				else if(xhr.response == "INAVLID_REQUEST")
+				{
+					this.logOut();
+				}
 				else
 				{
-					console.log(xhr.response);
 					this.showError();
 				}
 			}
-			else //if the remote server sent an error
+			else
 			{
 				this.showError();
 			}
@@ -1044,11 +1224,20 @@ class Main
 	//
 	/////////////////////////////////////////////////////////////////////////////
 
+	/**
+	 *Function to show error message in an alert box
+	 */
 	showError()
 	{
-		alert("Oops! Something went wrong. Please try again.");
+		alert("Sorry! Something went wrong. Please try again.");
 	}
 
+
+	/**
+	 *Function to check if an email is valid
+	 *@param { string } email The email address to be verified
+	 *@return { boolean } true / false
+	 */
 	isValidEmail(email) 
 	{
 	    if (/^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/.test(email))
@@ -1058,5 +1247,6 @@ class Main
 
 	    return false;
 	}
-	
+
+
 }
