@@ -136,7 +136,7 @@ class Main
 	logOut()
 	{
 		localStorage.clear();
-		window.location = "login/index.html";
+		window.location = "login/";
 	}
 
 

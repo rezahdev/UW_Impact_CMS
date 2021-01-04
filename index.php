@@ -1,4 +1,5 @@
 <!--UW Impact CMS Homepage-->
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -14,7 +15,7 @@
 			localStorage.clear();
 
 			//If the user is already logged in, redirect the user to the homepage
-			window.location = "login/index.html";
+			window.location = "login/";
 		}
 		else
 		{

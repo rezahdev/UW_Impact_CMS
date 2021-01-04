@@ -12,7 +12,7 @@
 		if(localStorage.getItem("userId") != null && localStorage.getItem("accessKey") != null)
 		{
 			//If the user is already logged in, redirect the user to the homepage
-			window.location = "../index.html";
+			window.location = "../";
 		}
 		else
 		{
