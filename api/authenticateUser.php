@@ -5,6 +5,7 @@
 //THE SCRIPT ACCEPTS 3 POST VALUES AND RETURN A NEW SESSION KEY OR ERROR
 //
 /////////////////////////////////////////////////////////////////////
+require_once('accessController.php');
 
 if(isset($_POST['clientKey']) 
 	&& isset($_POST['serverKey'])

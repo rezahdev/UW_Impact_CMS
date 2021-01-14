@@ -6,6 +6,8 @@
 //
 /////////////////////////////////////////////////////////////////////////////////
 
+require_once('accessController.php');
+
 if(isset($_POST['JSKey']))
 {
 	require_once('../../cnct/connect_CMS_DB.php');

@@ -6,6 +6,7 @@
 //
 /////////////////////////////////////////////////////////////////////////////////
 
+require_once('accessController.php');
 
 if(isset($_POST['accessKey']) && isset($_POST['userId']))
 {
