@@ -159,22 +159,37 @@ class Main
 
 		if(responseObj.facebook.length > 0)
 		{
+			let socialImg = document.createElement("img");
+			socialImg.src = "images/icons/facebook.png";
+			facebook.appendChild(socialImg);
 			facebook.href = responseObj.facebook;
 		}
-		else if(responseObj.instagram.length > 0)
+		if(responseObj.instagram.length > 0)
 		{
+			let socialImg = document.createElement("img");
+			socialImg.src = "images/icons/instagram.png";
+			instagram.appendChild(socialImg);
 			instagram.href = responseObj.instagram;
 		}
-		else if(responseObj.twitter.length > 0)
+	    if(responseObj.twitter.length > 0)
 		{
+			let socialImg = document.createElement("img");
+			socialImg.src = "images/icons/twitter.png";
+			twitter.appendChild(socialImg);
 			twitter.href = twitter.facebook;
 		}
-		else if(responseObj.linkedin.length > 0)
+		if(responseObj.linkedin.length > 0)
 		{
+			let socialImg = document.createElement("img");
+			socialImg.src = "images/icons/linkedin.png";
+			linkedin.appendChild(socialImg);
 			linkedin.href = responseObj.linkedin;
 		}
-		else if(responseObj.email.length > 0)
+		if(responseObj.email.length > 0)
 		{
+			let socialImg = document.createElement("img");
+			socialImg.src = "images/icons/gmail.png";
+			email.appendChild(socialImg);
 			email.href = "mailto: " + responseObj.email;
 		}
 	}

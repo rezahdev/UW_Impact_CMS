@@ -22,7 +22,7 @@
 	<header id="header">
 		<!--Group name-->
 		<div>
-			<h1 id="group_initial">UW IMPACT</h1>
+			<h1 id="group_initial"></h1>
 		</div>
 
 		<div id="menu_bar">
@@ -61,7 +61,7 @@
 
 	<!--A brief description of the student group-->
 	<div id="group_description">
-		<h3>About UW Impact</h3>
+		<h3>About Us</h3>
 		<p id="description"></p>
 	</div>
 
@@ -132,21 +132,11 @@
 			<!--Social media links-->
 			<p class="social_media_label">You can also contact us via our social media accounts</p>
 			<div id="social_media_links">
-				<a id="facebook" href="">
-					<img src="images/icons/facebook.png">
-				</a>
-				<a id="instagram" href="">
-					<img src="images/icons/instagram.png">
-				</a>
-				<a id="twitter" href="">
-					<img src="images/icons/twitter.png">
-				</a>
-				<a id="linkedin" href="">
-					<img src="images/icons/linkedin.png">
-				</a>
-				<a id="email" href="">
-					<img src="images/icons/gmail.png">
-				</a>
+				<a id="facebook" href=""></a>
+				<a id="instagram" href=""></a>
+				<a id="twitter" href=""></a>
+				<a id="linkedin" href=""></a>
+				<a id="email" href=""></a>
 			</div>
 		</div>
 	</div>
