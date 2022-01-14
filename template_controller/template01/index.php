@@ -14,9 +14,9 @@
 
 	<title id="site_title"></title>
 
-	<link rel="stylesheet" type="text/css" href="https://cms.uwimpact.net/template_controller/template01/css/main.css">
+	<link rel="stylesheet" type="text/css" href="css/main.css">
 
-	<script type="text/javascript" src="https://cms.uwimpact.net/template_controller/template01/js/Main.js"></script>
+	<script type="text/javascript" src="js/Main.js"></script>
 </head>
 <body>
 	<header id="header">

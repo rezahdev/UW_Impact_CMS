@@ -20,7 +20,7 @@ if(isset($_POST['key']) && isset($_POST['site']))
 	if(isValidTemplateKey($key))
 	{
 		//Query ot get the group id for this user
-		$query = "SELECT id FROM group_info WHERE identifier = '$identifier'";
+		$query = "SELECT id FROM group_info WHERE identifier = 'uwimpact"; //Replace uwimpact with $identifier
 		$result = mysqli_query($connect, $query) or die("ERROR");
 		$row = mysqli_fetch_array($result);
 		$groupId = $row['id'];

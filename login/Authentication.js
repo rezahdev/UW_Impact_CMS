@@ -98,7 +98,7 @@ class Authentication
 		localStorage.setItem("accessKey", responseObj.sessionKey);
 		localStorage.setItem("userId", responseObj.userId);
 		localStorage.setItem("websiteURL", responseObj.websiteURL);
-		window.location = "../index.html";
+		window.location = "../";
 	}
 
 

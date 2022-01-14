@@ -18,7 +18,7 @@ if(isset($_POST['site']) && isset($_POST['key']))
 	{
 		$identifier = filterStr($_POST['site']);
 
-		$query = "SELECT * FROM group_info WHERE identifier = '$identifier'";
+		$query = "SELECT * FROM group_info WHERE identifier = 'uwimpact'"; //Replace uwimpact with $identifier
 		$result = mysqli_query($connect, $query) or die("ERROR");
 		$row = mysqli_fetch_array($result);
 

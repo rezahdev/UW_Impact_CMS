@@ -10,7 +10,7 @@ class Main
 	constructor(site)
 	{
 		//Initialize this variables
-		this.api_path = "https://cms.uwimpact.net/api/";
+		this.api_path = "../../api/";
 		this.site = site;
 		this.key = "6FpPlLAt22WScXb7u33cCrobfTldv1A6";
 
@@ -434,7 +434,7 @@ class Main
 						}	
 						catch(err)
 						{
-							this.showError();
+							this.showError(JSON.parse(xhr.response));
 						}
 					}	
 					else
@@ -465,9 +465,16 @@ class Main
 	/**
 	 *Function to show error message in an alert box
 	 */
-	showError()
+	showError(msg = null)
 	{
-		alert("Sorry! Something went wrong.");
+		if(msg == null)
+		{
+			alert("Sorry! Something went wrong.");
+		}
+		else
+		{
+			alert(msg);
+		}
 	}
 
 

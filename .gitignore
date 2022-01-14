@@ -3,3 +3,4 @@ api/team_pics/*
 addUser/*
 favicon.ico
 template_controller/template01/images/*
+*.sql
