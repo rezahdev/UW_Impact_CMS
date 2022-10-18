@@ -58,6 +58,6 @@ if(isset($_POST['accessKey']) && isset($_POST['userId']))
 	}
 }
 
-die("ERROR");	//If the request fails any condition, returns ERROR
+die("ERROR");
 
 ?>

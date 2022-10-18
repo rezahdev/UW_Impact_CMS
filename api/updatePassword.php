@@ -35,13 +35,11 @@ if(isset($_POST['accessKey'])
 			if(password_verify($currentPassword, $hash))
 			{
 				$newPassword = password_hash($newPassword, PASSWORD_DEFAULT);
-
-				//Update the password
 				$query = "UPDATE users SET password = '$newPassword' WHERE id = '$userId'";
 				$result = mysqli_query($connect, $query) or die("ERROR");
 
 				$responseArr = array("isUpdateSuccessful" => "1",
-				  "message" => "Your password has been changed. Please login again with the new password.");
+				  					 "message" => "Your password has been changed. Please login again with the new password.");
 
 				die(json_encode($responseArr));
 			}
@@ -49,13 +47,12 @@ if(isset($_POST['accessKey'])
 			{
 				$responseArr = array("isUpdateSuccessful" => "0",
 				  "message" => "Current password is not correct.");
-
 				die(json_encode($responseArr));
 			}
 		}
 	}
 }
 
-die("ERROR");	//If the request fails any condition, returns ERROR
+die("ERROR");
 
 ?>

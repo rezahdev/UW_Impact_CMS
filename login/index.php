@@ -4,7 +4,7 @@
 <head>
 	<title>UW Impact CMS Sign In</title>
 
-	<link rel="stylesheet" type="text/css" href="login.css">
+	<link rel="stylesheet" type="text/css" href="loginStyle.css">
 
 	<script type="text/javascript" src="Authentication.js"></script>
 

@@ -1,25 +1,20 @@
 /**
  *Class for handling all login related functionalities
  */
-class Authentication 
-{
-	constructor() 
-	{
+class Authentication {
+	constructor() {
 		this.api_path = "../api/";
 		this.clientKey = this.randomJSKey(32);
 		this.serverKey = "";
 
-		//Get the Auth key from the server
 		this.getKey();
 
-		//Add eventListeners
 		username.addEventListener("input", function() { this.removeElementHighlight(username); }.bind(this));
 		password.addEventListener("input", function() { this.removeElementHighlight(password); }.bind(this));
 		submit_btn.addEventListener("click", this.authenticateUser.bind(this));
 
 		//If the site is opened on a mobile device, show a warning message
-		if(screen.width < 800)
-		{
+		if(screen.width < 800) {
 			let message = "We recommend that you use a device with bigger screen such as computer for better usability.";
 			alert(message);
 		}
@@ -35,8 +30,7 @@ class Authentication
 	/**
 	 *Function to retrieve an access key from the server
 	 */
-	getKey()
-	{
+	getKey() {
 		let formData = new FormData();
 		let path = this.api_path + "getKey.php";
 
@@ -45,13 +39,11 @@ class Authentication
 		this.makeXMLHttpRequest("POST", path, formData, this.onKeyReceived.bind(this));
 	}
 
-
 	/**
 	 *Callback function to handle the server response from retrieve key request
 	 *@param { JSON object } responseObj The object containing the key
 	 */
-	onKeyReceived(responseObj)
-	{
+	onKeyReceived(responseObj) {
 		this.serverKey = responseObj.key;
 	}
 
@@ -65,12 +57,8 @@ class Authentication
 	/**
 	 *Function to authenticate a user
 	 */
-	authenticateUser() 
-	{
-		//Prevent default form submission
+	authenticateUser() {
 		event.preventDefault();
-		
-		//Remove any previous status
 		message.textContent = null;
 
 		let formData = new FormData();
@@ -81,25 +69,20 @@ class Authentication
 		formData.append("clientKey", this.clientKey);
 		formData.append("serverKey", this.serverKey);
 
-		//API request to verify login credentials
 		this.makeXMLHttpRequest("POST", path, formData, this.onUserVerificationSuccess);
 	}
-
 
 	/**
 	 *Function to handle process server response when user is verified
 	 *@param { JSON object } responseObj The object containing the session and user info
 	 */
-	onUserVerificationSuccess(responseObj)
-	{
-		//User verified as authentic,
-		//Set local storage variables for future reference,
-		//Redirect user to the CMS homepage.
+	onUserVerificationSuccess(responseObj) {
 		localStorage.setItem("accessKey", responseObj.sessionKey);
 		localStorage.setItem("userId", responseObj.userId);
 		localStorage.setItem("websiteURL", responseObj.websiteURL);
 		window.location = "../";
 	}
+
 
 
 	////////////////////////////////////////////////////////////////////////////
@@ -115,8 +98,7 @@ class Authentication
 	 *@param { FormData object } formData The FormData object containing the form data
 	 *@param { function } successHandler The callback function to handle the succesful server response
 	 */
-	makeXMLHttpRequest(method, path, formData, successHandler)
-	{
+	makeXMLHttpRequest(method, path, formData, successHandler) {
 		let xhr = new XMLHttpRequest();
 
 		xhr.open(method, path, true);
@@ -125,37 +107,28 @@ class Authentication
 		this.xhrRequestHandler(xhr, successHandler);
 	}
 
-
 	/**
 	 *Function to handler the server response
 	 *@param { XMLHttpRequest object } xhr The XMLHttpRequest object that made the request
 	 *@param { function } successHandler The callback function to handle the successful reponse
 	 */
-	xhrRequestHandler(xhr, successHandler) 
-	{
-		xhr.onload = function()
-		{
-			if(xhr.status >= 200 && xhr.status < 300) 
-			{
-				if(xhr.response != "ERROR")
-				{
-					try
-					{
+	xhrRequestHandler(xhr, successHandler) {
+		xhr.onload = function() {
+			if(xhr.status >= 200 && xhr.status < 300) {
+				if(xhr.response != "ERROR") {
+					try {
 						let responseObj = JSON.parse(xhr.response);
 						successHandler(responseObj);
 					}
-					catch(err)
-					{
+					catch(err) {
 						alert("Sorry! Something went wrong. PLease try again.");
 					}
 				}
-				else
-				{
+				else {
 					this.showError();
 				}
 			}
-			else //if the remote server sent an error
-			{
+			else {
 				this.showError();
 			}
 		}.bind(this);
@@ -170,60 +143,45 @@ class Authentication
 	/**
 	 *Function to show error message
 	 */
-	showError()
-	{
-		//Login credentials are wrong,
-		//Show error message and highlight username and pasword fields
+	showError() {
 		message.textContent = "Invalid username or password. If you think you forgot your password, contact UW Impact team.";
 		this.highlightElement(username);
 		this.highlightElement(password);
 	}
 
-
 	/**
 	 *Function to highlight an element
 	 *@param { element object } element The element to be highlighted
 	 */
-	highlightElement(element)
-	{
-		if(!element.classList.contains("highlight"))
-		{
+	highlightElement(element) {
+		if(!element.classList.contains("highlight")) {
 			element.classList.add("highlight");
 		}
 	}
-
 
 	/**
 	 *Function to clear highligh from an element
 	 *@param { element object } element The element that is highlighted
 	 */
-	removeElementHighlight(element)
-	{
-		if(element.classList.contains("highlight"))
-		{
+	removeElementHighlight(element) {
+		if(element.classList.contains("highlight")) {
 			element.classList.remove("highlight");
 		}
-
-		//Remove any previous status
 		message.textContent = null;
 	}
-
 
 	/**
 	 *Function to generate a random string
 	 *@param { int } length The length of the string to be generated
 	 */	
-	randomJSKey(length) 
-	{
+	randomJSKey(length) {
 	    let result = "";
 	    let characters = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
 	    let charactersLength = characters.length;
 
-	    for (let i = 0; i < length; i++ ) 
-	    {
+	    for (let i = 0; i < length; i++ ) {
 	        result += characters.charAt(Math.floor(Math.random() * charactersLength));
 	    }
-
 	    return result;
 	}
 

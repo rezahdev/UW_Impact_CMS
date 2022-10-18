@@ -48,9 +48,7 @@ if(isset($_POST['clientKey'])
 		}
 	}
 }
-
-die("ERROR");	//If the request fails any condition, returns ERROR
-
+die("ERROR");
 
 /**
  *Function to generate a random string of a certain length

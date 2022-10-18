@@ -6,7 +6,6 @@
 
 /*Variables*/
 :root {
-
 	--submit-button-color: green;
 	--normal-button-color: #3f72af;
 	--menu-button-color: white;
@@ -20,7 +19,6 @@
 }
 /*------------------------------------------------------------*/
 
-
 /*Global rules*/
 *{
 	box-sizing: border-box;
@@ -30,12 +28,10 @@
 }
 
 *:focus {
-
 	outline: none;
 }
 
 body {
-
 	display: flex;
 	flex-direction: row;
 	flex-wrap: wrap;
@@ -44,13 +40,11 @@ body {
 }
 
 p, a, li, input, label, textarea, button {
-
 	font-size: var(--min-font-size);
 	line-height: 1.5;
 }
 
 button {
-
 	margin-top: var(--big-spacing);
 	margin-right: var(--medium-spacing);
 	padding: 2px 25px 2px 25px;
@@ -62,13 +56,11 @@ button {
 }
 
 button:hover {
-
 	background-color: forestgreen;
 	border-color: forestgreen;
 }
 
 form {
-
 	width: 60%;
 	margin-left: 20%;
 	margin-bottom: var(--big-spacing);
@@ -79,7 +71,6 @@ form {
 }
 
 label {
-
 	display: block;
 	margin-bottom: var(--small-spacing);
 }
@@ -88,7 +79,6 @@ input[type="text"],
 input[type="password"],
 input[type="file"],
 textarea {
-
 	width: 100%;
 	padding: var(--medium-spacing);
 	background-color: #ffffff;
@@ -97,13 +87,11 @@ textarea {
 }
 
 textarea {
-
 	height: 200px;
 	resize: none;
 }
 
 input[type="submit"] {
-
 	margin-top: var(--medium-spacing);
 	padding: 2px 25px 2px 25px;
 	background-color: var(--normal-button-color);
@@ -114,13 +102,11 @@ input[type="submit"] {
 }
 
 input[type="submit"]:hover {
-
 	background-color: forestgreen;
 	border-color: forestgreen;
 }
 
 .popup_form {
-
 	position: fixed;
 	left: 0;
 	right: 0;
@@ -134,83 +120,69 @@ input[type="submit"]:hover {
 }
 
 .popup_form label {
-
 	margin-top: var(--big-spacing);
 }
 
 .blurry {
-
 	opacity: 0.3;
 }
 
 .visible {
-
 	display: block;
 }
 
 .hidden {
-
 	display: none;
 }
 
 .delete_btn {
-
 	background-color: #ffffff;
 	border-color: #db6400;
 	color: #db6400;
 }
 
 .delete_btn:hover {
-
 	background-color: #db6400;
 	border-color: #db6400;
 	color: white;
 }
 
 .delete_btn_major {
-
 	background-color: #db6400;
 	border-color: #db6400;
 	color: #ffffff;
 }
 
 .delete_btn_major:hover {
-
 	background-color: #e84545;
 	border-color: #e84545;
 	color: white;
 }
 
 .cancel_btn {
-
 	background-color: #ffffff;
 	border-color: var(--normal-button-color);
 	color: var(--normal-button-color);
 }
 
 .cancel_btn:hover {
-
 	background-color: var(--normal-button-color);
 	border-color: var(--normal-button-color);
 	color: white;
 }
 
 .font_bold {
-
 	font-weight: bold;
 }
 
 .font_normal {
-
 	font-weight: normal;
 }
-
 /*------------------------------------------------------------*/
 
 
 /*Page structure: Menu on the left side, content on the right side. */
 #side_menu {
-
 	width: 20%;
 	height: 100%;
 	position: fixed;
@@ -220,7 +192,6 @@ input[type="submit"]:hover {
 }
 
 #content_container {
-
 	width: 80%;
 	margin-left: 20%;
 	background-color: var(--std-background-color);
@@ -230,14 +201,12 @@ input[type="submit"]:hover {
 
 /*Side nabigation panel*/
 #side_menu h1 {
-
 	color: #ffffff;
 	padding: var(--big-spacing);
 	font-size: var(--max-font-size);
 }
 
 #menu_buttons li {
-
 	list-style-type: none;
 	color: #ffffff;
 	padding: var(--big-spacing);
@@ -246,18 +215,15 @@ input[type="submit"]:hover {
 
 #menu_buttons li.active,
 #menu_buttons li:hover {
-
 	background-color: #adce74;
 }
 
 #menu_buttons a {
-
 	text-decoration: none;
 	color: #ffffff;
 }
 
 #copyright_disclaimer p {
-
 	color: whitesmoke;
 	padding: var(--big-spacing);
 	font-size: 12px;
@@ -271,20 +237,17 @@ input[type="submit"]:hover {
 
 /*Content Container*/
 #content_header {
-
 	background-color: var(--aux-background-color);
 	margin-bottom: var(--big-spacing);
 }
 
 #content_header h2 {
-
 	color: #ffffff;
 	padding: var(--big-spacing);
 }
 
 #home h2,
 #contact_us h2 {
-
 	padding: var(--big-spacing);
 	padding-top: 0;
 	text-align: center;
@@ -292,7 +255,6 @@ input[type="submit"]:hover {
 
 #home p,
 #contact_us p {
-
 	width: 70%;
 	margin-left: 15%;
 	margin-bottom: var(--big-spacing);
@@ -305,7 +267,6 @@ input[type="submit"]:hover {
 }
 
 #website_demo {
-
 	width: 96%;
 	height: 440px;
 	margin-left: 2%;
@@ -314,12 +275,10 @@ input[type="submit"]:hover {
 
 
 #home button:first-of-type {
-
 	margin-left: 15%;
 }
 
 #add_member_btn, #add_event_btn {
-
 	margin-top: 0;
 	margin-bottom: var(--big-spacing);
 	padding: var(--medium-spacing);
@@ -327,19 +286,16 @@ input[type="submit"]:hover {
 }
 
 #logo_form img, #team_info img {
-
 	height: 100px;
 	width: auto;
 	margin-bottom: var(--medium-spacing);
 }
 
 #change_password_form label {
-
 	margin-top: var(--medium-spacing);
 }
 
 #team_info, #events_info, #message_container{
-
 	width: 70%;
 	margin-left: 15%;
 }
@@ -347,7 +303,6 @@ input[type="submit"]:hover {
 #team_info .member_info,
 #events_info .event_box,
 #message_container .message {
-
 	width: 100%;
 	margin-bottom: var(--big-spacing);
 	padding: var(--big-spacing);
@@ -357,46 +312,38 @@ input[type="submit"]:hover {
 }
 
 #team_info .member_info {
-
 	text-align: center;
 }
 
 #team_info .member_info p,
 #events_info .event_box p {
-
 	color: black;
 	margin-top: var(--medium-spacing);
 }
 
 #member_form {
-
 	top: 100px;
 }
 
 #event_form {
-
 	top: 0;
 }
 
 #delete_form {
-
 	top: 250px;
 }
 
 #notification_box {
-
 	top: 200px;
 	width: 40%;
 }
 
 #close_notification_btn {
-
 	background-color: forestgreen;
 	border-color: forestgreen;
 }
 
 #close_notification_btn:hover {
-
 	background-color: var(--normal-button-color);
 	border-color: var(--normal-button-color);
 }
@@ -408,13 +355,11 @@ input[type="submit"]:hover {
 @media(max-width: 1200px)
 {
 	form, #team_info, #events_info, #message_container {
-
 		width: 96%;
 		margin-left: 2%;
 	}
 
 	#add_member_btn, #add_event_btn {
-
 		margin-left: 0;
 	}
 }

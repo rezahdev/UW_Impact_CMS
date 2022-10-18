@@ -25,29 +25,23 @@ if(isset($_POST['accessKey']) && isset($_POST['userId']) && isset($_POST['mode']
 		$mode = filterStr($_POST['mode']);
 		$picture = "https://cms.uwimpact.net/api/team_pics/nopic.png";
 
-		//Check if the request also contains the member picture
 		if(isset($_FILES['picture']))
 		{
 			$path = "team_pics/";
 			$uploadedFileName = basename($_FILES['picture']['name']);
 
-			//Check if the image is real
 			if(getimagesize($_FILES['picture']["tmp_name"]) === false)
 			{
 				die("Please choose an actual image file!");
 			}
 
-			//check if the file is of supported extension
 			$ext = strtolower(pathinfo($uploadedFileName, PATHINFO_EXTENSION));
-
 			if($ext != "jpg" && $ext != "jpeg" && $ext != "png" && $ext != "gif")
 			{
 				die("Picture must be an image of type jpg, jpeg, png or gif!");
 			}
 
-			//Rename the file with an unique name
 			$fileName = "";
-
 			while(1)
 			{
 				$fileName = round(microtime(true)).mt_rand() . '.' . $ext;
@@ -59,16 +53,13 @@ if(isset($_POST['accessKey']) && isset($_POST['userId']) && isset($_POST['mode']
 			}
 			$targetFile = $path . $fileName;
 
-			//check ofr sizes
 			if ($_FILES['picture']["size"] > 10000000) 
 			{
 			    die("The image size is too big. Maximum size allowed is 10 MB.");
 			}
 
-			//Upload the image
 			if (move_uploaded_file($_FILES['picture']["tmp_name"], $targetFile))
 			{
-				//save the image src in DB
 				$picture = "https://cms.uwimpact.net/api/" . $targetFile;
 			} 
 			else 
@@ -77,7 +68,7 @@ if(isset($_POST['accessKey']) && isset($_POST['userId']) && isset($_POST['mode']
 			}
 		}
 
-		if($mode == "add") //If the request is to create new member
+		if($mode == "add")
 		{
 			//Get the group_id from group_info
 			$query = "SELECT * FROM group_info WHERE admin_id = '$userId'";
@@ -94,7 +85,7 @@ if(isset($_POST['accessKey']) && isset($_POST['userId']) && isset($_POST['mode']
 
 			die(json_encode($responseArr));
 		}	
-		else if($mode == "edit") //If the request is to edit existing member
+		else if($mode == "edit") 
 		{
 			if(isset($_FILES['picture']))
 			{
@@ -119,6 +110,6 @@ if(isset($_POST['accessKey']) && isset($_POST['userId']) && isset($_POST['mode']
 	}
 }
 
-die("ERROR");	//If the request fails any condition, returns ERROR
+die("ERROR");
 
 ?>

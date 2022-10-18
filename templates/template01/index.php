@@ -14,8 +14,7 @@
 
 	<title id="site_title"></title>
 
-	<link rel="stylesheet" type="text/css" href="css/main.css">
-
+	<link rel="stylesheet" type="text/css" href="css/style.css">
 	<script type="text/javascript" src="js/Main.js"></script>
 </head>
 <body>

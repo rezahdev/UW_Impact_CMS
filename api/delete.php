@@ -25,7 +25,7 @@ if(isset($_POST['accessKey'])
 		$type = filterStr($_POST['type']);
 		$id = filterStr($_POST['id']);
 
-		if($type == "member") //If the request is to delete a member
+		if($type == "member")
 		{
 			$query = "DELETE FROM team_info WHERE id = '$id'";
 			mysqli_query($connect, $query) or die(mysqli_error($connect));
@@ -33,7 +33,7 @@ if(isset($_POST['accessKey'])
 			$responseArr = array("type" => $type, "id" => $id);
 			die(json_encode($responseArr));
 		}	
-		else if($type == "event") //If the request is to delete an event
+		else if($type == "event") 
 		{
 			$query = "DELETE FROM event_info WHERE id = '$id'";
 			mysqli_query($connect, $query) or die(mysqli_error($connect));
@@ -41,7 +41,7 @@ if(isset($_POST['accessKey'])
 			$responseArr = array("type" => $type, "id" => $id);
 			die(json_encode($responseArr));
 		}	
-		else if($type == "message") //If the request is to delete a message
+		else if($type == "message")
 		{
 			$query = "DELETE FROM messages WHERE id = '$id'";
 			mysqli_query($connect, $query) or die(mysqli_error($connect));
@@ -52,6 +52,6 @@ if(isset($_POST['accessKey'])
 	}
 }
 
-die("ERROR");	//If the request fails any condition, returns ERROR
+die("ERROR");	
 
 ?>

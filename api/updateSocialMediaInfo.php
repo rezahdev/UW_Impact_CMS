@@ -23,23 +23,23 @@ if(isset($_POST['accessKey']) && isset($_POST['userId']) && isset($_POST['field'
 		$value = filterStr($_POST['value']);
 		$query = "";
 
-		if($field == "facebook") //If group facbook link update request
+		if($field == "facebook") 
 		{
 			$query = "UPDATE group_info SET facebook_link = '$value' WHERE admin_id = '$userId'";
 		}	
-		else if($field == "instagram") //If group instagram link update request
+		else if($field == "instagram")
 		{
 			$query = "UPDATE group_info SET instagram_link = '$value' WHERE admin_id = '$userId'";
 		}	
-		else if($field == "twitter") //If group twiiter link update request
+		else if($field == "twitter") 
 		{
 			$query = "UPDATE group_info SET twitter_link = '$value' WHERE admin_id = '$userId'";
 		}
-		else if($field == "linkedin") //If group linkedin link update request
+		else if($field == "linkedin") 
 		{
 			$query = "UPDATE group_info SET linkedin_link = '$value' WHERE admin_id = '$userId'";
 		}
-		else if($field == "email") //If group email address update request
+		else if($field == "email") 
 		{
 			$query = "UPDATE group_info SET email = '$value' WHERE admin_id = '$userId'";
 		}
@@ -53,6 +53,6 @@ if(isset($_POST['accessKey']) && isset($_POST['userId']) && isset($_POST['field'
 	}
 }
 
-die("ERROR");	//If the request fails any condition, returns ERROR
+die("ERROR");
 
 ?>

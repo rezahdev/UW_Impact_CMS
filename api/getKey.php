@@ -16,18 +16,15 @@ if(isset($_POST['JSKey']))
 
 	$JSKey = filterStr($_POST['JSKey']);
 	$time = time();
-
-	//Generate a random key
 	$PHPKey = randomStr(32);
 
-	//Save both keys in the table
 	$query = "INSERT INTO tbl_keys (js_key, php_key, entry_time) VALUES ('$JSKey', '$PHPKey', '$time')";
 	mysqli_query($connect, $query) or die("ERROR");
 
 	die(json_encode(array("key" => $PHPKey)));
 }
 
-die("ERROR");	//If the request fails any condition, returns ERROR
+die("ERROR");
 
 /**
  *Function to generate a random string of a certain length

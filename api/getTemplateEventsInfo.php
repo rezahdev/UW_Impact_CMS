@@ -53,6 +53,6 @@ if(isset($_POST['key']) && isset($_POST['site']))
 	}
 }
 
-die("ERROR");	//If the request fails any condition, returns ERROR
+die("ERROR");
 
 ?>

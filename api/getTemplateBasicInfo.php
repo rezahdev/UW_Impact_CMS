@@ -42,6 +42,6 @@ if(isset($_POST['site']) && isset($_POST['key']))
 	}
 }
 
-die("ERROR");	//If the request fails any condition, returns ERROR
+die("ERROR");
 
 ?>

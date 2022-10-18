@@ -16,7 +16,6 @@ function isValidAuthRequest($clientKey, $serverKey)
 	{
 		return true;
 	}
-
 	return false;
 }
 
@@ -38,7 +37,6 @@ function isValidRequest($accessKey, $userId)
 	{
 		return true;
 	}
-
 	return false;
 }
 
@@ -58,7 +56,6 @@ function isValidTemplateKey($key)
 	{
 		return true;
 	}
-
 	return false;
 }
 

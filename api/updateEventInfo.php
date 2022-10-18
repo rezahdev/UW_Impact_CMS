@@ -33,7 +33,7 @@ if(isset($_POST['accessKey']) && isset($_POST['userId']) && isset($_POST['mode']
 		$row = mysqli_fetch_array($result);
 		$groupId = $row['id'];
 
-		if($mode == "add") //If the request is to create new member
+		if($mode == "add")
 		{
 			$query = "INSERT INTO event_info (group_id, title, description, event_date, event_time, registration_link) VALUES ('$groupId', '$title', '$description', '$date', '$time', '$regLink')";
 			mysqli_query($connect, $query) or die(mysqli_error($connect));
@@ -43,7 +43,7 @@ if(isset($_POST['accessKey']) && isset($_POST['userId']) && isset($_POST['mode']
 
 			die(json_encode($responseArr));
 		}	
-		else if($mode == "edit") //If the request is to edit existing member
+		else if($mode == "edit") 
 		{
 			$query = "UPDATE event_info SET title = '$title', description = '$description', event_date = '$date', event_time = '$time', registration_link = '$regLink' WHERE id = '$eventId'";
 			mysqli_query($connect, $query) or die(mysqli_error($connect));
@@ -54,6 +54,6 @@ if(isset($_POST['accessKey']) && isset($_POST['userId']) && isset($_POST['mode']
 	}
 }
 
-die("ERROR");	//If the request fails any condition, returns ERROR
+die("ERROR");
 
 ?>

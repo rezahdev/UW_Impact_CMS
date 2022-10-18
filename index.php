@@ -5,22 +5,16 @@
 <head>
 	<title>UW IMPACT CMS</title>
 
-	<link rel="stylesheet" type="text/css" href="main.css">
-
-	<script type="text/javascript" src="Main.js"></script>
+	<link rel="stylesheet" type="text/css" href="css/style.css">
+	<script type="text/javascript" src="js/Main.js"></script>
 
 	<script>
-		if(localStorage.getItem("userId") == null || localStorage.getItem("accessKey") == null)
-		{
+		if(localStorage.getItem("userId") == null || localStorage.getItem("accessKey") == null) {
 			localStorage.clear();
-
-			//If the user is already logged in, redirect the user to the homepage
 			window.location = "login/";
 		}
-		else
-		{
+		else {
 			document.addEventListener("DOMContentLoaded", function() {
-
 				let mainObj = new Main();
 			});
 		}

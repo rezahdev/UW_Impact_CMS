@@ -18,7 +18,6 @@
 /*------------------------------------------------------------*/
 
 * {
-
 	margin: 0;
 	padding: 0;
 	box-sizing: border-box;
@@ -27,17 +26,14 @@
 }
 
 *:focus {
-
 	outline: none;
 }
 
 header {
-
 	text-align: center;
 }
 
 h1 {
-
 	font-size: var(--max-font-size);
 	margin: 50px 0 0 20px;
 }
@@ -48,7 +44,6 @@ p {
 }
 
 form {
-
 	width: 50%;
 	margin-left: 25%;
 	background-color: #ffffff;
@@ -57,7 +52,6 @@ form {
 }
 
 input {
-
 	width: 100%;
 	border-radius: 2px;
 	font-size: var(--min-font-size);
@@ -67,7 +61,6 @@ input {
 }
 
 input[type="submit"] {
-
 	border-color: var(--normal-button-color);
 	background-color: var(--normal-button-color);
 	color: #fff;
@@ -77,27 +70,22 @@ input[type="submit"] {
 }
 
 input[type="submit"]:hover {
-
 	border-color: var(--submit-button-color);
 	background-color: var(--submit-button-color);
 }
 
 #message {
-
 	text-align: center;
 	color: red;
 	margin-top: var(--big-spacing);
 }
 
 .highlight {
-
 	border-color: red;
 }
 
 @media (max-width: 1000px) {
-
 	form {
-
 		width: 80%;
 		margin-left: 10%;
 	}

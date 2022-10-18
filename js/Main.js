@@ -1,16 +1,12 @@
 /**
  *JS Class to handle all functionalities of the CMS
  */
-class Main 
-{
-	constructor() 
-	{
-		//Initialize this variables
+class Main {
+	constructor() {
 		this.api_path = "api/";
 		this.isPopupFormOpen = false;
 		this.openedPopupForm = null;
 
-		//Show the home section and hide other sections of the content_body
 		this.displaySection("home", "Home");
 
 		//Add EventListeners to the menu buttons
@@ -55,34 +51,22 @@ class Main
 		close_delete_form_btn.addEventListener("click", function() { this.closePopupForm(delete_form); }.bind(this));
 		close_notification_btn.addEventListener("click", function() { this.closePopupForm(notification_box); }.bind(this));
 
-		//Load current information from the database
 		this.loadBasicInfo();
 		this.loadTeamInfo();
 		this.loadEventsInfo();
 		this.loadSocialMediaInfo();
 		this.loadMessages();
 
-		//Show website demo in IFrame website_demo on the homepage
 		website_demo.src = localStorage.getItem("websiteURL");
 	}
-
-
-	//////////////////////////////////////////////////////////////////////////////
-	//
-	//FUNCTIONS FOR HANDLING MENU BUTTON CLICKS
-	//
-	/////////////////////////////////////////////////////////////////////////////
 
 	/**
 	 *Function to hide/display a particular section of the content
 	 *@param { string } id - The id of the section to be displayed
 	 *@param { string } title - Title of the section to be show
 	 */
-	displaySection(id, title)
-	{
-		//If there's any popup form open, close the popup form before changing section
-		if(this.isPopupFormOpen)
-		{
+	displaySection(id, title) {
+		if(this.isPopupFormOpen) {
 			this.openedPopupForm.getElementsByTagName("button")[0].click();
 			this.isPopupFormOpen = false;
 			this.openedPopupForm = null;
@@ -91,41 +75,29 @@ class Main
 		//Show the selected section and hide other sections of the content_body
 		let contentSections = content_body.getElementsByTagName("div");
 		
-		for (let div of contentSections) 
-		{			
-			if(div.id == id) 
-			{
+		for (let div of contentSections) {			
+			if(div.id == id)  {
 				div.classList.remove("hidden");
 				div.classList.add("visible");
 			}
-			else if(!div.classList.contains("member_info") 
-				&& !div.classList.contains("event_box")
-				&& !div.classList.contains("message"))
-			{
+			else if(!div.classList.contains("member_info") && !div.classList.contains("event_box") && !div.classList.contains("message")) {
 				div.classList.add("hidden");
 			}
 		}
-
-		//Display the title of selected menu in the content header
 		content_header.getElementsByTagName("h2")[0].textContent = title;
 
-		//Mark the currently selected menu in menu bar and remove mark from previous menu button
 		let menuButtons = menu_buttons.getElementsByTagName("li");
 		let currentButtonId = id + "_btn";
 
-		for(let li of menuButtons)
-		{
-			if(li.id == currentButtonId)
-			{
+		for(let li of menuButtons) {
+			if(li.id == currentButtonId) {
 				li.classList.add("active");
 			}
-			else if(li.classList.contains("active"))
-			{
+			else if(li.classList.contains("active")) {
 				li.classList.remove("active");
 			}
 		} 
 
-		//Scroll ot the top of the page
 		window.scrollTo(0, 0);
 	}
 
@@ -133,8 +105,7 @@ class Main
 	/**
 	 *Function to log out user
 	 */
-	logOut()
-	{
+	logOut() {
 		localStorage.clear();
 		window.location = "login/";
 	}
@@ -150,8 +121,7 @@ class Main
 	/**
 	 *Function to retrieve basic infor from the DB
 	 */
-	loadBasicInfo()
-	{
+	loadBasicInfo() {
 		let formData = new FormData();
 		let path = this.api_path + "retrieveBasicInfo.php";
 
@@ -163,15 +133,14 @@ class Main
 	 *Function to display the retrieved basic info 
 	 *@param { JSON object } responseObj - The object containing the info
 	 */
-	plotBasicInfo(responseObj)
-	{
-		//Display the logo
+	plotBasicInfo(responseObj) {
+		//Logo
 		let logo = document.createElement("img");
 		logo.src = responseObj.logoSrc;
 		logo.id = "logo";
 		logo_form.insertBefore(logo, logo_form.firstChild);
 
-		//Display rest of the information
+		//Other information
 		group_name.value = responseObj.name;
 		group_initial.value = responseObj.initial;
 		description.value = responseObj.description;
@@ -183,18 +152,15 @@ class Main
 		meeting_info.value = responseObj.meetingInfo;
 	}
 
-
 	/**
 	 *Function to retrieve team information from the DB
 	 */
-	loadTeamInfo()
-	{
+	loadTeamInfo() {
 		let formData = new FormData();
 		let path = this.api_path + "retrieveTeamInfo.php";
 
 		this.makeXMLHttpRequest("POST", path, formData, this.plotTeamInfo.bind(this));
 	}
-
 
 	/**
 	 *Function to fetch the retrieved team information
@@ -202,95 +168,84 @@ class Main
 	 */
 	plotTeamInfo(responseObjArr)
 	{
-		for(let key of Object.keys(responseObjArr))
-		{
-			let responseObj = responseObjArr[key];
-
-			this.addMemberToTeamInfo(responseObj);
+		for(let key of Object.keys(responseObjArr)) {
+			this.addMemberToTeamInfo(responseObjArr[key]);
 		}
 	}
-
 
 	/**
 	 *Function to add a single member information to the interface
 	 *@param { object } responseObj - The object containing the member info
 	 */
-	addMemberToTeamInfo(responseObj)
-	{
-		//New member_info div with the member id within team_info section
-			let memberDiv = document.createElement("div");
-			memberDiv.id = "member_" + responseObj.id;
-			memberDiv.classList.add("member_info");
-			team_info.appendChild(memberDiv);
+	addMemberToTeamInfo(responseObj) {
+		//New member_info div
+		let memberDiv = document.createElement("div");
+		memberDiv.id = "member_" + responseObj.id;
+		memberDiv.classList.add("member_info");
+		team_info.appendChild(memberDiv);
 
-			//Add team member image
-			let img = document.createElement("img");
-			img.src = responseObj.picture;
-			img.classList.add("picture");
-			memberDiv.appendChild(img);
+		//Team member image
+		let img = document.createElement("img");
+		img.src = responseObj.picture;
+		img.classList.add("picture");
+		memberDiv.appendChild(img);
 
-			//Member name
-			let nameP = document.createElement("p");
-			let nameSpan = document.createElement("span");
-			nameP.textContent = "Name: ";
-			nameP.classList.add("font_bold");
-			nameSpan.classList.add("name");
-			nameSpan.classList.add("font_normal");
-			nameSpan.textContent = responseObj.name;
-			nameP.appendChild(nameSpan);
-			memberDiv.appendChild(nameP);
+		//Member name
+		let nameP = document.createElement("p");
+		let nameSpan = document.createElement("span");
+		nameP.textContent = "Name: ";
+		nameP.classList.add("font_bold");
+		nameSpan.classList.add("name");
+		nameSpan.classList.add("font_normal");
+		nameSpan.textContent = responseObj.name;
+		nameP.appendChild(nameSpan);
+		memberDiv.appendChild(nameP);
 
-			//Member designation 
-			let desgP = document.createElement("p");
-			let desgSpan = document.createElement("span");
-			desgP.textContent = "Designation: ";
-			desgP.classList.add("font_bold");
-			desgSpan.classList.add("designation");
-			desgSpan.classList.add("font_normal");
-			desgSpan.textContent = responseObj.designation;
-			desgP.appendChild(desgSpan);
-			memberDiv.appendChild(desgP);
+		//Member designation 
+		let desgP = document.createElement("p");
+		let desgSpan = document.createElement("span");
+		desgP.textContent = "Designation: ";
+		desgP.classList.add("font_bold");
+		desgSpan.classList.add("designation");
+		desgSpan.classList.add("font_normal");
+		desgSpan.textContent = responseObj.designation;
+		desgP.appendChild(desgSpan);
+		memberDiv.appendChild(desgP);
 
-			//Edit button
-			let editBtn = document.createElement("button");
-			editBtn.classList.add("edit_member_btn");
-			editBtn.textContent = "Edit";
-			editBtn.addEventListener("click", function() { this.displayPopupForm(member_form, responseObj.id); }.bind(this));
-			memberDiv.appendChild(editBtn);
+		//Edit button
+		let editBtn = document.createElement("button");
+		editBtn.classList.add("edit_member_btn");
+		editBtn.textContent = "Edit";
+		editBtn.addEventListener("click", function() { this.displayPopupForm(member_form, responseObj.id); }.bind(this));
+		memberDiv.appendChild(editBtn);
 
-			//Delete button
-			let deleteBtn = document.createElement("button");
-			deleteBtn.classList.add("delete_member_btn");
-			deleteBtn.classList.add("delete_btn");
-			deleteBtn.textContent = "Delete";
-			deleteBtn.addEventListener("click", function() { this.displayPopupDeleteForm("member", responseObj.id); }.bind(this));
-			memberDiv.appendChild(deleteBtn);
+		//Delete button
+		let deleteBtn = document.createElement("button");
+		deleteBtn.classList.add("delete_member_btn");
+		deleteBtn.classList.add("delete_btn");
+		deleteBtn.textContent = "Delete";
+		deleteBtn.addEventListener("click", function() { this.displayPopupDeleteForm("member", responseObj.id); }.bind(this));
+		memberDiv.appendChild(deleteBtn);
 	}
 
 
 	/**
 	 *Function to retrieve events information from DB
 	 */
-	loadEventsInfo()
-	{
+	loadEventsInfo() {
 		let formData = new FormData();
 		let path = this.api_path + "retrieveEventsInfo.php";
 
 		this.makeXMLHttpRequest("POST", path, formData, this.plotEventsInfo.bind(this));
 	}
 
-
 	/**
 	 *Function to fetch the retrieved events information
 	 *@param { JSON object } responseObj - The object containing the info
 	 */
-	plotEventsInfo(responseObjArr)
-	{
-		for(let key of Object.keys(responseObjArr))
-		{
-			let responseObj = responseObjArr[key];
-
-			this.addEventToEventsInfo(responseObj);
+	plotEventsInfo(responseObjArr) {
+		for(let key of Object.keys(responseObjArr)) {
+			this.addEventToEventsInfo(responseObjArr[key]);
 		}
 	}
 
@@ -298,9 +253,8 @@ class Main
 	 *Function to adda single event information to the interface
 	 *@param { object } responseObj - The object containing the event info
 	 */
-	addEventToEventsInfo(responseObj)
-	{
-		//New member_info div with the member id within team_info section
+	addEventToEventsInfo(responseObj) {
+		//New member_info div 
 		let eventDiv = document.createElement("div");
 		eventDiv.id = "event_" + responseObj.id;
 		eventDiv.classList.add("event_box");
@@ -379,12 +333,10 @@ class Main
 		eventDiv.appendChild(deleteBtn);
 	}
 
-
 	/**
 	 *Function to retrieve social media information from DB
 	 */
-	loadSocialMediaInfo()
-	{
+	loadSocialMediaInfo() {
 		let formData = new FormData();
 		let path = this.api_path + "retrieveSocialMediaInfo.php";
 
@@ -395,8 +347,7 @@ class Main
 	 *Function to display the retrieved social media information information
 	 *@param { object } responseObj - The object containing the info
 	 */
-	plotSocialMediaInfo(responseObj)
-	{
+	plotSocialMediaInfo(responseObj) {
 		facebook_link.value = responseObj.facebook;
 		instagram_link.value = responseObj.instagram;
 		twitter_link.value = responseObj.twitter;
@@ -404,12 +355,10 @@ class Main
 		email_address.value = responseObj.email;
 	}
 
-
 	/**
 	 *Function to retrieve messages from the DB
 	 */
-	loadMessages()
-	{
+	loadMessages() {
 		let formData = new FormData();
 		let path = this.api_path + "retrieveMessages.php";
 
@@ -421,13 +370,11 @@ class Main
 	 *Function to display the retrieved messages
 	 *@param { JSON object } responseObj - The object containing the messages
 	 */
-	plotMessages(responseObjArr)
-	{
-		for(let key of Object.keys(responseObjArr))
-		{
+	plotMessages(responseObjArr) {
+		for(let key of Object.keys(responseObjArr)) {
 			let responseObj = responseObjArr[key];
 
-			//Add anew div to message_container
+			//Add a new div to message_container
 			let messageDiv = document.createElement("div");
 			messageDiv.id = "message_" + responseObj.id;
 			messageDiv.classList.add("message");
@@ -469,30 +416,25 @@ class Main
 	 *@param { form object } form The form to be displayed 
 	 *@param { int } content_id The Id of the member/event whose information will be loaded in the form 
 	 */
-	displayPopupForm(form, content_id = 0)
-	{
-		if(!this.isPopupFormOpen)
-		{
+	displayPopupForm(form, content_id = 0) {
+		if(!this.isPopupFormOpen) {
 			form.classList.remove("hidden");
 			form.classList.add("visible");
 			this.isPopupFormOpen = true;
 			this.openedPopupForm = form;
 
-			//Make the content_body blurry
 			content_body.classList.add("blurry");
 
 			//If the content_id is non-zero that means the form is opened in edit mode.
-			//So, we have to pre-fill the input feilds with the current information.
-			if(content_id != 0 && form == member_form)
-			{
+			//So, we have to pre-fill the input fields with the current information.
+			if(content_id != 0 && form == member_form) {
 				let member_info = document.getElementById("member_" + content_id);
 				member_name.value = member_info.getElementsByClassName("name")[0].textContent;
 				member_designation.value = member_info.getElementsByClassName("designation")[0].textContent;
 				member_id.value = content_id;
 				submit_member_info.value = "Update";
 			}
-			else if(content_id != 0 && form == event_form)
-			{
+			else if(content_id != 0 && form == event_form) {
 				let event_info = document.getElementById("event_" + content_id);
 				event_title.value = event_info.getElementsByClassName("title")[0].textContent;
 				event_description.value = event_info.getElementsByClassName("description")[0].textContent;
@@ -502,17 +444,13 @@ class Main
 				event_id.value = content_id;
 				submit_event_info.value = "Update";
 			}
-			else if(form == member_form)
-			{
-				//Clear any previous value
+			else if(form == member_form) {
 				member_name.value = null;
 				member_designation.value = null;
 				member_id.value = 0;
 				submit_member_info.value = "Save Member Information";
 			}
-			else if(form == event_form)
-			{
-				//clear any previous value
+			else if(form == event_form) {
 				event_title.value = null;
 				event_description.value = null;
 				event_date.value = null;
@@ -530,36 +468,27 @@ class Main
 	 *@param { string } type The type of the content. Ex. member or event
 	 *@param { int } id The id of the member or the event that is to be deleted
 	 */
-	displayPopupDeleteForm(type, id)
-	{
-		if(!this.isPopupFormOpen)
-		{
-			//Display the delete form
+	displayPopupDeleteForm(type, id) {
+		if(!this.isPopupFormOpen) {
 			delete_form.classList.remove("hidden");
 			delete_form.classList.add("visible");
 			this.isPopupFormOpen = true;
 			this.openedPopupForm = delete_form;
 
-			//Fill the warning label and hidden filled with proper info
 			delete_warning.textContent = `The selected ${ type } will be permanently deleted from our database. Are you sure you want to delete?`;
 			delete_type.value = type;
 			delete_id.value = id;
 
-			//Make the content_body blurry
 			content_body.classList.add("blurry");
 		}
 	}
-
 
 	/**
 	 *Function to display the popup notification box
 	 *@param { string } message The notification to be shown
 	 */
-	showNotification(message)
-	{
-		if(notification_box.classList.contains("hidden"))
-		{
-			//Display the delete form
+	showNotification(message) {
+		if(notification_box.classList.contains("hidden")) {
 			notification_box.classList.remove("hidden");
 			notification_box.classList.add("visible");
 			notification.textContent = message;
@@ -567,29 +496,22 @@ class Main
 			this.isPopupFormOpen = true;
 			this.openedPopupForm = notification_box;
 
-			//Make the content_body blurry
 			content_body.classList.add("blurry");
 		}
 	}
-
 
 	/**
 	 *Function to hide a popup form
 	 *@param { event object } event The click event object
 	 *@param { form object } form Id of the form to be hidden
 	 */
-	closePopupForm(form)
-	{
-		//Prevent any form submission due to the click of cancel button
+	closePopupForm(form) {
 		event.preventDefault();
 
-		//Hide the form
 		form.classList.remove("visible");
 		form.classList.add("hidden");
 		this.isPopupFormOpen = false;
 		this.openedPopupForm = null;
-
-		//Clear out the background blurryness
 		content_body.classList.remove("blurry");
 	}
 
@@ -603,39 +525,30 @@ class Main
 	/**
 	 *Function to handle the submission of the logo_form
 	 */
-	handleGroupLogoSubmission()
-	{
-		//Prevent default form submission
+	handleGroupLogoSubmission() {
 		event.preventDefault();
 
 		let formData = new FormData();
 		let path = this.api_path + "updateBasicInfo.php";
-
 		let files = group_logo.files;
 
-		if(files.length > 0)
-		{
+		if(files.length > 0) {
 			formData.append("field", "logo");
 			formData.append("logo", files[0]);
 
 			this.makeXMLHttpRequest("POST", path, formData, this.onLogoUploadSuccess.bind(this));
 		}
-		else
-		{
+		else {
 			this.showNotification("Please choose an image!");
 		}
 	}
-
 
 	/**
 	 *Function to add the updated logo to the interface
 	 *@param { JSON object } responseObj The object containing the img src for logo
 	 */
-	onLogoUploadSuccess(responseObj)
-	{
-		if(responseObj.logoSrc != null)
-		{
-			//Remove previous logo and display the new logo
+	onLogoUploadSuccess(responseObj) {
+		if(responseObj.logoSrc != null) {
 			logo_form.getElementsByTagName("img")[0].remove();
 
 			let logo = document.createElement("img");
@@ -645,19 +558,15 @@ class Main
 
 			this.showNotification("Successfully uploaded the new logo!");
 		}
-		else
-		{
+		else {
 			this.showNotification(responseObj);
 		}
 	}
 
-
 	/**
 	 *Function to handle the submission of the group_name_form
 	 */
-	handleGroupNameSubmission() 
-	{ 
-		//Prevent default form submission
+	handleGroupNameSubmission() { 
 		event.preventDefault();
 
 		let formData = new FormData();
@@ -672,9 +581,7 @@ class Main
 	/**
 	 *Function to handle the submission of the group_initial_form
 	 */
-	handleGroupInitialSubmission() 
-	{
-		//Prevent default form submission
+	handleGroupInitialSubmission() {
 		event.preventDefault();
 		
 		let formData = new FormData();
@@ -686,13 +593,10 @@ class Main
 		this.makeXMLHttpRequest("POST", path, formData);
 	}
 
-
 	/**
 	 *Function to handle the submission of the description_form
 	 */
-	handleDescriptionSubmission() 
-	{
-		//Prevent default form submission
+	handleDescriptionSubmission() {
 		event.preventDefault();
 		
 		let formData = new FormData();
@@ -704,13 +608,10 @@ class Main
 		this.makeXMLHttpRequest("POST", path, formData); 
 	}
 
-
 	/**
 	 *Function to handle the submission of the mission_statement_form
 	 */
-	handleMissionStatementSubmission() 
-	{
-		//Prevent default form submission
+	handleMissionStatementSubmission() {
 		event.preventDefault();
 		
 		let formData = new FormData();
@@ -722,13 +623,10 @@ class Main
 		this.makeXMLHttpRequest("POST", path, formData);
 	}
 
-
 	/**
 	 *Function to handle the submission of the vision_statement_form
 	 */
-	handleVisionStatementSubmission() 
-	{
-		//Prevent default form submission
+	handleVisionStatementSubmission() {
 		event.preventDefault();
 		
 		let formData = new FormData();
@@ -740,13 +638,10 @@ class Main
 		this.makeXMLHttpRequest("POST", path, formData);
 	}
 
-
 	/**
 	 *Function to handle the submission of the why_join_us form
 	 */
-	handleWhyJoinUsSubmission()
-	{
-		//Prevent default form submission
+	handleWhyJoinUsSubmission() {
 		event.preventDefault();
 		
 		let formData = new FormData();
@@ -758,13 +653,10 @@ class Main
 		this.makeXMLHttpRequest("POST", path, formData);
 	}
 
-
 	/**
 	 *Function to handle the submission of the who_can_join form
 	 */
-	handleWhoCanJoinSubmission()
-	{
-		//Prevent default form submission
+	handleWhoCanJoinSubmission() {
 		event.preventDefault();
 		
 		let formData = new FormData();
@@ -776,13 +668,10 @@ class Main
 		this.makeXMLHttpRequest("POST", path, formData);
 	}
 
-
 	/**
 	 *Function to handle the submission of the how_to_join form
 	 */
-	handleHowToJoinSubmission()
-	{
-		//Prevent default form submission
+	handleHowToJoinSubmission() {
 		event.preventDefault();
 		
 		let formData = new FormData();
@@ -794,13 +683,10 @@ class Main
 		this.makeXMLHttpRequest("POST", path, formData);
 	}
 
-
 	/**
 	 *Function to handle the submission of the meeting_info_form
 	 */
-	handleMeetingInfoSubmission()
-	{
-		//Prevent default form submission
+	handleMeetingInfoSubmission() {
 		event.preventDefault();
 		
 		let formData = new FormData();
@@ -812,13 +698,10 @@ class Main
 		this.makeXMLHttpRequest("POST", path, formData);
 	}
 
-
 	/**
 	 *Function to handle the submission of the facebook_link form
 	 */
-	handleFacebookLinkSubmission()
-	{
-		//Prevent default form submission
+	handleFacebookLinkSubmission() {
 		event.preventDefault();
 		
 		let formData = new FormData();
@@ -830,13 +713,10 @@ class Main
 		this.makeXMLHttpRequest("POST", path, formData);
 	}
 
-
 	/**
 	 *Function to handle the submission of the instagram_link form
 	 */
-	handleInstagramLinkSubmission()
-	{
-		//Prevent default form submission
+	handleInstagramLinkSubmission() {
 		event.preventDefault();
 		
 		let formData = new FormData();
@@ -848,13 +728,10 @@ class Main
 		this.makeXMLHttpRequest("POST", path, formData);
 	}
 
-
 	/**
 	 *Function to handle the submission of the twitter_link_form
 	 */
-	handleTwitterLinkSubmission()
-	{
-		//Prevent default form submission
+	handleTwitterLinkSubmission() {
 		event.preventDefault();
 		
 		let formData = new FormData();
@@ -866,13 +743,10 @@ class Main
 		this.makeXMLHttpRequest("POST", path, formData);
 	}
 
-
 	/**
 	 *Function to handle the submission of the linkedin_link form
 	 */
-	handleLinkedinLinkSubmission()
-	{
-		//Prevent default form submission
+	handleLinkedinLinkSubmission() {
 		event.preventDefault();
 		
 		let formData = new FormData();
@@ -884,17 +758,13 @@ class Main
 		this.makeXMLHttpRequest("POST", path, formData);
 	}
 
-
 	/**
 	 *Function to handle the submission of the email_address form
 	 */
-	handleEmailAddressSubmission()
-	{
-		//Prevent default form submission
+	handleEmailAddressSubmission() {
 		event.preventDefault();
 		
-		if(this.isValidEmail(email_address.value))
-		{
+		if(this.isValidEmail(email_address.value)) {
 			let formData = new FormData();
 			let path = this.api_path + "updateSocialMediaInfo.php";
 
@@ -903,40 +773,30 @@ class Main
 
 			this.makeXMLHttpRequest("POST", path, formData);
 		}
-		else
-		{
+		else {
 			this.showNotification("The email you entered is not valid.");
 		}
 	}
 
-
 	/**
 	 *Function to handle the submission of the change password form
 	 */
-	handleNewPasswordSubmission()
-	{
-		//Prevent default form submission
+	handleNewPasswordSubmission() {
 		event.preventDefault();
 		
-		if(current_password.value.length < 0)
-		{
+		if(current_password.value.length < 0) {
 			this.showNotification("Current password field cannot be empty!");
 		}
-		else if(new_password.value.length < 0)
-		{
+		else if(new_password.value.length < 0) {
 			this.showNotification("New password field cannot be empty!");
 		}
-		else if(confirm_password.value.length < 0)
-		{
+		else if(confirm_password.value.length < 0) {
 			this.showNotification("Confirm password field must be the same as new password!");
 		}
-		else if(new_password.value != confirm_password.value)
-		{
+		else if(new_password.value != confirm_password.value) {
 			this.showNotification("Confirm password field must be the same as new password!");
 		}
-		else
-		{
-			//Make api request to change the password
+		else {
 			let formData = new FormData();
 			let path = this.api_path + "updatePassword.php";
 
@@ -947,30 +807,22 @@ class Main
 		}
 	}
 
-
 	/**
 	 *Function to logout the user 
 	 *@param { JSON object } responseObj The object with the update password status info
 	 */
-	onUpdatePasswordSuccess(responseObj)
-	{
-		//Show notification whether the password change is successful.
+	onUpdatePasswordSuccess(responseObj) {
 		alert(responseObj.message);
 
-		if(responseObj.isUpdateSuccessful == "1")
-		{
-			//Log out user
+		if(responseObj.isUpdateSuccessful == "1") {
 			this.logOut();
 		}
 	}
 
-
 	/**
 	 *Function to handle the submission of the member_form
 	 */
-	handleMemberFormSubmission()
-	{
-		//Prevent default form submission
+	handleMemberFormSubmission() {
 		event.preventDefault();
 		
 		let files = member_picture.files;
@@ -981,42 +833,35 @@ class Main
 		formData.append("designation", member_designation.value);
 		formData.append("memberId", member_id.value);
 
-		if(files.length > 0)
-		{
+		if(files.length > 0) {
 			formData.append("picture", files[0]);
 		}
 
-		if(member_id.value == 0)
-		{
+		if(member_id.value == 0) {
 			formData.append("mode", "add");
 			this.makeXMLHttpRequest("POST", path, formData, this.displayNewMember.bind(this));
 		}
-		else
-		{
+		else {
 			formData.append("mode", "edit");
 			this.makeXMLHttpRequest("POST", path, formData, this.displayUpdatedMemberInfo.bind(this));
 		}
 	}
 
-
 	/**
 	 *Function to display the new member info
 	 *@param { JSON object } responseObj The object containing the member info
 	 */
-	displayNewMember(responseObj)
-	{
+	displayNewMember(responseObj) {
 		this.addMemberToTeamInfo(responseObj);
 		this.closePopupForm(member_form);
 		this.showNotification("Successfully added the new member!");
 	}
 
-
 	/**
 	 *Function to display the updated member info
 	 *@param { JSON object } responseObj The object containing the member info
 	 */
-	displayUpdatedMemberInfo(responseObj)
-	{
+	displayUpdatedMemberInfo(responseObj) {
 		//The updated member_info div has a id that looks like "member_{ actual member id }".
 		//We can select the updated member_info div in team_info using this member_{member id}.
 		let memberInfo = document.getElementById("member_" + responseObj.id);
@@ -1036,13 +881,10 @@ class Main
 		this.showNotification("Successfully updated the member information!");
 	}
 
-
 	/**
 	 *Function to handle event_form
 	 */
-	handleEventFormSubmission()
-	{
-		//Prevent default form submission
+	handleEventFormSubmission() {
 		event.preventDefault();
 		
 		let formData = new FormData();
@@ -1055,37 +897,31 @@ class Main
 		formData.append("regLink", event_registration_link.value);
 		formData.append("eventId", event_id.value);
 
-		if(event_id.value == 0)
-		{
+		if(event_id.value == 0) {
 			formData.append("mode", "add");
 			this.makeXMLHttpRequest("POST", path, formData, this.displayNewEvent.bind(this));
 		}
-		else
-		{
+		else {
 			formData.append("mode", "edit");
 			this.makeXMLHttpRequest("POST", path, formData, this.displayUpdatedEventInfo.bind(this));
 		}
 	}
 
-
 	/**
 	 *Function to display the new event info
 	 *@param { JSON object } responseObj The object containing the event info
 	 */
-	displayNewEvent(responseObj)
-	{
+	displayNewEvent(responseObj) {
 		this.addEventToEventsInfo(responseObj);
 		this.closePopupForm(event_form);
 		this.showNotification("Successfully added the new event!");
 	}
 
-
 	/**
 	 *Function to display the updated event info
 	 *@param { JSON object } responseObj The object containing the event info
 	 */
-	displayUpdatedEventInfo(responseObj)
-	{
+	displayUpdatedEventInfo(responseObj) {
 		//The updated event_box div has a id that looks like "event_{ actual event id }".
 		//We can select the updated event_box div in events_info using this event_{ event id }.
 		let eventInfo = document.getElementById("event_" + responseObj.id);
@@ -1099,13 +935,10 @@ class Main
 		this.showNotification("Successfully updated the event information!");
 	}
 
-
 	/**
 	 *Function to handle the submission of the delete_form
 	 */
-	handleDeleteFormSubmission()
-	{
-		//Prevent default form submission
+	handleDeleteFormSubmission() {
 		event.preventDefault();
 		
 		let formData = new FormData();
@@ -1117,25 +950,20 @@ class Main
 		this.makeXMLHttpRequest("POST", path, formData, this.removeInfo.bind(this));
 	}
 
-
 	/**
 	 *Function to remove member/event/message info after delete
 	 *@param { JSON object } responseObj The object containing the info about the deleted info
 	 */
-	removeInfo(responseObj)
-	{
+	removeInfo(responseObj) {
 		//We can find the deleted member or event by the id of the div that
 		//looks like member_{ member id } or event_{ event id }
-		if(responseObj.type == "member")
-		{
+		if(responseObj.type == "member") {
 			document.getElementById("member_" + responseObj.id).remove();
 		}
-		else if(responseObj.type == "event")
-		{
+		else if(responseObj.type == "event") {
 			document.getElementById("event_" + responseObj.id).remove();
 		}
-		else
-		{
+		else {
 			document.getElementById("message_" + responseObj.id).remove();
 		}
 
@@ -1157,11 +985,9 @@ class Main
 	 *@param { FormData object } formData The object containing the form data
 	 *@param { function } successHandler The callback method for handling API response
 	 */
-	makeXMLHttpRequest(method, path, formData, successHandler = false)
-	{
+	makeXMLHttpRequest(method, path, formData, successHandler = false) {
 		let xhr = new XMLHttpRequest();
 
-		//Append aditional form feilds for API to verify the request
 		formData.append("userId", localStorage.getItem("userId"));
 		formData.append("accessKey", localStorage.getItem("accessKey"));
 
@@ -1171,48 +997,36 @@ class Main
 		this.xhrRequestHandler(xhr, successHandler);
 	}
 
-
 	/**
 	 *Function to handle XMLHttpRequest response
 	 *@param { XMLHttpsRequest Object } xhr The XMLHttpRequest object that made the request
 	 *@param { function } successHadler The callback function to handle the API response
 	 */
-	xhrRequestHandler(xhr, successHandler)
-	{
-		xhr.onload = function()
-		{
-			if(xhr.status >= 200 && xhr.status < 300) 
-			{
-				if(xhr.response != "ERROR" && xhr.response != "INAVLID_REQUEST")
-				{
-					if(successHandler)
-					{
-						try 
-						{
+	xhrRequestHandler(xhr, successHandler) {
+		xhr.onload = function() {
+			if(xhr.status >= 200 && xhr.status < 300)  {
+				if(xhr.response != "ERROR" && xhr.response != "INAVLID_REQUEST") {
+					if(successHandler) {
+						try  {
 							let responseObj = JSON.parse(xhr.response);
 							successHandler(responseObj);
 						}	
-						catch(err)
-						{
+						catch(err) {
 							this.showError();
 						}
 					}	
-					else
-					{
+					else {
 						this.showNotification(xhr.response);
 					}		    
 				}
-				else if(xhr.response == "INAVLID_REQUEST")
-				{
+				else if(xhr.response == "INAVLID_REQUEST") {
 					this.logOut();
 				}
-				else
-				{
+				else {
 					this.showError();
 				}
 			}
-			else
-			{
+			else {
 				this.showError();
 			}
 		}.bind(this);
@@ -1227,8 +1041,7 @@ class Main
 	/**
 	 *Function to show error message in an alert box
 	 */
-	showError()
-	{
+	showError() {
 		alert("Sorry! Something went wrong. Please try again.");
 	}
 
@@ -1238,15 +1051,8 @@ class Main
 	 *@param { string } email The email address to be verified
 	 *@return { boolean } true / false
 	 */
-	isValidEmail(email) 
-	{
-	    if (/^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/.test(email))
-	    {
-	    	return true;
-	    }
-
-	    return false;
+	isValidEmail(email)  {
+	    return (/^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/.test(email));
 	}
-
 
 }
