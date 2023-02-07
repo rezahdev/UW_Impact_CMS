@@ -8,51 +8,41 @@
 
 require_once('accessController.php');
 
-if(isset($_POST['accessKey']) && isset($_POST['userId']) && isset($_POST['field']))
-{
-	require_once('../../cnct/connect_CMS_DB.php');
+if(isset($_POST['accessKey']) && isset($_POST['userId']) && isset($_POST['field'])) {
+	require_once('connect_CMS_DB.php');
 	require_once('verifications.php');
 	require_once('filters.php');
 
 	$accessKey = filterStr($_POST['accessKey']);
 	$userId = filterStr($_POST['userId']);
 
-	if(isValidRequest($accessKey, $userId))
-	{
+	if(isValidRequest($accessKey, $userId)) {
 		$field = filterStr($_POST['field']);
 		$value = filterStr($_POST['value']);
 		$query = "";
 
-		if($field == "facebook") 
-		{
+		if($field == "facebook") {
 			$query = "UPDATE group_info SET facebook_link = '$value' WHERE admin_id = '$userId'";
 		}	
-		else if($field == "instagram")
-		{
+		else if($field == "instagram") {
 			$query = "UPDATE group_info SET instagram_link = '$value' WHERE admin_id = '$userId'";
 		}	
-		else if($field == "twitter") 
-		{
+		else if($field == "twitter") {
 			$query = "UPDATE group_info SET twitter_link = '$value' WHERE admin_id = '$userId'";
 		}
-		else if($field == "linkedin") 
-		{
+		else if($field == "linkedin") {
 			$query = "UPDATE group_info SET linkedin_link = '$value' WHERE admin_id = '$userId'";
 		}
-		else if($field == "email") 
-		{
+		else if($field == "email") {
 			$query = "UPDATE group_info SET email = '$value' WHERE admin_id = '$userId'";
 		}
 
-		if($query != "")
-		{
+		if($query != "") {
 			mysqli_query($connect, $query) or die("ERROR");
 		}
-
 		die("Update successful!");
 	}
 }
-
 die("ERROR");
 
 ?>

@@ -97,10 +97,8 @@ class Main {
 				li.classList.remove("active");
 			}
 		} 
-
 		window.scrollTo(0, 0);
 	}
-
 
 	/**
 	 *Function to log out user
@@ -127,7 +125,6 @@ class Main {
 
 		this.makeXMLHttpRequest("POST", path, formData, this.plotBasicInfo);
 	}
-
 
 	/**
 	 *Function to display the retrieved basic info 
@@ -227,7 +224,6 @@ class Main {
 		deleteBtn.addEventListener("click", function() { this.displayPopupDeleteForm("member", responseObj.id); }.bind(this));
 		memberDiv.appendChild(deleteBtn);
 	}
-
 
 	/**
 	 *Function to retrieve events information from DB
@@ -365,7 +361,6 @@ class Main {
 		this.makeXMLHttpRequest("POST", path, formData, this.plotMessages.bind(this));
 	}
 
-
 	/**
 	 *Function to display the retrieved messages
 	 *@param { JSON object } responseObj - The object containing the messages
@@ -461,7 +456,6 @@ class Main {
 			}
 		}
 	}
-
 
 	/**
 	 *Function to display the popup form for showing warning before deleting an event or member

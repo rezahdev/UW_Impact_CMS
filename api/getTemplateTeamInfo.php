@@ -8,17 +8,15 @@
 
 require_once('accessController.php');
 
-if(isset($_POST['site']) && isset($_POST['key']))
-{
-	require_once('../../cnct/connect_CMS_DB.php');
+if(isset($_POST['site']) && isset($_POST['key'])) {
+	require_once('connect_CMS_DB.php');
 	require_once('verifications.php');
 	require_once('filters.php');
 	
-	if(isValidTemplateKey(filterStr($_POST['key'])))
-	{
+	if(isValidTemplateKey(filterStr($_POST['key']))) {
 		$identifier = filterStr($_POST['site']);
 
-		$query = "SELECT * FROM group_info WHERE identifier = 'uwimpact"; //Replace uwimpact with $identifier
+		$query = "SELECT * FROM group_info WHERE identifier = 'uwimpact"; 
 		$result = mysqli_query($connect, $query) or die("ERROR");
 		$row = mysqli_fetch_array($result);
 		$groupId = $row['id'];
@@ -28,8 +26,7 @@ if(isset($_POST['site']) && isset($_POST['key']))
 		$result = mysqli_query($connect, $query) or die("ERROR");
 		$responseArr = array();
 		
-		while($row = mysqli_fetch_array($result))
-		{
+		while($row = mysqli_fetch_array($result)) {
 			$memberId = $row['id'];
 			$name = htmlspecialchars($row['name']);
 			$designation = htmlspecialchars($row['designation']);
@@ -38,11 +35,9 @@ if(isset($_POST['site']) && isset($_POST['key']))
 			$memberInfo = array("name" => $name, "designation" => $designation, "picture" => $picture);
 			array_push($responseArr, $memberInfo);
 		}
-
 		die(json_encode($responseArr));	
 	}
 }
-
 die("ERROR");
 
 ?>

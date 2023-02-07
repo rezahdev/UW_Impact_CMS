@@ -5,17 +5,14 @@
 	<title>UW Impact CMS Sign In</title>
 
 	<link rel="stylesheet" type="text/css" href="loginStyle.css">
-
 	<script type="text/javascript" src="Authentication.js"></script>
 
 	<script>
-		if(localStorage.getItem("userId") != null && localStorage.getItem("accessKey") != null)
-		{
+		if(localStorage.getItem("userId") != null && localStorage.getItem("accessKey") != null) {
 			//If the user is already logged in, redirect the user to the homepage
 			window.location = "../";
 		}
-		else
-		{
+		else {
 			localStorage.clear();
 			
 			document.addEventListener("DOMContentLoaded", function() {

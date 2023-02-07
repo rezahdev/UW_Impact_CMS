@@ -8,9 +8,8 @@
 
 require_once('accessController.php');
 
-if(isset($_POST['key']) && isset($_POST['site']))
-{
-	require_once('../../cnct/connect_CMS_DB.php');
+if(isset($_POST['key']) && isset($_POST['site'])) {
+	require_once('connect_CMS_DB.php');
 	require_once('verifications.php');
 	require_once('filters.php');
 
@@ -21,9 +20,8 @@ if(isset($_POST['key']) && isset($_POST['site']))
 	$dateTime = date("F j, Y, g:i a");
 	$key = filterStr($_POST['key']);
 
-	if(isValidTemplateKey($key))
-	{
-		//Query ot get the group id for this user
+	if(isValidTemplateKey($key)) {
+		//Query to get the group id for this user
 		$query = "SELECT id FROM group_info WHERE identifier = '$identifier'";
 		$result = mysqli_query($connect, $query) or die("ERROR");
 		$row = mysqli_fetch_array($result);
@@ -34,14 +32,12 @@ if(isset($_POST['key']) && isset($_POST['site']))
 		$result = mysqli_query($connect, $query) or die("ERROR");
 		$responseArr = array();
 
-		//Save the message into DB
 		$query = "INSERT INTO messages (group_id, sender_name, sender_email, message, date_time) VALUES ('$groupId', '$name', '$email', '$message', '$dateTime')";
 		mysqli_query($connect, $query) or die("ERROR");
 
 		die(json_encode("OK"));		
 	}
 }
-
 die("ERROR");
 
 ?>

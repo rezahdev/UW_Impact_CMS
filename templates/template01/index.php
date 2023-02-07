@@ -149,7 +149,6 @@
 
 <script>
 	document.addEventListener("DOMContentLoaded", function() {
-
 		let mainObj = new Main(window.location.hostname.split(".")[0]);
 	});
 </script>

@@ -8,68 +8,57 @@
 
 require_once('accessController.php');
 
-if(isset($_POST['accessKey']) && isset($_POST['userId']) && isset($_POST['mode']))
-{
-	require_once('../../cnct/connect_CMS_DB.php');
+if(isset($_POST['accessKey']) && isset($_POST['userId']) && isset($_POST['mode'])) {
+	require_once('connect_CMS_DB.php');
 	require_once('verifications.php');
 	require_once('filters.php');
 
 	$accessKey = filterStr($_POST['accessKey']);
 	$userId = filterStr($_POST['userId']);
 
-	if(isValidRequest($accessKey, $userId))
-	{
+	if(isValidRequest($accessKey, $userId)) {
 		$name = filterStr($_POST['name']);
 		$designation = filterStr($_POST['designation']);
 		$memberId = filterStr($_POST['memberId']);
 		$mode = filterStr($_POST['mode']);
 		$picture = "https://cms.uwimpact.net/api/team_pics/nopic.png";
 
-		if(isset($_FILES['picture']))
-		{
+		if(isset($_FILES['picture'])) {
 			$path = "team_pics/";
 			$uploadedFileName = basename($_FILES['picture']['name']);
 
-			if(getimagesize($_FILES['picture']["tmp_name"]) === false)
-			{
+			if(getimagesize($_FILES['picture']["tmp_name"]) === false) {
 				die("Please choose an actual image file!");
 			}
 
 			$ext = strtolower(pathinfo($uploadedFileName, PATHINFO_EXTENSION));
-			if($ext != "jpg" && $ext != "jpeg" && $ext != "png" && $ext != "gif")
-			{
+			if($ext != "jpg" && $ext != "jpeg" && $ext != "png" && $ext != "gif") {
 				die("Picture must be an image of type jpg, jpeg, png or gif!");
 			}
 
 			$fileName = "";
-			while(1)
-			{
+			while(1) {
 				$fileName = round(microtime(true)).mt_rand() . '.' . $ext;
 
-				if(!file_exists($path . $fileName))
-				{
+				if(!file_exists($path . $fileName)) {
 					break;
 				}
 			}
 			$targetFile = $path . $fileName;
 
-			if ($_FILES['picture']["size"] > 10000000) 
-			{
+			if ($_FILES['picture']["size"] > 10000000) {
 			    die("The image size is too big. Maximum size allowed is 10 MB.");
 			}
 
-			if (move_uploaded_file($_FILES['picture']["tmp_name"], $targetFile))
-			{
+			if (move_uploaded_file($_FILES['picture']["tmp_name"], $targetFile)) {
 				$picture = "https://cms.uwimpact.net/api/" . $targetFile;
 			} 
-			else 
-			{
+			else {
 			    die("Something went wrong! Please try again!");
 			}
 		}
 
-		if($mode == "add")
-		{
+		if($mode == "add"){
 			//Get the group_id from group_info
 			$query = "SELECT * FROM group_info WHERE admin_id = '$userId'";
 			$result = mysqli_query($connect, $query) or die(mysqli_error($connect));
@@ -85,15 +74,12 @@ if(isset($_POST['accessKey']) && isset($_POST['userId']) && isset($_POST['mode']
 
 			die(json_encode($responseArr));
 		}	
-		else if($mode == "edit") 
-		{
-			if(isset($_FILES['picture']))
-			{
+		else if($mode == "edit") {
+			if(isset($_FILES['picture'])) {
 				$query = "UPDATE team_info SET name = '$name', designation = '$designation', picture = '$picture' WHERE id = '$memberId'";
 				mysqli_query($connect, $query) or die(mysqli_error($connect));
 			}
-			else
-			{
+			else {
 				$query = "UPDATE team_info SET name = '$name', designation = '$designation' WHERE id = '$memberId'";
 				mysqli_query($connect, $query) or die(mysqli_error($connect));
 
@@ -109,7 +95,6 @@ if(isset($_POST['accessKey']) && isset($_POST['userId']) && isset($_POST['mode']
 		}	
 	}
 }
-
 die("ERROR");
 
 ?>

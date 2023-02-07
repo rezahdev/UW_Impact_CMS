@@ -8,17 +8,15 @@
 
 require_once('accessController.php');
 
-if(isset($_POST['accessKey']) && isset($_POST['userId']))
-{
-	require_once('../../cnct/connect_CMS_DB.php');
+if(isset($_POST['accessKey']) && isset($_POST['userId'])) {
+	require_once('connect_CMS_DB.php');
 	require_once('verifications.php');
 	require_once('filters.php');
 
 	$accessKey = filterStr($_POST['accessKey']);
 	$userId = filterStr($_POST['userId']);
 
-	if(isValidRequest($accessKey, $userId))
-	{
+	if(isValidRequest($accessKey, $userId)) {
 		$query = "SELECT * FROM group_info WHERE admin_id = '$userId'";
 		$result = mysqli_query($connect, $query) or die("ERROR");
 		$row = mysqli_fetch_array($result);
@@ -31,12 +29,8 @@ if(isset($_POST['accessKey']) && isset($_POST['userId']))
 
 		die(json_encode($responseArr));		
 	}
-	else
-	{
-		die("INVALID_REQUEST");
-	}
+	die("INVALID_REQUEST");
 }
-
 die("ERROR");	
 
 ?>

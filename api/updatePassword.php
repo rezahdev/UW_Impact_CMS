@@ -13,7 +13,7 @@ if(isset($_POST['accessKey'])
 	&& isset($_POST['currentPassword']) 
 	&& isset($_POST['newPassword']))
 {
-	require_once('../../cnct/connect_CMS_DB.php');
+	require_once('connect_CMS_DB.php');
 	require_once('verifications.php');
 	require_once('filters.php');
 
@@ -22,18 +22,15 @@ if(isset($_POST['accessKey'])
 	$currentPassword = filterStr($_POST['currentPassword']);
 	$newPassword = filterStr($_POST['newPassword']);
 
-	if(isValidRequest($accessKey, $userId))
-	{
+	if(isValidRequest($accessKey, $userId)) {
 		$query = "SELECT * FROM users WHERE id = '$userId'";
 		$result = mysqli_query($connect, $query) or die("ERROR");
 
-		if(mysqli_num_rows($result) == 1)
-		{
+		if(mysqli_num_rows($result) == 1) {
 			$row = mysqli_fetch_array($result);
 			$hash = $row['password'];
 
-			if(password_verify($currentPassword, $hash))
-			{
+			if(password_verify($currentPassword, $hash)) {
 				$newPassword = password_hash($newPassword, PASSWORD_DEFAULT);
 				$query = "UPDATE users SET password = '$newPassword' WHERE id = '$userId'";
 				$result = mysqli_query($connect, $query) or die("ERROR");
@@ -43,8 +40,7 @@ if(isset($_POST['accessKey'])
 
 				die(json_encode($responseArr));
 			}
-			else
-			{
+			else {
 				$responseArr = array("isUpdateSuccessful" => "0",
 				  "message" => "Current password is not correct.");
 				die(json_encode($responseArr));
@@ -52,7 +48,6 @@ if(isset($_POST['accessKey'])
 		}
 	}
 }
-
 die("ERROR");
 
 ?>

@@ -384,7 +384,6 @@ class Main  {
 	//
 	///////////////////////////////////////////////////////////////////////////////////////////
 
-
 	/**
 	 *Function to show error message in an alert box
 	 */
@@ -396,7 +395,6 @@ class Main  {
 			alert(msg);
 		}
 	}
-
 
 	/**
 	 *Function to check if an email is valid

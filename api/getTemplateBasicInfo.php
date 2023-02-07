@@ -8,17 +8,15 @@
 
 require_once('accessController.php');
 
-if(isset($_POST['site']) && isset($_POST['key']))
-{
-	require_once('../../cnct/connect_CMS_DB.php');
+if(isset($_POST['site']) && isset($_POST['key'])) {
+	require_once('connect_CMS_DB.php');
 	require_once('verifications.php');
 	require_once('filters.php');
 	
-	if(isValidTemplateKey(filterStr($_POST['key'])))
-	{
+	if(isValidTemplateKey(filterStr($_POST['key']))) {
 		$identifier = filterStr($_POST['site']);
 
-		$query = "SELECT * FROM group_info WHERE identifier = 'uwimpact'"; //Replace uwimpact with $identifier
+		$query = "SELECT * FROM group_info WHERE identifier = 'uwimpact'"; 
 		$result = mysqli_query($connect, $query) or die("ERROR");
 		$row = mysqli_fetch_array($result);
 
@@ -41,7 +39,6 @@ if(isset($_POST['site']) && isset($_POST['key']))
 		die(json_encode($responseArr));	
 	}
 }
-
 die("ERROR");
 
 ?>

@@ -8,9 +8,8 @@
 
 require_once('accessController.php');
 
-if(isset($_POST['JSKey']))
-{
-	require_once('../../cnct/connect_CMS_DB.php');
+if(isset($_POST['JSKey'])) {
+	require_once('connect_CMS_DB.php');
 	require_once('verifications.php');
 	require_once('filters.php');
 
@@ -23,7 +22,6 @@ if(isset($_POST['JSKey']))
 
 	die(json_encode(array("key" => $PHPKey)));
 }
-
 die("ERROR");
 
 /**
@@ -32,17 +30,14 @@ die("ERROR");
  *@param int $length The length of the string
  *@return string $randomStr The random string
  */
-function randomStr($length) 
-{
+function randomStr($length) {
     $characters = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
     $charactersLength = strlen($characters);
     $randomStr = '';
 
-    for ($i = 0; $i < $length; $i++) 
-    {
+    for ($i = 0; $i < $length; $i++) {
         $randomStr .= $characters[rand(0, $charactersLength - 1)];
     }
-
     return $randomStr;
 }
 

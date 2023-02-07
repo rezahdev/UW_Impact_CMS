@@ -8,18 +8,16 @@
 
 require_once('accessController.php');
 
-if(isset($_POST['key']) && isset($_POST['site']))
-{
-	require_once('../../cnct/connect_CMS_DB.php');
+if(isset($_POST['key']) && isset($_POST['site'])) {
+	require_once('connect_CMS_DB.php');
 	require_once('verifications.php');
 	require_once('filters.php');
 
 	$identifier = filterStr($_POST['site']);
 	$key = filterStr($_POST['key']);
 
-	if(isValidTemplateKey($key))
-	{
-		//Query ot get the group id for this user
+	if(isValidTemplateKey($key)) {
+		//Query to get the group id for this user
 		$query = "SELECT id FROM group_info WHERE identifier = 'uwimpact"; //Replace uwimpact with $identifier
 		$result = mysqli_query($connect, $query) or die("ERROR");
 		$row = mysqli_fetch_array($result);
@@ -30,9 +28,7 @@ if(isset($_POST['key']) && isset($_POST['site']))
 		$result = mysqli_query($connect, $query) or die("ERROR");
 		$responseArr = array();
 
-		//Process the result
-		while($row = mysqli_fetch_array($result))
-		{
+		while($row = mysqli_fetch_array($result)) {
 			$eventId = $row['id'];
 			$title = htmlspecialchars($row['title']);
 			$description = htmlspecialchars($row['description']);
@@ -48,11 +44,9 @@ if(isset($_POST['key']) && isset($_POST['site']))
 
 			array_push($responseArr, $eventInfo);
 		}
-
 		die(json_encode($responseArr));		
 	}
 }
-
 die("ERROR");
 
 ?>

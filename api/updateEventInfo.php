@@ -8,17 +8,15 @@
 
 require_once('accessController.php');
 
-if(isset($_POST['accessKey']) && isset($_POST['userId']) && isset($_POST['mode']))
-{
-	require_once('../../cnct/connect_CMS_DB.php');
+if(isset($_POST['accessKey']) && isset($_POST['userId']) && isset($_POST['mode'])) {
+	require_once('connect_CMS_DB.php');
 	require_once('verifications.php');
 	require_once('filters.php');
 
 	$accessKey = filterStr($_POST['accessKey']);
 	$userId = filterStr($_POST['userId']);
 
-	if(isValidRequest($accessKey, $userId))
-	{
+	if(isValidRequest($accessKey, $userId)) {
 		$title = filterStr($_POST['title']);
 		$description = filterStr($_POST['description']);
 		$date = filterStr($_POST['date']);
@@ -33,8 +31,7 @@ if(isset($_POST['accessKey']) && isset($_POST['userId']) && isset($_POST['mode']
 		$row = mysqli_fetch_array($result);
 		$groupId = $row['id'];
 
-		if($mode == "add")
-		{
+		if($mode == "add") {
 			$query = "INSERT INTO event_info (group_id, title, description, event_date, event_time, registration_link) VALUES ('$groupId', '$title', '$description', '$date', '$time', '$regLink')";
 			mysqli_query($connect, $query) or die(mysqli_error($connect));
 
@@ -43,8 +40,7 @@ if(isset($_POST['accessKey']) && isset($_POST['userId']) && isset($_POST['mode']
 
 			die(json_encode($responseArr));
 		}	
-		else if($mode == "edit") 
-		{
+		else if($mode == "edit") {
 			$query = "UPDATE event_info SET title = '$title', description = '$description', event_date = '$date', event_time = '$time', registration_link = '$regLink' WHERE id = '$eventId'";
 			mysqli_query($connect, $query) or die(mysqli_error($connect));
 
@@ -53,7 +49,6 @@ if(isset($_POST['accessKey']) && isset($_POST['userId']) && isset($_POST['mode']
 		}	
 	}
 }
-
 die("ERROR");
 
 ?>
